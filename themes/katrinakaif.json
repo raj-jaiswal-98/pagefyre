@@ -1,0 +1,54 @@
+{
+  "id": "katrinakaif",
+  "name": "Katrina Kaif (Kamli & Zoya)",
+  "title": "Action Diva & Secret Agent Zoya",
+  "description": "The Bollywood dancing powerhouse and elite undercover operative Zoya enters with blazing acrobatics, twin tactical SMGs, and show-stopping dance cyclone rhythms. Slices web pages with Kamli Tornado Spins, Chikni Chameli Fireworks, and Zoya Parkour Flips.",
+  "color": "#ec4899",
+  "secondaryColor": "#be185d",
+  "accentColor": "#f472b6",
+  "glowColor": "rgba(236, 72, 153, 0.7)",
+  "themeClass": "theme-katrinakaif",
+  "health": 4800,
+  "speed": 7.6,
+  "size": 74,
+  "wingspan": 78,
+  "attacks": [
+    {
+      "id": "kamli_dance_tornado",
+      "name": "Kamli Whirlwind Dance Cyclone",
+      "type": "laser_slice",
+      "damage": 460,
+      "cooldown": 1400,
+      "range": 600,
+      "sfx": "kamli_dance",
+      "description": "Executes rapid 360-degree aerial dance twirls generating a dazzling pink-magenta cyclone that shreds web elements."
+    },
+    {
+      "id": "zoya_tactical_burst",
+      "name": "Zoya Akimbo SMG Storm",
+      "type": "dom_throw",
+      "damage": 440,
+      "cooldown": 1600,
+      "range": 640,
+      "sfx": "kamli_dance",
+      "description": "Draws dual tactical blasters in acrobatic slow-motion cartwheels, raining laser suppressive fire across DOM containers."
+    },
+    {
+      "id": "sheila_glitter_bomb",
+      "name": "Sheila Ki Jawani Stardust Blast",
+      "type": "fireball",
+      "damage": 510,
+      "cooldown": 2000,
+      "range": 520,
+      "sfx": "kamli_dance",
+      "description": "Detonates a glamorous high-voltage glitter explosion that blinds, bedazzles, and shatters web components."
+    }
+  ],
+  "voicelines": [
+    "Main kamli ho gayi yaar!",
+    "My name is Sheila, Sheila ki jawani!",
+    "Zoya reporting for the mission!",
+    "Chikni Chameli chhan chhan chhan!",
+    "Nobody underestimates an elite agent!"
+  ]
+}

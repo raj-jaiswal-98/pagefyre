@@ -61,7 +61,7 @@ class WarzoneHUDController {
           <span>⚡</span> UNLEASH SWARM (APOCALYPSE)
         </button>
 
-        <div class="wz-section-title">Deploy Apex Titan (14 Titans & Heroes)</div>
+        <div class="wz-section-title">Deploy Apex Titan (30 Titans & Heroes)</div>
         <div class="wz-monster-roster">
           <button class="wz-monster-btn" data-type="vader" title="Lord Darth Vader">
             <span class="wz-monster-icon">🗡️</span>
@@ -118,6 +118,70 @@ class WarzoneHUDController {
           <button class="wz-monster-btn" data-type="cerberus" title="Cerberus Hellhound">
             <span class="wz-monster-icon">🐺</span>
             <span class="wz-monster-name">Cerberus</span>
+          </button>
+          <button class="wz-monster-btn" data-type="flash" title="The Flash (Speed Force)">
+            <span class="wz-monster-icon">⚡</span>
+            <span class="wz-monster-name">Flash</span>
+          </button>
+          <button class="wz-monster-btn" data-type="superman" title="Superman (Man of Steel)">
+            <span class="wz-monster-icon">🦸‍♂️</span>
+            <span class="wz-monster-name">Superman</span>
+          </button>
+          <button class="wz-monster-btn" data-type="shaktiman" title="Shaktiman (Kundalini Master)">
+            <span class="wz-monster-icon">🕉️</span>
+            <span class="wz-monster-name">Shaktiman</span>
+          </button>
+          <button class="wz-monster-btn" data-type="odessa" title="Junker Queen Odessa">
+            <span class="wz-monster-icon">🪓</span>
+            <span class="wz-monster-name">Odessa</span>
+          </button>
+          <button class="wz-monster-btn" data-type="doremon" title="Doraemon (22nd Century Robot)">
+            <span class="wz-monster-icon">🔔</span>
+            <span class="wz-monster-name">Doraemon</span>
+          </button>
+          <button class="wz-monster-btn" data-type="messi" title="Lionel Messi (World Champion)">
+            <span class="wz-monster-icon">🐐</span>
+            <span class="wz-monster-name">Messi</span>
+          </button>
+          <button class="wz-monster-btn" data-type="ronaldo" title="Cristiano Ronaldo (CR7 El Bicho)">
+            <span class="wz-monster-icon">⚽</span>
+            <span class="wz-monster-name">CR7</span>
+          </button>
+          <button class="wz-monster-btn" data-type="goku" title="Son Goku (Super Saiyan God)">
+            <span class="wz-monster-icon">🔥</span>
+            <span class="wz-monster-name">Goku</span>
+          </button>
+          <button class="wz-monster-btn" data-type="krrish" title="Krrish (Astral Guardian)">
+            <span class="wz-monster-icon">⚡</span>
+            <span class="wz-monster-name">Krrish</span>
+          </button>
+          <button class="wz-monster-btn" data-type="ben10" title="Ben 10 (Omnitrix Alien Switching)">
+            <span class="wz-monster-icon">🟢</span>
+            <span class="wz-monster-name">Ben 10</span>
+          </button>
+          <button class="wz-monster-btn" data-type="ajaydevgan" title="Ajay Devgn (Bolo Zubaan Kesari)">
+            <span class="wz-monster-icon">🦁</span>
+            <span class="wz-monster-name">Ajay D.</span>
+          </button>
+          <button class="wz-monster-btn" data-type="salmankhan" title="Salman Khan (Bhaijaan)">
+            <span class="wz-monster-icon">🐅</span>
+            <span class="wz-monster-name">Salman</span>
+          </button>
+          <button class="wz-monster-btn" data-type="akshaykumar" title="Akshay Kumar (Khiladi 786)">
+            <span class="wz-monster-icon">🥋</span>
+            <span class="wz-monster-name">Akshay</span>
+          </button>
+          <button class="wz-monster-btn" data-type="katrinakaif" title="Katrina Kaif (Kamli Diva)">
+            <span class="wz-monster-icon">💃</span>
+            <span class="wz-monster-name">Katrina</span>
+          </button>
+          <button class="wz-monster-btn" data-type="aishwaryarai" title="Aishwarya Rai (Miss World)">
+            <span class="wz-monster-icon">👑</span>
+            <span class="wz-monster-name">Aishwarya</span>
+          </button>
+          <button class="wz-monster-btn" data-type="baalveer" title="Baalveer (Pari Lok Savior)">
+            <span class="wz-monster-icon">🪄</span>
+            <span class="wz-monster-name">Baalveer</span>
           </button>
         </div>
 

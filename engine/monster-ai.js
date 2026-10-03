@@ -52,9 +52,20 @@ class MonsterInstance {
     this.target = null; // Target DOM element or enemy monster
     this.targetType = 'element'; // 'element' or 'monster'
     this.animTime = Math.random() * 100;
+    this.animTimer = this.animTime * 1000;
     this.lastAttackTime = performance.now() + Math.random() * 600;
     this.attackCooldown = Math.max(500, (config.attacks[0]?.cooldown || 2000) * (isSwarmUnit ? 0.45 : 0.65));
     this.lastDefenseTime = 0;
+
+    // Ben 10 Alien Switching state machine
+    if (this.type === 'ben10') {
+      this.alienForms = ['heatblast', 'fourarms', 'xlr8', 'diamondhead'];
+      this.currentAlien = 'heatblast';
+      this.alienSwitchTimer = 0;
+      this.alienSwitchInterval = 4500 + Math.random() * 2000;
+      this.isTransforming = false;
+      this.transformProgress = 0;
+    }
 
     // Trigger visual spawn effects immediately
     if (window.WarzoneParticles) {
@@ -64,6 +75,23 @@ class MonsterInstance {
 
   update(dt, allMonsters) {
     this.animTime += dt * 0.005;
+    this.animTimer = (this.animTimer || 0) + dt;
+
+    // Ben 10 Alien Switching tick & transition
+    if (this.type === 'ben10' && this.state !== 'dying' && this.state !== 'spawning') {
+      this.alienSwitchTimer += dt;
+      if (this.alienSwitchTimer >= this.alienSwitchInterval) {
+        this.alienSwitchTimer = 0;
+        this.switchAlienForm();
+      }
+      if (this.isTransforming) {
+        this.transformProgress += dt / 450;
+        if (this.transformProgress >= 1.0) {
+          this.isTransforming = false;
+          this.transformProgress = 0;
+        }
+      }
+    }
 
     // 1. Handle Spawning Animation Sequence
     if (this.state === 'spawning') {
@@ -295,6 +323,22 @@ class MonsterInstance {
         case 'captainamerica': pref = 'heading'; break; // Headers & Section Cards
         case 'hawkeye': pref = 'ad'; break;   // Ads, Promos & Images
         case 'blackwidow': pref = 'tech'; break; // Interactive Buttons & UI Tech
+        case 'flash': pref = 'fast'; break; // Fast Links, Carousels & Sliders
+        case 'superman': pref = 'heroic'; break; // Big Hero Banners & Titles
+        case 'shaktiman': pref = 'spiritual'; break; // Blockquotes, Philosophy & Long Text
+        case 'odessa': pref = 'heavy'; break; // Scrap Metal Panels, Heavy Grids & Sidebars
+        case 'doremon': pref = 'gadget'; break; // Interactive Buttons, Modals & Widgets
+        case 'messi': pref = 'precision'; break; // Images, Golden Cards & Media
+        case 'ronaldo': pref = 'striker'; break; // Action Buttons, High Scores & Counters
+        case 'goku': pref = 'saiyan'; break; // Massive Headers, High-Energy Hero Banners & Sections
+        case 'krrish': pref = 'krrish'; break; // Elevated Headers, Sky Banners & Bio-Tech Labs
+        case 'ben10': pref = 'alien'; break; // Interactive Widgets, Alien Devices & Tech Controls
+        case 'ajaydevgan': pref = 'kesari'; break; // Luxury Brands, Vehicle Showrooms, Police Stunt Arenas & Saffron Headlines
+        case 'salmankhan': pref = 'bhaijaan'; break; // Muscle Gyms, Vehicles & VIP Lounges
+        case 'akshaykumar': pref = 'khiladi'; break; // Action Buttons & Financial Headers
+        case 'katrinakaif': pref = 'diva'; break; // Fashion Cards & Video Widgets
+        case 'aishwaryarai': pref = 'queen'; break; // Luxury Brands & Cosmetic Grids
+        case 'baalveer': pref = 'fairy'; break; // Children Sections, Navbars & Fantasy Articles
         default: pref = null;
       }
 
@@ -356,9 +400,6 @@ class MonsterInstance {
 
       if (window.WarzoneParticles) {
         window.WarzoneParticles.createShieldEffect(cx, cy, this.width * 0.65, this.themeColor, shieldType);
-        const defTexts = ['DEFLECTED!', 'SHIELD BLOCK!', 'PARRIED!', 'ABSORBED!', 'SPIDER-SENSE!'];
-        const chosenText = defTexts[Math.floor(Math.random() * defTexts.length)];
-        window.WarzoneParticles.addDamageText(cx, cy - 20, chosenText, '#00ffff', true);
       }
 
       if (window.WarzoneSFX) {
@@ -375,7 +416,6 @@ class MonsterInstance {
       const cy = this.y + this.height / 2;
 
       if (window.WarzoneParticles) {
-        window.WarzoneParticles.addDamageText(cx, cy, `-${rawDamage}`, '#ff0055', rawDamage > 300);
         window.WarzoneParticles.createSparkExplosion(cx, cy, this.themeColor, 15);
       }
     }
@@ -432,6 +472,54 @@ class MonsterInstance {
     }
   }
 
+  /**
+   * Ben 10 Dynamic Alien Switching: Transforms between Heatblast, Four Arms, XLR8, and Diamondhead
+   */
+  switchAlienForm(targetAlien = null) {
+    if (this.type !== 'ben10') return;
+    const forms = this.alienForms || ['heatblast', 'fourarms', 'xlr8', 'diamondhead'];
+    if (targetAlien && forms.includes(targetAlien)) {
+      this.currentAlien = targetAlien;
+    } else {
+      const curIdx = forms.indexOf(this.currentAlien);
+      this.currentAlien = forms[(curIdx + 1) % forms.length];
+    }
+    this.isTransforming = true;
+    this.transformProgress = 0;
+
+    const cx = this.x + this.width / 2;
+    const cy = this.y + this.height / 2;
+
+    if (window.WarzoneParticles) {
+      window.WarzoneParticles.createOmnitrixTransformEffect(cx, cy);
+    }
+    if (window.WarzoneSFX) {
+      window.WarzoneSFX.play('omnitrix_transform');
+    }
+
+    // Dynamic stats & visual tuning per alien form
+    if (this.currentAlien === 'xlr8') {
+      this.themeColor = '#06b6d4';
+    } else if (this.currentAlien === 'fourarms') {
+      this.themeColor = '#ef4444';
+      if (window.WarzoneParticles) window.WarzoneParticles.triggerScreenShake(7, 300);
+    } else if (this.currentAlien === 'heatblast') {
+      this.themeColor = '#f97316';
+    } else if (this.currentAlien === 'diamondhead') {
+      this.themeColor = '#10b981';
+    }
+
+    if (window.WarzoneHUD) {
+      const alienNames = {
+        heatblast: 'HEATBLAST (Pyronite 🔥)',
+        fourarms: 'FOUR ARMS (Tetramand 💪)',
+        xlr8: 'XLR8 (Kineceleran ⚡)',
+        diamondhead: 'DIAMONDHEAD (Petrosapien 💎)'
+      };
+      window.WarzoneHUD.logKillFeed('OMNITRIX MORPH', 'Alien Switched', alienNames[this.currentAlien] || this.currentAlien.toUpperCase());
+    }
+  }
+
   performAttack(now, allMonsters = null) {
     this.lastAttackTime = now;
     this.attackProgress = 0;
@@ -446,6 +534,22 @@ class MonsterInstance {
     if (this.targetType === 'element' && this.target) {
       const el = this.target;
       const dmg = (attack.damage || 300) * (this.isSwarmUnit ? 0.5 : 1.0);
+
+      // Calculate target element center coordinates
+      let tx = cx + this.facing * 120;
+      let ty = cy;
+      try {
+        const rect = el.getBoundingClientRect();
+        tx = rect.left + window.scrollX + rect.width / 2;
+        ty = rect.top + window.scrollY + rect.height / 2;
+      } catch (e) {}
+
+      // Trigger hero weapon visual attacks & projectiles towards the DOM element
+      this.launchAttackVisual(cx, cy, tx, ty, attack);
+
+      if (window.WarzoneSFX) {
+        window.WarzoneSFX.play(attack.sfx || 'explosion');
+      }
 
       switch (attack.type) {
         case 'dom_burn':
@@ -482,41 +586,7 @@ class MonsterInstance {
       const ex = enemy.x + enemy.width / 2;
       const ey = enemy.y + enemy.height / 2;
 
-      if (window.WarzoneParticles) {
-        if (this.type === 'godzilla') {
-          window.WarzoneParticles.createLaserBeam(cx, cy, ex, ey, '#00f0ff', '#ffffff', 400, 18);
-        } else if (this.type === 'vader') {
-          window.WarzoneParticles.createLightning(cx, cy, ex, ey, '#ff0033', 4, 400);
-        } else if (this.type === 'dragon') {
-          window.WarzoneParticles.createFlameCone(cx, cy, ex, ey, 25);
-        } else if (this.type === 'mecha') {
-          window.WarzoneParticles.launchMissile(cx, cy, ex, ey, '#39ff14');
-        } else if (this.type === 'cthulhu') {
-          window.WarzoneParticles.createLightning(cx, cy, ex, ey, '#bf00ff', 5, 400);
-        } else if (this.type === 'kong') {
-          window.WarzoneParticles.createSparkExplosion(ex, ey, '#eab308', 35);
-        } else if (this.type === 'cerberus') {
-          window.WarzoneParticles.createFlameCone(cx, cy, ex, ey, 20);
-        } else if (this.type === 'thor') {
-          window.WarzoneParticles.createLightning(cx, cy, ex, ey, '#38bdf8', 6, 450);
-        } else if (this.type === 'ironman') {
-          window.WarzoneParticles.createUnibeam(cx, cy, ex, ey);
-        } else if (this.type === 'spiderman') {
-          window.WarzoneParticles.createWebBurst(cx, cy, ex, ey, 8);
-        } else if (this.type === 'batman') {
-          window.WarzoneParticles.createBatarangVolley(cx, cy, ex, ey);
-        } else if (this.type === 'captainamerica') {
-          window.WarzoneParticles.createShieldRicochet(cx, cy, ex, ey);
-        } else if (this.type === 'hawkeye') {
-          window.WarzoneParticles.createTrickArrow(cx, cy, ex, ey);
-        } else if (this.type === 'blackwidow') {
-          if (Math.random() < 0.5) {
-            window.WarzoneParticles.createDualGunfire(cx, cy, ex, ey);
-          } else {
-            window.WarzoneParticles.createWidowsBite(cx, cy, ex, ey);
-          }
-        }
-      }
+      this.launchAttackVisual(cx, cy, ex, ey, attack);
 
       if (window.WarzoneSFX) {
         window.WarzoneSFX.play(attack.sfx || 'explosion');
@@ -532,6 +602,156 @@ class MonsterInstance {
           this.state = 'moving';
         }
       }
+    }
+  }
+
+  launchAttackVisual(cx, cy, tx, ty, attack) {
+    if (!window.WarzoneParticles) return;
+    const P = window.WarzoneParticles;
+
+    switch (this.type) {
+      case 'captainamerica':
+        P.fireCapShield(cx, cy, tx, ty, this);
+        break;
+      case 'hawkeye':
+        P.fireTrickArrow(cx, cy, tx, ty);
+        break;
+      case 'blackwidow':
+        P.fireDualGunfire(cx, cy, tx, ty, this.facing);
+        break;
+      case 'spiderman':
+        P.fireWebStrike(cx, cy, tx, ty);
+        break;
+      case 'messi':
+        P.fireFootballStrike(cx, cy, tx, ty, 'messi');
+        break;
+      case 'ronaldo':
+        P.fireFootballStrike(cx, cy, tx, ty, 'ronaldo');
+        break;
+      case 'flash':
+        P.fireSpeedForceRush(cx, cy, tx, ty);
+        break;
+      case 'superman':
+        if (attack.id === 'arctic_freeze_breath') {
+          P.fireFreezeBreath(cx, cy, tx, ty);
+        } else {
+          P.fireHeatVision(cx, cy, tx, ty);
+        }
+        break;
+      case 'shaktiman':
+        if (attack.id === 'chakra_spiral_spin') {
+          P.fireChakraSpin(cx, cy, tx, ty);
+        } else {
+          P.fireKundaliniLaser(cx, cy, tx, ty);
+        }
+        break;
+      case 'odessa':
+        if (attack.id === 'gracie_magnetic_throw') {
+          P.fireOdessaGracie(cx, cy, tx, ty, this);
+        } else if (attack.id === 'rampage_scatter_blast') {
+          P.fireDualGunfire(cx, cy, tx, ty, this.facing);
+        } else {
+          P.fireOdessaAxe(cx, cy, tx, ty);
+        }
+        break;
+      case 'doremon':
+        if (attack.id === 'anywhere_door_smash') {
+          P.fireDoraemonAnywhereDoor(tx, ty);
+        } else if (attack.id === 'air_cannon_blast') {
+          P.fireDoraemonAirCannon(cx, cy, tx, ty);
+        } else {
+          P.fireDoraemonSmallLight(cx, cy, tx, ty);
+        }
+        break;
+      case 'goku':
+        if (attack.id === 'kamehameha_wave') {
+          P.fireKamehamehaBeam(cx, cy, tx, ty);
+        } else if (attack.id === 'spirit_bomb_cataclysm') {
+          P.fireKiBlastBall(cx, cy, tx, ty, 'spirit_bomb');
+        } else {
+          // Standard Ki blast balls
+          P.fireKiBlastBall(cx, cy, tx, ty, 'ki_ball');
+        }
+        break;
+      case 'krrish':
+        P.fireKrrishPunch(cx, cy, tx, ty);
+        break;
+      case 'ben10':
+        // Ben 10 unleashes active alien's signature visual weapon
+        const alien = this.currentAlien || 'heatblast';
+        if (alien === 'heatblast' || attack.id === 'heatblast_inferno_blast') {
+          P.fireHeatblastFlame(cx, cy, tx, ty);
+        } else if (alien === 'fourarms' || attack.id === 'fourarms_sonic_clap') {
+          P.fireFourArmsClap(cx, cy, tx, ty);
+        } else if (alien === 'xlr8' || attack.id === 'xlr8_hyper_dash') {
+          P.fireXLR8Dash(cx, cy, tx, ty);
+        } else if (alien === 'diamondhead' || attack.id === 'diamondhead_shard_volley') {
+          P.fireDiamondheadShards(cx, cy, tx, ty);
+        } else {
+          P.createOmnitrixTransformEffect(cx, cy);
+          P.createLaserBeam(cx, cy, tx, ty, '#22c55e', '#ffffff', 400, 20);
+        }
+        // 25% chance to morph to next alien form after attack!
+        if (Math.random() < 0.25) {
+          setTimeout(() => this.switchAlienForm(), 250);
+        }
+        break;
+      case 'ajaydevgan':
+        if (attack.id === 'singham_panja_slap') {
+          P.fireSinghamSlap(cx, cy, tx, ty);
+        } else if (attack.id === 'two_car_split_drift') {
+          P.fireCarSplitDrift(cx, cy, tx, ty);
+        } else {
+          P.fireVimalSpit(cx, cy, tx, ty);
+        }
+        break;
+      case 'salmankhan':
+        P.fireSalmanTigerStrike(cx, cy, tx, ty);
+        break;
+      case 'akshaykumar':
+        P.fireKhiladiFlyingKick(cx, cy, tx, ty);
+        break;
+      case 'katrinakaif':
+        P.fireKatrinaKamliTornado(cx, cy, tx, ty);
+        break;
+      case 'aishwaryarai':
+        P.fireAishwaryaRadianceBeam(cx, cy, tx, ty);
+        break;
+      case 'baalveer':
+        P.fireBaalveerFairyBlast(cx, cy, tx, ty);
+        break;
+      case 'godzilla':
+        P.createLaserBeam(cx, cy, tx, ty, '#00f0ff', '#ffffff', 400, 18);
+        break;
+      case 'vader':
+        P.createLightning(cx, cy, tx, ty, '#ff0033', 4, 400);
+        break;
+      case 'dragon':
+        P.createFlameCone(cx, cy, tx, ty, 25);
+        break;
+      case 'mecha':
+        P.launchMissile(cx, cy, tx, ty, '#39ff14');
+        break;
+      case 'cthulhu':
+        P.createLightning(cx, cy, tx, ty, '#bf00ff', 5, 400);
+        break;
+      case 'kong':
+        P.createSparkExplosion(tx, ty, '#eab308', 35);
+        break;
+      case 'cerberus':
+        P.createFlameCone(cx, cy, tx, ty, 20);
+        break;
+      case 'thor':
+        P.createLightning(cx, cy, tx, ty, '#38bdf8', 6, 450);
+        break;
+      case 'ironman':
+        P.createUnibeam(cx, cy, tx, ty);
+        break;
+      case 'batman':
+        P.createBatarangVolley(cx, cy, tx, ty);
+        break;
+      default:
+        P.createSparkExplosion(tx, ty, this.themeColor || '#ff5500', 25);
     }
   }
 
@@ -561,6 +781,22 @@ class MonsterInstance {
       case 'captainamerica': slogan = 'I CAN DO THIS ALL DAY'; break;
       case 'hawkeye': slogan = 'NEVER MISS A SHOT'; break;
       case 'blackwidow': slogan = 'LEDGER WIPED CLEAN'; break;
+      case 'flash': slogan = 'FASTEST MAN ALIVE'; break;
+      case 'superman': slogan = 'MAN OF STEEL PREVAILS'; break;
+      case 'shaktiman': slogan = 'SHAKTI SHAKTI SHAKTIMAAN!'; break;
+      case 'odessa': slogan = 'BOW DOWN TO THE QUEEN'; break;
+      case 'doremon': slogan = 'DOKODEMO DOOR TO VICTORY!'; break;
+      case 'messi': slogan = 'MUCHACHOS! THE GOAT HAS CONQUERED!'; break;
+      case 'ronaldo': slogan = 'SIUUUU! CR7 UNSTOPPABLE!'; break;
+      case 'goku': slogan = 'KA... ME... HA... ME... HAAA!'; break;
+      case 'krrish': slogan = 'JADOO KI SHAKTI PREVAILS'; break;
+      case 'ben10': slogan = "IT'S HERO TIME! OMNITRIX SUPREME"; break;
+      case 'ajaydevgan': slogan = 'BOLO ZUBAAN KESARI!'; break;
+      case 'salmankhan': slogan = 'SWAG SE SWAAGAT! BHAIJAAN REIGNS'; break;
+      case 'akshaykumar': slogan = 'KHILADI 786 VICTORY!'; break;
+      case 'katrinakaif': slogan = 'KAMLI REIGNS SUPREME!'; break;
+      case 'aishwaryarai': slogan = 'DOLA RE DOLA! QUEEN VICTORIOUS'; break;
+      case 'baalveer': slogan = 'PARI LOK KI JAI HO!'; break;
     }
 
     if (window.WarzoneParticles) {
@@ -709,6 +945,54 @@ class MonsterInstance {
         break;
       case 'blackwidow':
         this.drawBlackWidow(ctx);
+        break;
+      case 'flash':
+        this.drawFlash(ctx);
+        break;
+      case 'superman':
+        this.drawSuperman(ctx);
+        break;
+      case 'shaktiman':
+        this.drawShaktiman(ctx);
+        break;
+      case 'odessa':
+        this.drawOdessa(ctx);
+        break;
+      case 'doremon':
+        this.drawDoremon(ctx);
+        break;
+      case 'messi':
+        this.drawMessi(ctx);
+        break;
+      case 'ronaldo':
+        this.drawRonaldo(ctx);
+        break;
+      case 'goku':
+        this.drawGoku(ctx);
+        break;
+      case 'krrish':
+        this.drawKrrish(ctx);
+        break;
+      case 'ben10':
+        this.drawBen10(ctx);
+        break;
+      case 'ajaydevgan':
+        this.drawAjayDevgan(ctx);
+        break;
+      case 'salmankhan':
+        this.drawSalmanKhan(ctx);
+        break;
+      case 'akshaykumar':
+        this.drawAkshayKumar(ctx);
+        break;
+      case 'katrinakaif':
+        this.drawKatrinaKaif(ctx);
+        break;
+      case 'aishwaryarai':
+        this.drawAishwaryaRai(ctx);
+        break;
+      case 'baalveer':
+        this.drawBaalveer(ctx);
         break;
       default:
         this.drawDragon(ctx);
@@ -2043,6 +2327,2360 @@ class MonsterInstance {
     }
     ctx.restore();
   }
+
+  /**
+   * Procedural Flash Rig (The Fastest Man Alive)
+   */
+  drawFlash(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const walk = Math.sin(t * 18) * 9;
+    const knee1 = Math.max(0, walk);
+    const knee2 = Math.max(0, -walk);
+
+    // 1. Speed Force Motion Blur Ghosts & Afterimages
+    if (Math.abs(this.vx) > 0.5 || isAttacking) {
+      for (let g = 1; g <= 3; g++) {
+        ctx.save();
+        ctx.translate(-g * 9 * (this.vx >= 0 ? 1 : -1), 0);
+        ctx.globalAlpha = 0.22 / g;
+        ctx.fillStyle = g % 2 === 0 ? '#ef4444' : '#facc15';
+        ctx.fillRect(-12, -18, 24, 38);
+        ctx.restore();
+      }
+    }
+
+    // 2. Scarlet Speedster Suit (Torso & Muscle Shading)
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(-13, -16, 26, 36);
+
+    // Golden Lightning Belt (V-shaped)
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.moveTo(-14, 15); ctx.lineTo(0, 21); ctx.lineTo(14, 15); ctx.lineTo(14, 18); ctx.lineTo(0, 24); ctx.lineTo(-14, 18);
+    ctx.closePath();
+    ctx.fill();
+
+    // White Circle & Golden Lightning Chest Emblem
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(0, -3, 8.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.moveTo(3, -9); ctx.lineTo(-4, -2); ctx.lineTo(1, -2);
+    ctx.lineTo(-3, 5); ctx.lineTo(4, -1); ctx.lineTo(-1, -1);
+    ctx.closePath();
+    ctx.fill();
+
+    // 3. Head & Scarlet Cowl
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(0, -26, 11, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Golden Ear Wings
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.moveTo(-11, -26); ctx.lineTo(-19, -33); ctx.lineTo(-13, -29);
+    ctx.moveTo(11, -26); ctx.lineTo(19, -33); ctx.lineTo(13, -29);
+    ctx.fill();
+
+    // Cowl Eye Slits
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(-5, -27, 3, 2.5);
+    ctx.fillRect(2, -27, 3, 2.5);
+
+    // 4. Running Legs & Golden Winged Boots
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(-11, 20, 7, 20 + knee1);
+    ctx.fillRect(4, 20, 7, 20 + knee2);
+    // Golden Boots
+    ctx.fillStyle = '#facc15';
+    ctx.fillRect(-12, 38 + knee1, 9, 8);
+    ctx.fillRect(3, 38 + knee2, 9, 8);
+    // Golden boot wings
+    ctx.beginPath();
+    ctx.moveTo(-12, 38 + knee1); ctx.lineTo(-18, 33 + knee1); ctx.lineTo(-12, 35 + knee1);
+    ctx.moveTo(12, 38 + knee2); ctx.lineTo(18, 33 + knee2); ctx.lineTo(12, 35 + knee2);
+    ctx.fill();
+
+    // 5. Arms & Speed Force Lightning Sparks
+    ctx.save();
+    if (isAttacking) {
+      // Supersonic Punch Forward with Golden Lightning
+      ctx.translate(14, -6);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(0, -4, 20, 8);
+      // Lightning fist sparks
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#fde047';
+      ctx.shadowBlur = 14;
+      ctx.beginPath();
+      ctx.moveTo(20, -4); ctx.lineTo(26, -10); ctx.lineTo(32, -4); ctx.lineTo(38, -12);
+      ctx.moveTo(20, 4); ctx.lineTo(28, 10); ctx.lineTo(34, 4);
+      ctx.stroke();
+    } else if (isDefending) {
+      // High-Frequency Vibrating Cross Arms
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#fde047';
+      ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.arc(0, 0, 26, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (isVictory) {
+      // Victory Double Fist Pump
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(-16, -24, 6, 16);
+      ctx.fillRect(10, -24, 6, 16);
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath();
+      ctx.arc(-13, -25, 4, 0, Math.PI * 2);
+      ctx.arc(13, -25, 4, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      // Natural running arm swing
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(-16, -6 + knee2 * 0.4, 5, 18);
+      ctx.fillRect(11, -6 + knee1 * 0.4, 5, 18);
+    }
+    ctx.restore();
+  }
+
+  /**
+   * Procedural Superman Rig (The Man of Steel)
+   */
+  drawSuperman(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const capeFlutter = Math.sin(t * 8) * 8;
+    const walk = Math.sin(t * 5) * 3;
+
+    // 1. Flowing Crimson Cape (Physics Curves behind him)
+    ctx.save();
+    ctx.fillStyle = '#dc2626';
+    ctx.shadowColor = '#b91c1c';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.moveTo(-12, -18);
+    ctx.quadraticCurveTo(-28 + capeFlutter, 10, -32 + capeFlutter, 42);
+    ctx.lineTo(8 + capeFlutter, 44);
+    ctx.quadraticCurveTo(-4, 15, 12, -18);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // 2. Royal Blue Kryptonian Suit (Muscular Build)
+    ctx.fillStyle = '#0284c7';
+    ctx.fillRect(-15, -16, 30, 38);
+
+    // Golden Yellow Belt with Red Center
+    ctx.fillStyle = '#facc15';
+    ctx.fillRect(-15, 16, 30, 5);
+    ctx.fillStyle = '#dc2626';
+    ctx.beginPath();
+    ctx.ellipse(0, 18.5, 4, 3, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Iconic Diamond 'S' Shield on Chest
+    ctx.save();
+    ctx.translate(0, -3);
+    // Yellow Diamond Base
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.moveTo(0, -9); ctx.lineTo(9, -4); ctx.lineTo(6, 6); ctx.lineTo(0, 9); ctx.lineTo(-6, 6); ctx.lineTo(-9, -4);
+    ctx.closePath();
+    ctx.fill();
+    // Red 'S' Emblem
+    ctx.fillStyle = '#dc2626';
+    ctx.font = 'bold 10px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('S', 0, 4);
+    ctx.restore();
+
+    // 3. Head & Chiseled Features
+    ctx.fillStyle = '#fbcfe8'; // Skin highlight base
+    ctx.fillStyle = '#09090b';
+    ctx.beginPath();
+    ctx.arc(0, -26, 11, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Black Hair with Superman Spit Curl
+    ctx.fillStyle = '#09090b';
+    ctx.beginPath();
+    ctx.arc(0, -29, 11, Math.PI, Math.PI * 2);
+    ctx.fill();
+    // Spit curl
+    ctx.strokeStyle = '#09090b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, -28); ctx.quadraticCurveTo(2, -22, -2, -23);
+    ctx.stroke();
+
+    // 4. Eyes & Heat Vision Glow
+    if (isAttacking) {
+      // Blazing Red Heat Vision Eyes
+      ctx.fillStyle = '#ff0033';
+      ctx.shadowColor = '#ff0033';
+      ctx.shadowBlur = 12;
+      ctx.fillRect(-5, -27, 4, 3);
+      ctx.fillRect(2, -27, 4, 3);
+      ctx.shadowBlur = 0;
+    } else {
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(-5, -26, 3, 2);
+      ctx.fillRect(2, -26, 3, 2);
+    }
+
+    // 5. Blue Tights & Crimson Boots
+    ctx.fillStyle = '#0284c7';
+    ctx.fillRect(-12, 22, 9, 20 + walk);
+    ctx.fillRect(3, 22, 9, 20 - walk);
+    // Crimson Boots
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(-13, 38 + walk, 11, 8);
+    ctx.fillRect(2, 38 - walk, 11, 8);
+
+    // 6. Arms & Flight / Power Punch Pose
+    ctx.save();
+    if (isAttacking) {
+      // Forward Super-Punch Fist
+      ctx.translate(14, -6);
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(0, -5, 18, 9);
+      ctx.fillStyle = '#fbcfe8';
+      ctx.beginPath();
+      ctx.arc(19, 0, 5, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (isDefending) {
+      // Impervious Kryptonian Stance - Hands on Hips
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(-18, -4, 6, 16);
+      ctx.fillRect(12, -4, 6, 16);
+    } else if (isVictory) {
+      // Majestic Flight Hover Pose
+      ctx.translate(0, -6);
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(-18, -14, 6, 18);
+      ctx.fillRect(12, -14, 6, 18);
+    }
+    ctx.restore();
+  }
+
+  /**
+   * Procedural Shaktiman Rig (Supreme Cosmic Sun Lord)
+   */
+  drawShaktiman(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const spinAngle = (isAttacking ? t * 24 : 0);
+
+    // 1. Golden Aura Glow
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(0, 0, 36, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(234, 179, 8, 0.12)';
+    ctx.shadowColor = '#ffd700';
+    ctx.shadowBlur = 18;
+    ctx.fill();
+    ctx.restore();
+
+    // 2. Regal Maroon Superhero Suit
+    ctx.fillStyle = '#991b1b';
+    ctx.fillRect(-14, -15, 28, 38);
+
+    // Golden Sun Medallion with 8 Radiating Solar Rays
+    ctx.save();
+    ctx.translate(0, -2);
+    ctx.rotate(spinAngle * 0.2);
+    ctx.fillStyle = '#ffd700';
+    ctx.shadowColor = '#facc15';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(0, 0, 7.5, 0, Math.PI * 2);
+    ctx.fill();
+    // 8 Solar rays
+    ctx.strokeStyle = '#ffd700';
+    ctx.lineWidth = 2.2;
+    for (let r = 0; r < 8; r++) {
+      const a = (r / 8) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a) * 8, Math.sin(a) * 8);
+      ctx.lineTo(Math.cos(a) * 14, Math.sin(a) * 14);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Golden Belt & Shoulder Pauldrons
+    ctx.fillStyle = '#eab308';
+    ctx.fillRect(-15, 17, 30, 5);
+    ctx.fillRect(-17, -16, 6, 7);
+    ctx.fillRect(11, -16, 6, 7);
+
+    // 3. Head & Royal Indian Features
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(0, -25, 11, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Black Hair & Tilak
+    ctx.fillStyle = '#18181b';
+    ctx.beginPath();
+    ctx.arc(0, -28, 11, Math.PI, Math.PI * 2);
+    ctx.fill();
+    // Golden Tilak / Third Eye Chakra
+    ctx.fillStyle = '#ffd700';
+    ctx.beginPath();
+    ctx.ellipse(0, -27, 2, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. Legs & Golden Gauntlets
+    ctx.fillStyle = '#991b1b';
+    ctx.fillRect(-12, 22, 9, 22);
+    ctx.fillRect(3, 22, 9, 22);
+    // Golden Boots
+    ctx.fillStyle = '#eab308';
+    ctx.fillRect(-13, 38, 11, 8);
+    ctx.fillRect(2, 38, 11, 8);
+
+    // 5. Upright Whirlwind Spin Attack Stance
+    ctx.save();
+    if (isAttacking) {
+      // Spinning Chakra Vortex Rings
+      ctx.strokeStyle = '#ffd700';
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#facc15';
+      ctx.shadowBlur = 14;
+      for (let ring = -1; ring <= 1; ring++) {
+        ctx.beginPath();
+        ctx.ellipse(0, ring * 14, 28, 7, spinAngle, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    } else if (isDefending) {
+      // Two Hands in Front in Shielding Mudra
+      ctx.fillStyle = '#ffd700';
+      ctx.beginPath();
+      ctx.arc(0, 0, 18, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (isVictory) {
+      // Abhaya Mudra Divine Blessing Pose
+      ctx.translate(14, -14);
+      ctx.fillStyle = '#ffd700';
+      ctx.beginPath();
+      ctx.arc(0, 0, 6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  /**
+   * Procedural Odessa Rig (Junker Queen & Wasteland Warlord)
+   */
+  drawOdessa(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const walk = Math.sin(t * 7) * 3;
+
+    // 1. Spiky Neon-Cyan Mohawk Hair
+    ctx.fillStyle = '#06b6d4';
+    ctx.shadowColor = '#22d3ee';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.moveTo(-6, -34); ctx.lineTo(-4, -46); ctx.lineTo(-1, -34);
+    ctx.moveTo(-1, -34); ctx.lineTo(2, -48); ctx.lineTo(5, -34);
+    ctx.moveTo(5, -34); ctx.lineTo(8, -44); ctx.lineTo(11, -34);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // 2. Head & Wasteland Warpaint
+    ctx.fillStyle = '#1c1917';
+    ctx.beginPath();
+    ctx.arc(0, -25, 11, 0, Math.PI * 2);
+    ctx.fill();
+    // Cyan Warpaint Slash across eyes
+    ctx.fillStyle = '#06b6d4';
+    ctx.fillRect(-8, -27, 16, 3.5);
+
+    // 3. Asymmetrical Scrap Armor & Spiked Shoulder Pad
+    ctx.fillStyle = '#292524';
+    ctx.fillRect(-14, -15, 28, 38);
+
+    // Left Spiked Shoulder Pad (Junker Scrap)
+    ctx.fillStyle = '#78716c';
+    ctx.fillRect(-18, -17, 8, 8);
+    ctx.fillStyle = '#f97316';
+    ctx.beginPath();
+    ctx.moveTo(-18, -17); ctx.lineTo(-24, -22); ctx.lineTo(-14, -17);
+    ctx.fill();
+
+    // Rusted Copper Chest Plates
+    ctx.fillStyle = '#ea580c';
+    ctx.fillRect(-10, -10, 20, 6);
+    ctx.fillRect(-8, 2, 16, 5);
+
+    // 4. Wasteland Leather Pants & Heavy Boots
+    ctx.fillStyle = '#1c1917';
+    ctx.fillRect(-12, 22, 9, 20 + walk);
+    ctx.fillRect(3, 22, 9, 20 - walk);
+    // Steel-Toed Combat Boots
+    ctx.fillStyle = '#44403c';
+    ctx.fillRect(-14, 38 + walk, 12, 8);
+    ctx.fillRect(2, 38 - walk, 12, 8);
+
+    // 5. Heavy Carnage Battleaxe & Gracie Jagged Blade
+    ctx.save();
+    if (isAttacking) {
+      // Overhead Heavy Carnage Battleaxe Cleave
+      ctx.translate(14, -12);
+      ctx.rotate(-0.8);
+      // Axe shaft
+      ctx.fillStyle = '#78716c';
+      ctx.fillRect(-2, -30, 4, 45);
+      // Huge serrated axe blade
+      ctx.fillStyle = '#f97316';
+      ctx.shadowColor = '#ea580c';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.moveTo(-2, -28); ctx.lineTo(-24, -36); ctx.lineTo(-28, -16); ctx.lineTo(-2, -18);
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    } else if (isDefending) {
+      // Blocking with Battleaxe Flat
+      ctx.translate(10, 0);
+      ctx.fillStyle = '#78716c';
+      ctx.fillRect(-3, -24, 6, 48);
+    } else if (isVictory) {
+      // Leaning Triumphantly on Carnage Axe
+      ctx.translate(16, 6);
+      ctx.fillStyle = '#78716c';
+      ctx.fillRect(-2, -28, 4, 44);
+      ctx.fillStyle = '#f97316';
+      ctx.fillRect(-14, -28, 14, 12);
+    } else {
+      // Gracie Jagged Blade in Hand
+      ctx.translate(12, 4);
+      ctx.fillStyle = '#06b6d4';
+      ctx.beginPath();
+      ctx.moveTo(8, 0); ctx.lineTo(-4, -5); ctx.lineTo(-2, 0); ctx.lineTo(-4, 5);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  /**
+   * Procedural Doraemon Rig (Expressive 22nd Century Robotic Cat)
+   */
+  drawDoremon(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const copterSpin = Math.sin(t * 32);
+
+    // 1. Take-Copter (Yellow Propeller on Head)
+    ctx.save();
+    ctx.translate(0, -32);
+    // Shaft
+    ctx.fillStyle = '#facc15';
+    ctx.fillRect(-1.5, 0, 3, 7);
+    // Spinning Blades (Take-Copter)
+    ctx.fillStyle = '#fde047';
+    ctx.shadowColor = '#eab308';
+    ctx.shadowBlur = 6;
+    ctx.beginPath();
+    const bladeW = Math.max(0.1, Math.abs(18 * copterSpin));
+    ctx.ellipse(0, 0, bladeW, 3.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // 2. Round Blue Robotic Cat Body & White Belly
+    ctx.fillStyle = '#0284c7';
+    ctx.shadowColor = '#38bdf8';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(0, 8, 22, 0, Math.PI * 2); // Body
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Pure White Round Belly
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(0, 8, 15, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Half-Moon 4D Pocket
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.arc(0, 8, 10, 0, Math.PI);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-10, 8); ctx.lineTo(10, 8);
+    ctx.stroke();
+
+    // 3. Round Blue Head & White Face Mask
+    ctx.fillStyle = '#0284c7';
+    ctx.beginPath();
+    ctx.arc(0, -18, 20, 0, Math.PI * 2);
+    ctx.fill();
+
+    // White Face Mask
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.ellipse(0, -14, 16, 14, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Red Collar & Golden Bell
+    ctx.fillStyle = '#ef4444';
+    ctx.fillRect(-16, -2, 32, 5);
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.arc(0, 2, 4.5, 0, Math.PI * 2); // Bell
+    ctx.fill();
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(0, 2.5, 1.2, 0, Math.PI * 2); // Bell hole
+    ctx.fill();
+
+    // 4. Expressive Facial Eyes & Mouth
+    if (isAttacking) {
+      // Determined Fighting Eyes & Shouting Mouth
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(-5, -20, 3, 0, Math.PI * 2);
+      ctx.arc(5, -20, 3, 0, Math.PI * 2);
+      ctx.fill();
+      // Shouting open mouth
+      ctx.fillStyle = '#dc2626';
+      ctx.beginPath();
+      ctx.arc(0, -10, 7, 0, Math.PI);
+      ctx.fill();
+    } else if (isDefending) {
+      // Cartoon Spiral Panic Eyes (@_@)
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(-5, -20, 3, 0, Math.PI * 3);
+      ctx.arc(5, -20, 3, 0, Math.PI * 3);
+      ctx.stroke();
+      // Wavy flustered mouth
+      ctx.beginPath();
+      ctx.moveTo(-6, -10); ctx.quadraticCurveTo(0, -7, 6, -10);
+      ctx.stroke();
+    } else if (isVictory) {
+      // Blissful Happy Crescent Eyes (^ _ ^) & Big Smile
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(-6, -20, 4, Math.PI, Math.PI * 2);
+      ctx.arc(6, -20, 4, Math.PI, Math.PI * 2);
+      ctx.stroke();
+      // Broad happy mouth
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.arc(0, -10, 8, 0, Math.PI);
+      ctx.fill();
+    } else {
+      // Normal Big Sparkly Anime Eyes
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(-5, -20, 3.5, 0, Math.PI * 2);
+      ctx.arc(5, -20, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(-4, -21, 1.2, 0, Math.PI * 2);
+      ctx.arc(6, -21, 1.2, 0, Math.PI * 2);
+      ctx.fill();
+      // Cute smile
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(0, -10, 6, 0.2, Math.PI - 0.2);
+      ctx.stroke();
+    }
+
+    // Red Round Nose & Whiskers
+    ctx.fillStyle = '#dc2626';
+    ctx.beginPath();
+    ctx.arc(0, -16, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+    // 6 Whiskers
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(-14, -16); ctx.lineTo(-5, -15);
+    ctx.moveTo(-14, -13); ctx.lineTo(-5, -13);
+    ctx.moveTo(-14, -10); ctx.lineTo(-5, -11);
+    ctx.moveTo(14, -16); ctx.lineTo(5, -15);
+    ctx.moveTo(14, -13); ctx.lineTo(5, -13);
+    ctx.moveTo(14, -10); ctx.lineTo(5, -11);
+    ctx.stroke();
+
+    // 5. White Marshmallow Round Paws & Feet
+    ctx.fillStyle = '#ffffff';
+    // Feet
+    ctx.beginPath();
+    ctx.ellipse(-9, 28, 8, 5, 0, 0, Math.PI * 2);
+    ctx.ellipse(9, 28, 8, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Paws & Gadgets
+    ctx.save();
+    if (isAttacking) {
+      // Holding Blue Air Cannon on Paw
+      ctx.translate(16, 4);
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(-2, -5, 12, 10);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(8, -6, 3, 12);
+    } else if (isVictory) {
+      // Holding Yummy Dorayaki Pancake
+      ctx.translate(14, 4);
+      ctx.fillStyle = '#b45309';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 8, 5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#78350f';
+      ctx.fillRect(-7, -1, 14, 2);
+    } else {
+      // Cute Round White Paws
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(-18, 6, 6, 0, Math.PI * 2);
+      ctx.arc(18, 6, 6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  /**
+   * Procedural Lionel Messi Rig (The GOAT & Argentina #10)
+   */
+  drawMessi(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const dribbleStep = Math.sin(t * 12) * 5;
+
+    // 1. Argentina Albiceleste Sky-Blue & White Striped Jersey
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(-13, -15, 26, 34);
+    // Vertical Sky-Blue Stripes
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(-11, -15, 6, 34);
+    ctx.fillRect(5, -15, 6, 34);
+
+    // Golden #10 on Chest & Golden Captain Armband
+    ctx.fillStyle = '#facc15';
+    ctx.font = '900 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('10', 0, 2);
+
+    // Golden Captain Armband on Left Arm
+    ctx.fillRect(-16, -6, 4, 6);
+
+    // 2. Head, Styled Hair & Trim Beard
+    ctx.fillStyle = '#fbcfe8'; // Skin highlight base
+    ctx.fillStyle = '#1c1917';
+    ctx.beginPath();
+    ctx.arc(0, -25, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Brown Styled Hair
+    ctx.fillStyle = '#451a03';
+    ctx.beginPath();
+    ctx.arc(0, -28, 10, Math.PI, Math.PI * 2);
+    ctx.fill();
+
+    // Trim Beard & Eyes
+    ctx.fillStyle = '#78350f';
+    ctx.beginPath();
+    ctx.arc(0, -22, 6, 0.2, Math.PI - 0.2);
+    ctx.stroke();
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(-4, -26, 2.5, 2);
+    ctx.fillRect(2, -26, 2.5, 2);
+
+    // 3. Black Shorts & Striped Socks
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(-13, 19, 26, 12);
+    // Legs
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(-11, 31, 7, 12 + dribbleStep);
+    ctx.fillRect(4, 31, 7, 12 - dribbleStep);
+
+    // Golden Cleat on Magical Left Foot
+    ctx.fillStyle = '#facc15';
+    ctx.shadowColor = '#ffd700';
+    ctx.shadowBlur = 6;
+    ctx.fillRect(-12, 42 + dribbleStep, 9, 6);
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(3, 42 - dribbleStep, 9, 6);
+
+    // 4. Soccer Ball at Feet (Rotating Dribble)
+    if (!isVictory) {
+      ctx.save();
+      ctx.translate(14, 40);
+      ctx.rotate(t * 8);
+      ctx.beginPath();
+      ctx.arc(0, 0, 8, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(0, 0, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 5. Celebration Pose / Left Foot Curler
+    ctx.save();
+    if (isAttacking) {
+      // Leaning Banana Curler Strike Pose
+      ctx.translate(-4, 0);
+      ctx.rotate(-0.15);
+      ctx.fillStyle = '#facc15';
+      ctx.shadowColor = '#ffd700';
+      ctx.shadowBlur = 12;
+      ctx.fillRect(-14, 38, 12, 6);
+    } else if (isVictory) {
+      // Iconic GOAT Celebration: Both Index Fingers Pointing up to Heaven!
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#ffd700';
+      ctx.shadowBlur = 14;
+      // Left arm pointing to sky
+      ctx.beginPath();
+      ctx.moveTo(-13, -12); ctx.lineTo(-18, -34);
+      ctx.moveTo(13, -12); ctx.lineTo(18, -34);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /**
+   * Procedural Cristiano Ronaldo Rig (CR7 El Bicho)
+   */
+  drawRonaldo(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const walk = Math.sin(t * 6) * 3;
+
+    // 1. Portugal Crimson & Emerald Green Jersey
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(-14, -16, 28, 36);
+    // Emerald Green Diagonal/Sleeve Trim
+    ctx.fillStyle = '#10b981';
+    ctx.fillRect(-14, -16, 8, 36);
+
+    // Iconic #7 on Chest
+    ctx.fillStyle = '#fbbf24';
+    ctx.font = '900 13px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('7', 2, 2);
+
+    // 2. Chiseled Athletic Head & Swept-back Hair
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(0, -26, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Dark Swept-Back Hair with Highlight
+    ctx.fillStyle = '#18181b';
+    ctx.beginPath();
+    ctx.arc(0, -29, 10, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#eab308';
+    ctx.fillRect(-2, -32, 6, 2);
+
+    // Focused Eyes
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(-4, -26, 2.5, 2);
+    ctx.fillRect(2, -26, 2.5, 2);
+
+    // 3. White Shorts & Red/Green Socks
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(-14, 20, 28, 12);
+    // Legs & Socks
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(-12, 32, 8, 14 + walk);
+    ctx.fillRect(4, 32, 8, 14 - walk);
+    // Emerald Boots with Golden Studs
+    ctx.fillStyle = '#10b981';
+    ctx.fillRect(-13, 44 + walk, 10, 6);
+    ctx.fillRect(3, 44 - walk, 10, 6);
+
+    // 4. Attack / Celebration Stance
+    ctx.save();
+    if (isAttacking) {
+      // Iconic Wide-Legged Knuckleball Free-Kick Stance
+      ctx.translate(14, 4);
+      ctx.fillStyle = '#dc2626';
+      ctx.fillRect(0, -4, 16, 7);
+    } else if (isVictory) {
+      // The Full "SIUUUU!" Airborne / Landing Power Pose!
+      ctx.translate(0, -8);
+      // Both arms thrust backwards and downwards
+      ctx.strokeStyle = '#dc2626';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(-14, -10); ctx.lineTo(-26, 12);
+      ctx.moveTo(14, -10); ctx.lineTo(26, 12);
+      ctx.stroke();
+
+      // Power ground shockwave beneath boots
+      ctx.strokeStyle = '#fbbf24';
+      ctx.shadowColor = '#f59e0b';
+      ctx.shadowBlur = 14;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.ellipse(0, 52, 28, 6, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /**
+   * Procedural Son Goku Rig (Super Saiyan God / Universe 7 Legend)
+   */
+  drawGoku(ctx) {
+    const t = this.animTime;
+    const isAttacking = this.state === 'attacking';
+    const isDefending = this.state === 'defending';
+    const isVictory = this.state === 'victory';
+    const walk = Math.sin(t * 11) * 7;
+    const knee1 = Math.max(0, walk);
+    const knee2 = Math.max(0, -walk);
+
+    // 1. Super Saiyan Flaring Golden Ki Aura & Electrical Sparks
+    ctx.save();
+    const auraPulse = Math.sin(t * 16) * 6;
+    const auraR = 36 + auraPulse;
+    const grad = ctx.createRadialGradient(0, -6, auraR * 0.3, 0, -6, auraR);
+    grad.addColorStop(0, 'rgba(254, 240, 138, 0.45)');
+    grad.addColorStop(0.6, 'rgba(250, 204, 21, 0.3)');
+    grad.addColorStop(1, 'rgba(234, 88, 12, 0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(0, -6, auraR, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Crackling blue & gold electrical bolts
+    if (Math.abs(this.vx) > 0.5 || isAttacking || isVictory) {
+      ctx.strokeStyle = Math.random() > 0.4 ? '#38bdf8' : '#facc15';
+      ctx.lineWidth = 2.2;
+      for (let s = 0; s < 3; s++) {
+        const sa = Math.random() * Math.PI * 2;
+        const sr1 = 15 + Math.random() * 10;
+        const sr2 = sr1 + 16 + Math.random() * 12;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(sa) * sr1, -6 + Math.sin(sa) * sr1);
+        ctx.lineTo(Math.cos(sa + 0.3) * (sr1 + sr2) / 2, -6 + Math.sin(sa + 0.3) * (sr1 + sr2) / 2);
+        ctx.lineTo(Math.cos(sa) * sr2, -6 + Math.sin(sa) * sr2);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+
+    // 2. Muscular Gi Torso (Iconic Orange Gi with Dark Blue Undershirt)
+    // Dark blue undershirt
+    ctx.fillStyle = '#1e3a8a';
+    ctx.fillRect(-14, -14, 28, 30);
+
+    // Orange Dogi V-Neck Vest
+    ctx.fillStyle = '#ea580c';
+    ctx.beginPath();
+    ctx.moveTo(-16, -14); ctx.lineTo(-4, 16); ctx.lineTo(-15, 16); ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(16, -14); ctx.lineTo(4, 16); ctx.lineTo(15, 16); ctx.closePath();
+    ctx.fill();
+
+    // Dark Blue Sash / Obi Belt
+    ctx.fillStyle = '#1d4ed8';
+    ctx.fillRect(-15, 14, 30, 7);
+    // Knot tails swaying
+    ctx.beginPath();
+    ctx.moveTo(-5, 20); ctx.lineTo(-10, 32); ctx.lineTo(-3, 30); ctx.closePath();
+    ctx.fill();
+
+    // Master Roshi 'Kame' (亀) White Circle Emblem on Left Chest
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(-8, -2, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#000000';
+    ctx.font = 'bold 7px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('亀', -8, 1);
+
+    // 3. Head, Face & Fierce Saiyan Expression
+    ctx.fillStyle = '#fed7aa'; // Tan skin
+    ctx.beginPath();
+    ctx.arc(0, -22, 11, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Determined Eyebrows & Eyes (Teal/Emerald Super Saiyan Eyes)
+    ctx.fillStyle = '#facc15'; // Golden super saiyan brows
+    ctx.fillRect(-8, -25, 6, 2.5);
+    ctx.fillRect(2, -25, 6, 2.5);
+    // Emerald Eyes
+    ctx.fillStyle = '#10b981';
+    ctx.fillRect(-6, -23, 3, 2.5);
+    ctx.fillRect(3, -23, 3, 2.5);
+
+    // Smirk / Battle Grin
+    ctx.strokeStyle = '#7c2d12';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(0, -17, 3, 0.2, Math.PI - 0.2);
+    ctx.stroke();
+
+    // 4. Iconic Super Saiyan Golden Spiky Hair (Extravagant Procedural Saiyan Spikes)
+    ctx.fillStyle = '#facc15';
+    ctx.shadowColor = '#facc15';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    // Front bangs
+    ctx.moveTo(-12, -26);
+    ctx.lineTo(-7, -20);
+    ctx.lineTo(-3, -26);
+    ctx.lineTo(2, -20);
+    ctx.lineTo(6, -26);
+    // Massive upward & outward sweeping Saiyan spikes
+    ctx.lineTo(16, -30);
+    ctx.lineTo(26, -42);
+    ctx.lineTo(14, -38);
+    ctx.lineTo(20, -56);
+    ctx.lineTo(6, -46);
+    ctx.lineTo(0, -64); // Top central apex spike
+    ctx.lineTo(-8, -48);
+    ctx.lineTo(-20, -58);
+    ctx.lineTo(-14, -40);
+    ctx.lineTo(-28, -42);
+    ctx.lineTo(-16, -28);
+    ctx.closePath();
+    ctx.fill();
+
+    // Highlights on Hair Spikes
+    ctx.fillStyle = '#fef08a';
+    ctx.beginPath();
+    ctx.moveTo(0, -60); ctx.lineTo(-4, -48); ctx.lineTo(2, -46); ctx.closePath();
+    ctx.moveTo(16, -52); ctx.lineTo(8, -42); ctx.lineTo(12, -38); ctx.closePath();
+    ctx.moveTo(-16, -52); ctx.lineTo(-8, -42); ctx.lineTo(-12, -38); ctx.closePath();
+    ctx.fill();
+
+    // 5. Baggy Orange Martial Arts Pants & Blue Boots with Red Laces
+    ctx.fillStyle = '#ea580c';
+    ctx.fillRect(-13, 21, 9, 21 + knee1);
+    ctx.fillRect(4, 21, 9, 21 + knee2);
+
+    // Deep Blue Boots with Yellow Accent Lines
+    ctx.fillStyle = '#1e3a8a';
+    ctx.fillRect(-14, 40 + knee1, 11, 10);
+    ctx.fillRect(3, 40 + knee2, 11, 10);
+    // Red laces trim
+    ctx.fillStyle = '#ef4444';
+    ctx.fillRect(-11, 40 + knee1, 3, 10);
+    ctx.fillRect(6, 40 + knee2, 3, 10);
+
+    // 6. Arms & Attack/Pose Rigs
+    ctx.save();
+    if (isAttacking) {
+      // Kamehameha Stance: Cupped hands with pulsating cyan Ki sphere!
+      ctx.translate(14, 4);
+      // Muscular Tan Arm
+      ctx.fillStyle = '#fed7aa';
+      ctx.fillRect(0, -8, 16, 8);
+      // Dark Blue Wristbands
+      ctx.fillStyle = '#1e3a8a';
+      ctx.fillRect(10, -9, 6, 10);
+
+      // Blazing Ki Energy Sphere in Hands
+      const kiR = 12 + Math.sin(t * 22) * 3;
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = '#00f0ff';
+      ctx.shadowBlur = 18;
+      ctx.beginPath();
+      ctx.arc(20, -4, kiR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+    } else if (isVictory) {
+      // 2-Finger Instant Transmission Salutation to forehead!
+      ctx.translate(6, -18);
+      ctx.fillStyle = '#fed7aa';
+      ctx.fillRect(-4, 0, 8, 14);
+      ctx.fillStyle = '#1e3a8a';
+      ctx.fillRect(-5, 8, 10, 5); // Wristband
+
+    } else {
+      // Relaxed martial artist combat stance with blue wristbands
+      ctx.fillStyle = '#fed7aa';
+      ctx.fillRect(-18, -12, 7, 24);
+      ctx.fillRect(11, -12, 7, 24);
+      ctx.fillStyle = '#1e3a8a';
+      ctx.fillRect(-19, 8, 9, 5);
+      ctx.fillRect(10, 8, 9, 5);
+    }
+    ctx.restore();
+  }
+
+  drawKrrish(ctx) {
+    const t = this.animTime * 3.5;
+    const isAttacking = this.state === 'attacking';
+    const isVictory = this.state === 'victory';
+
+    // 1. Flowing Midnight Black Superhero Trench Coat / Cape Tails
+    ctx.save();
+    const coatFlutter1 = Math.sin(t * 1.8) * 8 + (isAttacking ? -18 : -8);
+    const coatFlutter2 = Math.cos(t * 1.5) * 12 + (isAttacking ? -24 : -12);
+    ctx.fillStyle = '#09090b';
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 1.5;
+
+    // Left and Right Coat tails flowing behind
+    ctx.beginPath();
+    ctx.moveTo(-16, 2);
+    ctx.quadraticCurveTo(-26 + coatFlutter1, 24, -36 + coatFlutter2, 46);
+    ctx.lineTo(-20 + coatFlutter2, 46);
+    ctx.quadraticCurveTo(-14, 24, -8, 12);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(8, 2);
+    ctx.quadraticCurveTo(-8 + coatFlutter1, 26, -24 + coatFlutter2, 48);
+    ctx.lineTo(-8 + coatFlutter2, 48);
+    ctx.quadraticCurveTo(0, 26, 16, 12);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+
+    // 2. Head, Hair & Sculpted Black Mask
+    ctx.save();
+    // Dark brown/black textured swept-back hair
+    ctx.fillStyle = '#0a0a0a';
+    ctx.beginPath();
+    ctx.arc(0, -32, 16, Math.PI * 0.8, Math.PI * 2.2);
+    ctx.fill();
+    // Swept spikes
+    ctx.beginPath();
+    ctx.moveTo(-12, -34); ctx.lineTo(-18, -44); ctx.lineTo(-4, -38);
+    ctx.lineTo(4, -46); ctx.lineTo(12, -36); ctx.lineTo(18, -42); ctx.lineTo(14, -30);
+    ctx.fill();
+
+    // Hero Face
+    ctx.fillStyle = '#e2b38b';
+    ctx.beginPath();
+    ctx.arc(0, -26, 13, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Sculpted Angular Krrish Black Mask (Winged Eye Mask)
+    ctx.fillStyle = '#000000';
+    ctx.shadowColor = '#06b6d4';
+    ctx.shadowBlur = isAttacking ? 12 : 4;
+    ctx.beginPath();
+    ctx.moveTo(-18, -32);
+    ctx.lineTo(-10, -25);
+    ctx.lineTo(-2, -28);
+    ctx.lineTo(0, -25);
+    ctx.lineTo(2, -28);
+    ctx.lineTo(10, -25);
+    ctx.lineTo(18, -32);
+    ctx.lineTo(14, -18);
+    ctx.lineTo(6, -16);
+    ctx.lineTo(0, -21);
+    ctx.lineTo(-6, -16);
+    ctx.lineTo(-14, -18);
+    ctx.closePath();
+    ctx.fill();
+
+    // Glowing Astral Eyes through mask cutouts
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#38bdf8';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.ellipse(-6, -24, 3, 1.8, -0.15, 0, Math.PI * 2);
+    ctx.ellipse(6, -24, 3, 1.8, 0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // 3. Torso, Tactical Vest & Silver Trim
+    ctx.save();
+    ctx.fillStyle = '#18181b';
+    ctx.fillRect(-14, -14, 28, 28);
+    // Silver chest strap / V-neck armor lines
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-12, -14); ctx.lineTo(0, 0); ctx.lineTo(12, -14);
+    ctx.stroke();
+    // Silver Waist Buckle
+    ctx.fillStyle = '#cbd5e1';
+    ctx.fillRect(-6, 10, 12, 5);
+    ctx.restore();
+
+    // 4. Athletic Black Pants & Combat Boots
+    ctx.save();
+    const legKnee = Math.sin(t * 2) * 5;
+    ctx.fillStyle = '#09090b';
+    ctx.fillRect(-12, 14, 9, 24 + legKnee);
+    ctx.fillRect(3, 14, 9, 24 - legKnee);
+    // Combat Boots
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(-14, 34 + legKnee, 11, 10);
+    ctx.fillRect(2, 34 - legKnee, 11, 10);
+    ctx.restore();
+
+    // 5. Arms, Silver Bracers & Superhuman Fist
+    ctx.save();
+    if (isAttacking) {
+      // Superhuman Meteor Punch Lunge
+      ctx.translate(16, -6);
+      ctx.fillStyle = '#18181b';
+      ctx.fillRect(0, -8, 20, 9);
+      // Silver Bracer
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillRect(10, -9, 7, 11);
+      // Glowing Cyan Clenched Fist with Astral Aura
+      ctx.fillStyle = '#e2b38b';
+      ctx.beginPath();
+      ctx.arc(22, -4, 7, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Astral Energy Halo around fist
+      const auraR = 14 + Math.sin(t * 20) * 3;
+      ctx.strokeStyle = '#06b6d4';
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#38bdf8';
+      ctx.shadowBlur = 18;
+      ctx.beginPath();
+      ctx.arc(22, -4, auraR, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (isVictory) {
+      // Heroic Rooftop Landing Pose: One hand on ground, other back
+      ctx.translate(6, 6);
+      ctx.fillStyle = '#18181b';
+      ctx.fillRect(-18, -10, 8, 20);
+      ctx.fillRect(10, -10, 8, 20);
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillRect(-19, 6, 10, 5);
+      ctx.fillRect(9, 6, 10, 5);
+    } else {
+      // Dynamic combat stance with silver bracers
+      ctx.fillStyle = '#18181b';
+      ctx.fillRect(-18, -12, 7, 22);
+      ctx.fillRect(11, -12, 7, 22);
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillRect(-19, 6, 9, 5);
+      ctx.fillRect(10, 6, 9, 5);
+    }
+    ctx.restore();
+  }
+
+  drawBen10(ctx) {
+    const t = this.animTime * 3.5;
+    const isAttacking = this.state === 'attacking';
+    const isVictory = this.state === 'victory';
+    const alien = this.currentAlien || 'heatblast';
+
+    // 0. Omnitrix Transformation Flash overlay
+    if (this.isTransforming) {
+      const p = this.transformProgress;
+      ctx.save();
+      const dialFlashR = 36 * (1.0 - p);
+      ctx.fillStyle = 'rgba(34, 197, 94, 0.45)';
+      ctx.shadowColor = '#22c55e';
+      ctx.shadowBlur = 28;
+      ctx.beginPath();
+      ctx.arc(0, 0, dialFlashR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Spinning green holographic dial ring
+      ctx.strokeStyle = '#4ade80';
+      ctx.lineWidth = 3;
+      ctx.rotate(p * Math.PI * 4);
+      ctx.beginPath();
+      ctx.arc(0, 0, 28, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 1. Draw Selected Alien Form
+    if (alien === 'heatblast') {
+      // --- HEATBLAST (Pyronite) ---
+      // Volcanic rock plates over flaming magma core
+      ctx.save();
+      // Molten orange/yellow magma inner glow
+      ctx.shadowColor = '#f97316';
+      ctx.shadowBlur = isAttacking ? 24 : 12;
+
+      // Flaming Head
+      const flameFlicker = Math.sin(t * 8) * 4;
+      ctx.fillStyle = '#ea580c';
+      ctx.beginPath();
+      ctx.moveTo(-14, -20);
+      ctx.lineTo(-18, -42 + flameFlicker);
+      ctx.lineTo(-6, -30);
+      ctx.lineTo(0, -48 - flameFlicker);
+      ctx.lineTo(6, -30);
+      ctx.lineTo(18, -42 + flameFlicker);
+      ctx.lineTo(14, -20);
+      ctx.closePath();
+      ctx.fill();
+
+      // Yellow core flame
+      ctx.fillStyle = '#fde047';
+      ctx.beginPath();
+      ctx.arc(0, -22, 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Charcoal magma face plate & eyes
+      ctx.fillStyle = '#451a03';
+      ctx.fillRect(-8, -26, 16, 8);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(-5, -24, 3, 3);
+      ctx.fillRect(2, -24, 3, 3);
+
+      // Craggy Volcanic Torso
+      ctx.fillStyle = '#292524';
+      ctx.fillRect(-16, -12, 32, 26);
+      // Magma cracks in rock chest
+      ctx.strokeStyle = '#f97316';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(-10, -8); ctx.lineTo(-2, 2); ctx.lineTo(8, -4);
+      ctx.moveTo(-6, 8); ctx.lineTo(4, 10);
+      ctx.stroke();
+
+      // Omnitrix Chest Insignia
+      this.drawOmnitrixBadge(ctx, 0, -2);
+
+      // Rocky Magma Arms
+      ctx.fillStyle = '#44403c';
+      if (isAttacking) {
+        ctx.fillRect(8, -8, 24, 12);
+        // Blazing Fireball in Hand
+        ctx.fillStyle = '#facc15';
+        ctx.shadowColor = '#ea580c';
+        ctx.shadowBlur = 18;
+        ctx.beginPath();
+        ctx.arc(32, -2, 12 + Math.sin(t * 12) * 3, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.fillRect(-22, -10, 9, 24);
+        ctx.fillRect(13, -10, 9, 24);
+      }
+
+      // Volcanic Legs
+      ctx.fillStyle = '#292524';
+      ctx.fillRect(-14, 14, 10, 24);
+      ctx.fillRect(4, 14, 10, 24);
+      ctx.restore();
+
+    } else if (alien === 'fourarms') {
+      // --- FOUR ARMS (Tetramand) ---
+      // 12-foot red muscular frame with 4 massive arms
+      ctx.save();
+      ctx.shadowColor = '#ef4444';
+      ctx.shadowBlur = isAttacking ? 20 : 8;
+
+      // Crimson Tetramand Head
+      ctx.fillStyle = '#dc2626';
+      ctx.beginPath();
+      ctx.arc(0, -28, 14, 0, Math.PI * 2);
+      ctx.fill();
+      // Black head stripe / hair ridge
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-3, -42, 6, 16);
+
+      // 4 Golden Eyes!
+      ctx.fillStyle = '#facc15';
+      ctx.fillRect(-7, -30, 3, 3);
+      ctx.fillRect(4, -30, 3, 3);
+      ctx.fillRect(-5, -24, 2.5, 2.5);
+      ctx.fillRect(2.5, -24, 2.5, 2.5);
+
+      // Massive Red Muscular Torso with Black Singlet
+      ctx.fillStyle = '#b91c1c';
+      ctx.fillRect(-20, -14, 40, 30);
+      // Black Wrestling Singlet with white center stripe
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-16, -14, 32, 28);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(-3, -14, 6, 28);
+
+      // Omnitrix Chest Insignia
+      this.drawOmnitrixBadge(ctx, 0, 4);
+
+      // 4 Giant Red Muscular Arms!
+      ctx.fillStyle = '#dc2626';
+      const clapOffset = isAttacking ? Math.sin(t * 16) * 12 : 0;
+      // Upper 2 Arms
+      ctx.fillRect(-28 + clapOffset, -14, 11, 22);
+      ctx.fillRect(17 - clapOffset, -14, 11, 22);
+      // Lower 2 Arms
+      ctx.fillRect(-25 + clapOffset * 0.8, 2, 9, 20);
+      ctx.fillRect(16 - clapOffset * 0.8, 2, 9, 20);
+
+      // Clenched Fists with Black Cuffs
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-29 + clapOffset, 6, 13, 5);
+      ctx.fillRect(16 - clapOffset, 6, 13, 5);
+
+      // Thick Red Legs & Black Boots
+      ctx.fillStyle = '#b91c1c';
+      ctx.fillRect(-16, 16, 13, 24);
+      ctx.fillRect(3, 16, 13, 24);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-17, 36, 15, 10);
+      ctx.fillRect(2, 36, 15, 10);
+      ctx.restore();
+
+    } else if (alien === 'xlr8') {
+      // --- XLR8 (Kineceleran) ---
+      // Supersonic velociraptor alien with wheel feet & pointed helmet
+      ctx.save();
+      ctx.shadowColor = '#06b6d4';
+      ctx.shadowBlur = 16;
+
+      // Aerodynamic Pointed Helmet (black & cyan)
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.moveTo(-8, -20);
+      ctx.lineTo(-12, -42);
+      ctx.lineTo(16, -26);
+      ctx.closePath();
+      ctx.fill();
+
+      // Cyan Visor
+      ctx.fillStyle = '#22d3ee';
+      ctx.fillRect(4, -28, 8, 4);
+
+      // Sleek Exoskeleton Torso with blue stripes
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(-10, -12, 20, 24);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-6, -12, 12, 24);
+
+      // Omnitrix Chest Insignia
+      this.drawOmnitrixBadge(ctx, 0, -2);
+
+      // Velociraptor Tail trailing behind
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(-8, 10);
+      ctx.quadraticCurveTo(-24, 18, -36, 8 + Math.sin(t * 10) * 6);
+      ctx.stroke();
+
+      // Slender Blade Arms
+      ctx.fillStyle = '#0f172a';
+      if (isAttacking) {
+        ctx.fillRect(6, -8, 26, 6);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillRect(24, -9, 8, 8); // Scissor claws
+      } else {
+        ctx.fillRect(-14, -8, 6, 20);
+        ctx.fillRect(8, -8, 6, 20);
+      }
+
+      // Wheel-Like Frictionless Spheres for feet (spinning!)
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(-10, 12, 6, 20);
+      ctx.fillRect(4, 12, 6, 20);
+
+      const wheelRot = t * 24;
+      ctx.save();
+      ctx.translate(-7, 34);
+      ctx.rotate(wheelRot);
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(0, 0, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.translate(7, 34);
+      ctx.rotate(wheelRot);
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(0, 0, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+      ctx.restore();
+
+    } else {
+      // --- DIAMONDHEAD (Petrosapien) ---
+      // Faceted crystalline emerald/teal mineral titan
+      ctx.save();
+      ctx.shadowColor = '#10b981';
+      ctx.shadowBlur = isAttacking ? 22 : 10;
+
+      // 4 Sharp Diamond Back Spikes
+      ctx.fillStyle = '#34d399';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(-12, -8); ctx.lineTo(-24, -36); ctx.lineTo(-8, -16);
+      ctx.moveTo(12, -8); ctx.lineTo(24, -36); ctx.lineTo(8, -16);
+      ctx.moveTo(-6, -14); ctx.lineTo(-14, -44); ctx.lineTo(0, -20);
+      ctx.moveTo(6, -14); ctx.lineTo(14, -44); ctx.lineTo(0, -20);
+      ctx.fill();
+      ctx.stroke();
+
+      // Crystalline Faceted Head
+      ctx.fillStyle = '#059669';
+      ctx.beginPath();
+      ctx.moveTo(0, -40);
+      ctx.lineTo(12, -26);
+      ctx.lineTo(0, -18);
+      ctx.lineTo(-12, -26);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Golden Yellow Eyes
+      ctx.fillStyle = '#fde047';
+      ctx.fillRect(-5, -28, 3, 2.5);
+      ctx.fillRect(2, -28, 3, 2.5);
+
+      // Crystalline Torso with Black & White Uniform Pattern
+      ctx.fillStyle = '#10b981';
+      ctx.fillRect(-15, -12, 30, 26);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-8, -12, 16, 26);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(-2, -12, 4, 26);
+
+      // Omnitrix Chest Insignia
+      this.drawOmnitrixBadge(ctx, 0, 4);
+
+      // Diamond Blade Arm
+      ctx.fillStyle = '#34d399';
+      if (isAttacking) {
+        // Arm morphed into huge razor crystal blade
+        ctx.beginPath();
+        ctx.moveTo(8, -6);
+        ctx.lineTo(38, -2);
+        ctx.lineTo(12, 6);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.stroke();
+      } else {
+        ctx.fillRect(-20, -10, 8, 22);
+        ctx.fillRect(12, -10, 8, 22);
+      }
+
+      // Crystalline Legs
+      ctx.fillStyle = '#059669';
+      ctx.fillRect(-13, 14, 9, 24);
+      ctx.fillRect(4, 14, 9, 24);
+      ctx.restore();
+    }
+  }
+
+  drawOmnitrixBadge(ctx, x, y) {
+    ctx.save();
+    ctx.translate(x, y);
+    // Outer green glow ring
+    ctx.fillStyle = '#22c55e';
+    ctx.shadowColor = '#4ade80';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(0, 0, 7.5, 0, Math.PI * 2);
+    ctx.fill();
+    // Inner black circle
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
+    ctx.fill();
+    // Green Hourglass triangles
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.moveTo(-4, -4); ctx.lineTo(4, -4); ctx.lineTo(0, 0); ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-4, 4); ctx.lineTo(4, 4); ctx.lineTo(0, 0); ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  drawAjayDevgan(ctx) {
+    ctx.save();
+
+    const t = (this.animTimer ? this.animTimer * 0.005 : this.animTime) || 0;
+    const isAttacking = (this.state === 'attacking');
+    const attackProgress = this.target ? (1 - Math.max(0, this.attackCooldown / 1400)) : 0;
+    const swaggerBob = Math.sin(t * 3) * 3;
+
+    // Saffron / Kesari Radiant Glow
+    ctx.save();
+    ctx.shadowColor = '#ea580c';
+    ctx.shadowBlur = isAttacking ? 28 : 16;
+
+    // 1. TWIN STUNT CARS (Ajay enters balancing atop two moving stunt cars)
+    const carSpread = 28;
+    const carY = 22 + swaggerBob * 0.4;
+    for (let side of [-1, 1]) {
+      const cx = side * carSpread;
+      ctx.save();
+      ctx.translate(cx, carY);
+
+      // Stunt Car Shadow / Smoke
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      ctx.beginPath();
+      ctx.ellipse(0, 16, 22, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Tire drift smoke when moving/attacking
+      if (Math.abs(this.vx) > 0.5 || isAttacking) {
+        ctx.fillStyle = 'rgba(234, 88, 12, 0.25)';
+        ctx.beginPath();
+        ctx.arc(-side * 14, 12, 6 + Math.sin(t * 8) * 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Car Chassis (Midnight Blue / Black Sedan)
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(-20, 0, 40, 14, 3);
+      else ctx.rect(-20, 0, 40, 14);
+      ctx.fill();
+
+      // Car Roof & Windshield
+      ctx.fillStyle = '#334155';
+      ctx.beginPath();
+      ctx.moveTo(-12, 0);
+      ctx.lineTo(-6, -8);
+      ctx.lineTo(6, -8);
+      ctx.lineTo(12, 0);
+      ctx.closePath();
+      ctx.fill();
+
+      // Windshield glass tint
+      ctx.fillStyle = '#38bdf8';
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(-9, 0);
+      ctx.lineTo(-4, -6);
+      ctx.lineTo(4, -6);
+      ctx.lineTo(9, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
+
+      // Chrome Grille & Headlights
+      ctx.fillStyle = '#fde047'; // Headlights on!
+      ctx.beginPath();
+      ctx.arc(side * 16, 6, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillRect(-side * 18, 4, 3, 5); // Side mirror
+
+      // Wheels
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.arc(-13, 14, 5, 0, Math.PI * 2);
+      ctx.arc(13, 14, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#94a3b8'; // Alloy rims
+      ctx.beginPath();
+      ctx.arc(-13, 14, 2, 0, Math.PI * 2);
+      ctx.arc(13, 14, 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // 2. AJAY DEVGN LEGS (Split wide, rooted on each car roof)
+    ctx.strokeStyle = '#1e3a8a'; // Deep blue denim
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    // Left Leg to Left Car Roof
+    ctx.beginPath();
+    ctx.moveTo(-4, 0 + swaggerBob);
+    ctx.lineTo(-14, 10 + swaggerBob * 0.7);
+    ctx.lineTo(-carSpread, carY - 6);
+    ctx.stroke();
+    // Right Leg to Right Car Roof
+    ctx.beginPath();
+    ctx.moveTo(4, 0 + swaggerBob);
+    ctx.lineTo(14, 10 + swaggerBob * 0.7);
+    ctx.lineTo(carSpread, carY - 6);
+    ctx.stroke();
+
+    // Heavy Stunt Boots
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.ellipse(-carSpread, carY - 6, 6, 3, 0, 0, Math.PI * 2);
+    ctx.ellipse(carSpread, carY - 6, 6, 3, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. TORSO & LEATHER JACKET / POLICE KHAKI UNIFORM
+    const torsoY = -12 + swaggerBob;
+    // Khaki/Black Shirt
+    ctx.fillStyle = '#b45309'; // Khaki police / Kesari undertone
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-10, torsoY - 14, 20, 26, 4);
+    else ctx.rect(-10, torsoY - 14, 20, 26);
+    ctx.fill();
+
+    // Black Leather Jacket Vest
+    ctx.fillStyle = '#090d16';
+    ctx.beginPath();
+    // Left jacket flap
+    ctx.moveTo(-12, torsoY - 15);
+    ctx.lineTo(-4, torsoY - 15);
+    ctx.lineTo(-5, torsoY + 12);
+    ctx.lineTo(-12, torsoY + 10);
+    ctx.closePath();
+    ctx.fill();
+    // Right jacket flap
+    ctx.beginPath();
+    ctx.moveTo(12, torsoY - 15);
+    ctx.lineTo(4, torsoY - 15);
+    ctx.lineTo(5, torsoY + 12);
+    ctx.lineTo(12, torsoY + 10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Gold Singham Police Badge on Chest
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.arc(-7, torsoY - 6, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Silver Aviator Belt Buckle
+    ctx.fillStyle = '#e2e8f0';
+    ctx.fillRect(-4, torsoY + 10, 8, 4);
+
+    // 4. ARMS & "BOLO ZUBAAN KESARI" SIGNATURE GESTURE
+    ctx.fillStyle = '#d97706'; // Muscular skin tone
+    ctx.strokeStyle = '#d97706';
+    ctx.lineWidth = 5;
+
+    if (isAttacking) {
+      // Right Arm: Two fingers brought up right beside mouth in iconic "Zubaan Kesari" gesture!
+      ctx.beginPath();
+      ctx.moveTo(10, torsoY - 10);
+      ctx.lineTo(16, torsoY - 18);
+      ctx.lineTo(6, torsoY - 25);
+      ctx.stroke();
+
+      // Hand: Index & Middle fingers extended with golden/kesari spark
+      ctx.fillStyle = '#ea580c';
+      ctx.beginPath();
+      ctx.arc(6, torsoY - 26, 3, 0, Math.PI * 2);
+      ctx.fill();
+      // Kesari spice energy flash at fingertips
+      ctx.fillStyle = '#fde047';
+      ctx.beginPath();
+      ctx.arc(6, torsoY - 26, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Left Arm: Outstretched in power stance / Singham slap posture
+      ctx.beginPath();
+      ctx.moveTo(-10, torsoY - 10);
+      ctx.lineTo(-24, torsoY - 14);
+      ctx.lineTo(-32, torsoY - 10);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(-32, torsoY - 10, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Pressurized Vimal spit stream emerging directly from mouth toward forward direction!
+      ctx.fillStyle = '#ea580c';
+      ctx.beginPath();
+      ctx.ellipse(12, torsoY - 27, 8, 3, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath();
+      ctx.arc(18, torsoY - 27, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+    } else {
+      // Idle / Moving: Arms folded or resting on stunt swagger
+      ctx.beginPath();
+      ctx.moveTo(-10, torsoY - 10);
+      ctx.lineTo(-18, torsoY - 2);
+      ctx.lineTo(-6, torsoY + 4);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(10, torsoY - 10);
+      ctx.lineTo(18, torsoY - 2);
+      ctx.lineTo(6, torsoY + 4);
+      ctx.stroke();
+    }
+
+    // 5. HEAD, HAIR & FACE
+    const headY = torsoY - 28;
+    // Neck
+    ctx.fillStyle = '#d97706';
+    ctx.fillRect(-4, headY + 8, 8, 6);
+
+    // Jaw & Face
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-8, headY - 8, 16, 18, 4);
+    else ctx.rect(-8, headY - 8, 16, 18);
+    ctx.fill();
+
+    // Slick Bollywood Black Hairstyle
+    ctx.fillStyle = '#020617';
+    ctx.beginPath();
+    ctx.moveTo(-9, headY - 4);
+    ctx.lineTo(-10, headY - 12);
+    ctx.lineTo(-4, headY - 16);
+    ctx.lineTo(4, headY - 16);
+    ctx.lineTo(10, headY - 12);
+    ctx.lineTo(9, headY - 4);
+    ctx.lineTo(6, headY - 10);
+    ctx.lineTo(-6, headY - 10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Singham / Ajay Devgn Signature Moustache
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.moveTo(-6, headY + 3);
+    ctx.quadraticCurveTo(0, headY + 1, 6, headY + 3);
+    ctx.quadraticCurveTo(3, headY + 6, 0, headY + 4);
+    ctx.quadraticCurveTo(-3, headY + 6, -6, headY + 3);
+    ctx.closePath();
+    ctx.fill();
+
+    // Red Kesari stain hint at lips
+    ctx.fillStyle = '#b91c1c';
+    ctx.fillRect(-2, headY + 4, 4, 1.5);
+
+    // 6. ICONIC AVIATOR SUNGLASSES (Dark teardrop lenses with gold frames & reflective glare)
+    ctx.strokeStyle = '#f59e0b'; // Gold aviator frames
+    ctx.lineWidth = 1.2;
+    // Left lens
+    ctx.fillStyle = '#090d16';
+    ctx.beginPath();
+    ctx.ellipse(-4, headY - 2, 4.5, 3.5, 0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    // Right lens
+    ctx.beginPath();
+    ctx.ellipse(4, headY - 2, 4.5, 3.5, -0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    // Top brow bar & nose bridge
+    ctx.beginPath();
+    ctx.moveTo(-6, headY - 6); ctx.lineTo(6, headY - 6);
+    ctx.moveTo(-1, headY - 2); ctx.lineTo(1, headY - 2);
+    ctx.stroke();
+
+    // White diagonal lens glint / swagger sparkle
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(-5, headY - 4); ctx.lineTo(-3, headY - 1);
+    ctx.moveTo(3, headY - 4); ctx.lineTo(5, headY - 1);
+    ctx.stroke();
+
+    ctx.restore(); // shadow
+    ctx.restore(); // main
+  }
+
+  drawSalmanKhan(ctx) {
+    ctx.save();
+    const t = (this.animTimer ? this.animTimer * 0.005 : this.animTime) || 0;
+    const isAttacking = (this.state === 'attacking');
+    const swaggerBob = Math.sin(t * 3.5) * 3;
+
+    ctx.save();
+    ctx.shadowColor = '#0284c7';
+    ctx.shadowBlur = isAttacking ? 26 : 14;
+
+    // 1. Legs & Denim
+    ctx.strokeStyle = '#1e3a8a';
+    ctx.lineWidth = 7;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-7, 2 + swaggerBob);
+    ctx.lineTo(-9, 22);
+    ctx.moveTo(7, 2 + swaggerBob);
+    ctx.lineTo(9, 22);
+    ctx.stroke();
+
+    // Heavy Combat Boots
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.ellipse(-9, 23, 7, 4, 0, 0, Math.PI * 2);
+    ctx.ellipse(9, 23, 7, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. Broad Muscular Torso & Tiger Vest
+    const torsoY = -12 + swaggerBob;
+    // Tight black tee / bare muscle tone
+    ctx.fillStyle = '#1e293b';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-14, torsoY - 14, 28, 28, 4);
+    else ctx.rect(-14, torsoY - 14, 28, 28);
+    ctx.fill();
+
+    // Open Leather Tiger Jacket Flaps
+    ctx.fillStyle = '#020617';
+    ctx.beginPath();
+    ctx.moveTo(-16, torsoY - 16); ctx.lineTo(-7, torsoY - 16); ctx.lineTo(-9, torsoY + 12); ctx.lineTo(-16, torsoY + 10);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(16, torsoY - 16); ctx.lineTo(7, torsoY - 16); ctx.lineTo(9, torsoY + 12); ctx.lineTo(16, torsoY + 10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Silver Belt Buckle & Tucked Aviators in collar
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillRect(-5, torsoY + 10, 10, 4);
+    // Aviator sunglasses hung on chest
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.arc(-2, torsoY - 4, 3, 0, Math.PI);
+    ctx.arc(2, torsoY - 4, 3, 0, Math.PI);
+    ctx.stroke();
+
+    // 3. Massive Biceps & Arms
+    ctx.strokeStyle = '#d97706';
+    ctx.lineWidth = 6;
+    if (isAttacking) {
+      // Right Punch out with Tiger shockwave
+      ctx.beginPath();
+      ctx.moveTo(14, torsoY - 10);
+      ctx.lineTo(28, torsoY - 12);
+      ctx.lineTo(40, torsoY - 14);
+      ctx.stroke();
+      ctx.fillStyle = '#d97706';
+      ctx.beginPath();
+      ctx.arc(40, torsoY - 14, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Left arm guard / flex
+      ctx.beginPath();
+      ctx.moveTo(-14, torsoY - 10);
+      ctx.lineTo(-24, torsoY - 18);
+      ctx.lineTo(-18, torsoY - 26);
+      ctx.stroke();
+    } else {
+      // Confident swagger walk
+      ctx.beginPath();
+      ctx.moveTo(-14, torsoY - 10);
+      ctx.lineTo(-20, torsoY + 2);
+      ctx.lineTo(-10, torsoY + 6);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(14, torsoY - 10);
+      ctx.lineTo(20, torsoY + 2);
+      ctx.lineTo(10, torsoY + 6);
+      ctx.stroke();
+    }
+
+    // 4. ICONIC FIROZA BRACELET ON RIGHT WRIST!
+    const wristX = isAttacking ? 34 : 16;
+    const wristY = isAttacking ? torsoY - 13 : torsoY + 4;
+    ctx.strokeStyle = '#cbd5e1'; // Silver chain link
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(wristX, wristY, 5, 0, Math.PI * 2);
+    ctx.stroke();
+    // Turquoise Gem
+    ctx.fillStyle = '#06b6d4';
+    ctx.beginPath();
+    ctx.ellipse(wristX, wristY - 3, 3.5, 2.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+
+    // 5. Head & Face
+    const headY = torsoY - 28;
+    ctx.fillStyle = '#d97706';
+    ctx.fillRect(-5, headY + 8, 10, 6);
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-9, headY - 8, 18, 18, 4);
+    else ctx.rect(-9, headY - 8, 18, 18);
+    ctx.fill();
+
+    // Bhaijaan Haircut (Short sides, styled top)
+    ctx.fillStyle = '#020617';
+    ctx.beginPath();
+    ctx.moveTo(-10, headY - 4);
+    ctx.lineTo(-11, headY - 14);
+    ctx.lineTo(-4, headY - 18);
+    ctx.lineTo(4, headY - 18);
+    ctx.lineTo(11, headY - 14);
+    ctx.lineTo(10, headY - 4);
+    ctx.closePath();
+    ctx.fill();
+
+    // Chulbul / Dabangg Moustache
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.moveTo(-6, headY + 3); ctx.quadraticCurveTo(0, headY + 1, 6, headY + 3);
+    ctx.quadraticCurveTo(0, headY + 5, -6, headY + 3);
+    ctx.fill();
+
+    // Intense Gaze Eyes
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(-4, headY - 2, 1.8, 0, Math.PI * 2);
+    ctx.arc(4, headY - 2, 1.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+    ctx.restore();
+  }
+
+  drawAkshayKumar(ctx) {
+    ctx.save();
+    const t = (this.animTimer ? this.animTimer * 0.005 : this.animTime) || 0;
+    const isAttacking = (this.state === 'attacking');
+    const kickAngle = isAttacking ? 0.35 : Math.sin(t * 3) * 0.15;
+
+    ctx.save();
+    ctx.shadowColor = '#eab308';
+    ctx.shadowBlur = isAttacking ? 28 : 14;
+
+    // 1. Dynamic Martial Arts Flying Kick Pose
+    const torsoY = -12;
+    // White Karate Gi Torso
+    ctx.fillStyle = '#f8fafc';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-10, torsoY - 14, 20, 26, 3);
+    else ctx.rect(-10, torsoY - 14, 20, 26);
+    ctx.fill();
+
+    // Black Belt Knot
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(-10, torsoY + 6, 20, 4);
+    ctx.beginPath();
+    ctx.moveTo(-2, torsoY + 8); ctx.lineTo(-6, torsoY + 18);
+    ctx.moveTo(2, torsoY + 8); ctx.lineTo(6, torsoY + 16);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#0f172a';
+    ctx.stroke();
+
+    // Legs - Flying Side Kick
+    ctx.strokeStyle = '#f8fafc';
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    // Back tucked leg
+    ctx.beginPath();
+    ctx.moveTo(-4, torsoY + 10);
+    ctx.lineTo(-12, torsoY + 18);
+    ctx.lineTo(-6, torsoY + 26);
+    ctx.stroke();
+    // Extended Flying Dragon Kick Leg!
+    const kickReach = isAttacking ? 38 : 26;
+    ctx.beginPath();
+    ctx.moveTo(4, torsoY + 10);
+    ctx.lineTo(16, torsoY + 8 - kickReach * 0.2);
+    ctx.lineTo(kickReach, torsoY + 4 - kickReach * 0.4);
+    ctx.stroke();
+
+    // Bare kicking foot with gold spark
+    ctx.fillStyle = '#d97706';
+    ctx.beginPath();
+    ctx.arc(kickReach, torsoY + 4 - kickReach * 0.4, 4.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. Arms (Guard fist & balance arm)
+    ctx.strokeStyle = '#d97706';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(-10, torsoY - 10);
+    ctx.lineTo(-20, torsoY - 16);
+    ctx.lineTo(-12, torsoY - 24);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(-12, torsoY - 24, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(10, torsoY - 10);
+    ctx.lineTo(20, torsoY - 6);
+    ctx.stroke();
+
+    // 3. Head & Khiladi Headband
+    const headY = torsoY - 28;
+    ctx.fillStyle = '#d97706';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-8, headY - 8, 16, 18, 4);
+    else ctx.rect(-8, headY - 8, 16, 18);
+    ctx.fill();
+
+    // Black hair
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.moveTo(-9, headY - 6);
+    ctx.lineTo(-9, headY - 14);
+    ctx.lineTo(0, headY - 18);
+    ctx.lineTo(9, headY - 14);
+    ctx.lineTo(9, headY - 6);
+    ctx.closePath();
+    ctx.fill();
+
+    // Red Khiladi Martial Headband
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(-8, headY - 8, 16, 4);
+    // Headband fluttering ribbons
+    ctx.beginPath();
+    ctx.moveTo(-8, headY - 6); ctx.lineTo(-18, headY - 4 + Math.sin(t * 6) * 4);
+    ctx.moveTo(-8, headY - 6); ctx.lineTo(-16, headY + 2 + Math.sin(t * 6) * 4);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#dc2626';
+    ctx.stroke();
+
+    // Khiladi Confident Smile & Eyes
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(0, headY + 3, 3, 0, Math.PI);
+    ctx.fill();
+
+    ctx.restore();
+    ctx.restore();
+  }
+
+  drawKatrinaKaif(ctx) {
+    ctx.save();
+    const t = (this.animTimer ? this.animTimer * 0.005 : this.animTime) || 0;
+    const isAttacking = (this.state === 'attacking');
+    const spinRot = isAttacking ? (t * 12) : Math.sin(t * 4) * 0.15;
+
+    ctx.save();
+    ctx.shadowColor = '#ec4899';
+    ctx.shadowBlur = isAttacking ? 28 : 14;
+
+    const torsoY = -10 + Math.sin(t * 4) * 2;
+
+    // 1. Swirling Pink & Gold Lehenga Skirt
+    ctx.fillStyle = '#ec4899';
+    ctx.beginPath();
+    ctx.moveTo(-22, torsoY + 22);
+    ctx.lineTo(0, torsoY + 4);
+    ctx.lineTo(22, torsoY + 22);
+    ctx.quadraticCurveTo(0, torsoY + 28 + Math.sin(t * 6) * 4, -22, torsoY + 22);
+    ctx.fill();
+    // Gold embroidery border
+    ctx.strokeStyle = '#facc15';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    // 2. Choli / Fitted Bodice
+    ctx.fillStyle = '#be185d';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-8, torsoY - 12, 16, 16, 3);
+    else ctx.rect(-8, torsoY - 12, 16, 16);
+    ctx.fill();
+    // Bare midriff
+    ctx.fillStyle = '#fbcfe8';
+    ctx.fillRect(-6, torsoY + 2, 12, 4);
+
+    // 3. Graceful Dancing Arms & Bangles
+    ctx.strokeStyle = '#fbcfe8';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    if (isAttacking) {
+      // Rapid whirling dance arms with SMGs / ribbon twirl
+      ctx.beginPath();
+      ctx.moveTo(-8, torsoY - 8); ctx.lineTo(-22, torsoY - 20); ctx.lineTo(-14, torsoY - 32);
+      ctx.moveTo(8, torsoY - 8); ctx.lineTo(22, torsoY - 20); ctx.lineTo(14, torsoY - 32);
+      ctx.stroke();
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(-8, torsoY - 8); ctx.lineTo(-18, torsoY - 2); ctx.lineTo(-10, torsoY + 8);
+      ctx.moveTo(8, torsoY - 8); ctx.lineTo(18, torsoY - 2); ctx.lineTo(10, torsoY + 8);
+      ctx.stroke();
+    }
+
+    // Gold Bangles
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.arc(-16, torsoY - 6, 3, 0, Math.PI * 2);
+    ctx.arc(16, torsoY - 6, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. Head & Long Flowing Brunette Hair
+    const headY = torsoY - 26;
+    ctx.fillStyle = '#fbcfe8';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-7, headY - 6, 14, 16, 4);
+    else ctx.rect(-7, headY - 6, 14, 16);
+    ctx.fill();
+
+    // Flowing dark wavy hair
+    ctx.fillStyle = '#1c1917';
+    ctx.beginPath();
+    ctx.moveTo(-8, headY - 4);
+    ctx.lineTo(-10, headY - 12);
+    ctx.lineTo(0, headY - 16);
+    ctx.lineTo(10, headY - 12);
+    ctx.lineTo(8, headY - 4);
+    ctx.lineTo(14, headY + 14); // Hair cascading down shoulders
+    ctx.lineTo(8, headY + 10);
+    ctx.lineTo(0, headY + 8);
+    ctx.lineTo(-8, headY + 10);
+    ctx.lineTo(-14, headY + 14);
+    ctx.closePath();
+    ctx.fill();
+
+    // Red Bindi & Glamorous Eyes
+    ctx.fillStyle = '#dc2626';
+    ctx.beginPath();
+    ctx.arc(0, headY - 2, 1.2, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+    ctx.restore();
+  }
+
+  drawAishwaryaRai(ctx) {
+    ctx.save();
+    const t = (this.animTimer ? this.animTimer * 0.005 : this.animTime) || 0;
+    const isAttacking = (this.state === 'attacking');
+    const graceBob = Math.sin(t * 3) * 2;
+
+    ctx.save();
+    ctx.shadowColor = '#14b8a6';
+    ctx.shadowBlur = isAttacking ? 28 : 16;
+
+    const torsoY = -10 + graceBob;
+
+    // 1. Royal Turquoise & Emerald Saree with Gold Zari Border
+    ctx.fillStyle = '#14b8a6';
+    ctx.beginPath();
+    ctx.moveTo(-20, torsoY + 24);
+    ctx.lineTo(0, torsoY + 4);
+    ctx.lineTo(20, torsoY + 24);
+    ctx.quadraticCurveTo(0, torsoY + 28, -20, torsoY + 24);
+    ctx.fill();
+    // Flowing pleated Pallu over shoulder
+    ctx.fillStyle = '#0d9488';
+    ctx.beginPath();
+    ctx.moveTo(-10, torsoY - 10);
+    ctx.lineTo(-24, torsoY + 8);
+    ctx.lineTo(-18, torsoY + 22);
+    ctx.lineTo(-4, torsoY + 8);
+    ctx.closePath();
+    ctx.fill();
+
+    // Saree Gold Border
+    ctx.strokeStyle = '#fde047';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 2. Choli / Blouse
+    ctx.fillStyle = '#0f766e';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-8, torsoY - 12, 16, 16, 3);
+    else ctx.rect(-8, torsoY - 12, 16, 16);
+    ctx.fill();
+
+    // 3. Graceful Kathak Mudra Arms
+    ctx.strokeStyle = '#fef08a';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-8, torsoY - 8); ctx.lineTo(-18, torsoY - 18); ctx.lineTo(-8, torsoY - 24);
+    ctx.moveTo(8, torsoY - 8); ctx.lineTo(18, torsoY - 18); ctx.lineTo(8, torsoY - 24);
+    ctx.stroke();
+
+    // 4. Head & Face
+    const headY = torsoY - 28;
+    ctx.fillStyle = '#fef08a';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-7, headY - 6, 14, 16, 4);
+    else ctx.rect(-7, headY - 6, 14, 16);
+    ctx.fill();
+
+    // Royal Coiffed Hairstyle
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(0, headY - 8, 9, Math.PI, 0);
+    ctx.fill();
+
+    // Miss World Jewel Tiara
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.moveTo(-8, headY - 6); ctx.lineTo(-4, headY - 14); ctx.lineTo(0, headY - 8);
+    ctx.lineTo(4, headY - 14); ctx.lineTo(8, headY - 6);
+    ctx.closePath();
+    ctx.fill();
+
+    // DAZZLING HYPNOTIC EMERALD GREEN EYES
+    ctx.fillStyle = '#0d9488';
+    ctx.beginPath();
+    ctx.arc(-3, headY - 1, 1.8, 0, Math.PI * 2);
+    ctx.arc(3, headY - 1, 1.8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#5eead4';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+
+    ctx.restore();
+    ctx.restore();
+  }
+
+  drawBaalveer(ctx) {
+    ctx.save();
+    const t = (this.animTimer ? this.animTimer * 0.005 : this.animTime) || 0;
+    const isAttacking = (this.state === 'attacking');
+    const floatY = Math.sin(t * 4) * 4;
+
+    ctx.save();
+    ctx.shadowColor = '#dc2626';
+    ctx.shadowBlur = isAttacking ? 28 : 16;
+
+    const torsoY = -12 + floatY;
+
+    // 1. Flowing Crimson Cape Billowing Behind
+    ctx.fillStyle = '#b91c1c';
+    ctx.beginPath();
+    ctx.moveTo(-10, torsoY - 12);
+    ctx.lineTo(-24 + Math.sin(t * 5) * 4, torsoY + 24);
+    ctx.lineTo(24 + Math.sin(t * 5 + 1) * 4, torsoY + 24);
+    ctx.lineTo(10, torsoY - 12);
+    ctx.closePath();
+    ctx.fill();
+    // Gold cape trim
+    ctx.strokeStyle = '#facc15';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 2. Legs & Boots
+    ctx.strokeStyle = '#dc2626';
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-5, torsoY + 12); ctx.lineTo(-6, torsoY + 24);
+    ctx.moveTo(5, torsoY + 12); ctx.lineTo(6, torsoY + 24);
+    ctx.stroke();
+    // Gold Superhero Boots
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.ellipse(-6, torsoY + 25, 5, 3, 0, 0, Math.PI * 2);
+    ctx.ellipse(6, torsoY + 25, 5, 3, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. Superhero Tunic & Gold Chest Armor
+    ctx.fillStyle = '#dc2626';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-10, torsoY - 12, 20, 24, 3);
+    else ctx.rect(-10, torsoY - 12, 20, 24);
+    ctx.fill();
+
+    // Pari Lok Gold Winged Chest Shield
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.moveTo(0, torsoY + 4);
+    ctx.lineTo(-8, torsoY - 6);
+    ctx.lineTo(0, torsoY - 10);
+    ctx.lineTo(8, torsoY - 6);
+    ctx.closePath();
+    ctx.fill();
+
+    // 4. Arms & SHAURYA MAGIC WAND
+    ctx.strokeStyle = '#fed7aa';
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    // Left arm forward
+    ctx.beginPath();
+    ctx.moveTo(-8, torsoY - 8); ctx.lineTo(-18, torsoY - 2); ctx.lineTo(-12, torsoY + 6);
+    ctx.stroke();
+
+    // Right Arm Brandishing Shaurya Wand!
+    ctx.beginPath();
+    ctx.moveTo(8, torsoY - 8);
+    ctx.lineTo(18, torsoY - 16);
+    ctx.lineTo(26, torsoY - 28);
+    ctx.stroke();
+
+    // Shaurya Magic Wand Shaft & Star
+    ctx.strokeStyle = '#dc2626';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(22, torsoY - 20);
+    ctx.lineTo(34, torsoY - 38);
+    ctx.stroke();
+    // Wand Golden Magic Star Tip
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.arc(34, torsoY - 38, 5, 0, Math.PI * 2);
+    ctx.fill();
+    // Stardust spark
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(34, torsoY - 38, 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 5. Head, Hair & Superhero Tiara
+    const headY = torsoY - 26;
+    ctx.fillStyle = '#fed7aa';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-7, headY - 6, 14, 16, 4);
+    else ctx.rect(-7, headY - 6, 14, 16);
+    ctx.fill();
+
+    // Baalveer Spiky Brown Hair
+    ctx.fillStyle = '#451a03';
+    ctx.beginPath();
+    ctx.moveTo(-8, headY - 4);
+    ctx.lineTo(-10, headY - 14);
+    ctx.lineTo(-4, headY - 18);
+    ctx.lineTo(2, headY - 16);
+    ctx.lineTo(8, headY - 14);
+    ctx.lineTo(8, headY - 4);
+    ctx.closePath();
+    ctx.fill();
+
+    // Gold Headpiece
+    ctx.fillStyle = '#facc15';
+    ctx.fillRect(-7, headY - 6, 14, 2.5);
+
+    ctx.restore();
+    ctx.restore();
+  }
 }
 
 class WarzoneMonsterEngine {
@@ -2166,6 +4804,22 @@ class WarzoneMonsterEngine {
       else if (typeId === 'captainamerica') window.WarzoneSFX.play('shield_ricochet');
       else if (typeId === 'hawkeye') window.WarzoneSFX.play('bow_release');
       else if (typeId === 'blackwidow') window.WarzoneSFX.play('gunfire');
+      else if (typeId === 'flash') window.WarzoneSFX.play('speed_force');
+      else if (typeId === 'superman') window.WarzoneSFX.play('heat_vision');
+      else if (typeId === 'shaktiman') window.WarzoneSFX.play('shaktiman_spin');
+      else if (typeId === 'odessa') window.WarzoneSFX.play('shotgun_blast');
+      else if (typeId === 'doremon') window.WarzoneSFX.play('doraemon_gadget');
+      else if (typeId === 'messi') window.WarzoneSFX.play('football_kick');
+      else if (typeId === 'ronaldo') window.WarzoneSFX.play('siuuu_cheer');
+      else if (typeId === 'goku') window.WarzoneSFX.play('kamehameha');
+      else if (typeId === 'krrish') window.WarzoneSFX.play('krrish_whoosh');
+      else if (typeId === 'ben10') window.WarzoneSFX.play('omnitrix_transform');
+      else if (typeId === 'ajaydevgan') window.WarzoneSFX.play('car_split_drift');
+      else if (typeId === 'salmankhan') window.WarzoneSFX.play('salman_punch');
+      else if (typeId === 'akshaykumar') window.WarzoneSFX.play('khiladi_kick');
+      else if (typeId === 'katrinakaif') window.WarzoneSFX.play('kamli_dance');
+      else if (typeId === 'aishwaryarai') window.WarzoneSFX.play('dola_re');
+      else if (typeId === 'baalveer') window.WarzoneSFX.play('baalveer_magic');
     }
 
     if (window.WarzoneHUD) {
@@ -2205,7 +4859,7 @@ class WarzoneMonsterEngine {
     const sectorsCount = Math.max(4, Math.min(8, Math.floor(count / 2)));
     const sectorHeight = docHeight / sectorsCount;
 
-    const types = ['vader', 'dragon', 'godzilla', 'mecha', 'cthulhu', 'kong', 'cerberus', 'thor', 'ironman', 'spiderman', 'batman', 'captainamerica', 'hawkeye', 'blackwidow'];
+    const types = ['vader', 'dragon', 'godzilla', 'mecha', 'cthulhu', 'kong', 'cerberus', 'thor', 'ironman', 'spiderman', 'batman', 'captainamerica', 'hawkeye', 'blackwidow', 'flash', 'superman', 'shaktiman', 'odessa', 'doremon', 'messi', 'ronaldo', 'goku', 'krrish', 'ben10', 'ajaydevgan', 'salmankhan', 'akshaykumar', 'katrinakaif', 'aishwaryarai', 'baalveer'];
     for (let i = 0; i < count; i++) {
       setTimeout(() => {
         const type = types[Math.floor(Math.random() * types.length)];

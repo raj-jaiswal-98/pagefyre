@@ -1,0 +1,65 @@
+{
+  "id": "superman",
+  "name": "Superman",
+  "title": "Man of Steel & Last Son of Krypton",
+  "category": "superhero",
+  "themeColor": "#0284c7",
+  "secondaryColor": "#dc2626",
+  "accentGlow": "rgba(2, 132, 199, 0.85)",
+  "badge": "MAN OF STEEL",
+  "avatarIcon": "🦸",
+  "stats": {
+    "health": 5000,
+    "maxHealth": 5000,
+    "speed": 7.8,
+    "damage": 390,
+    "attackRange": 560,
+    "chaosRating": "Kryptonian Might",
+    "swarmCount": 6
+  },
+  "visuals": {
+    "type": "superman_rig",
+    "width": 105,
+    "height": 125,
+    "capePhysics": true,
+    "glowColor": "#0284c7"
+  },
+  "attacks": [
+    {
+      "id": "heat_vision_laser",
+      "name": "Kryptonian Heat Vision Lasers",
+      "type": "laser_slice",
+      "damage": 420,
+      "cooldown": 1700,
+      "range": 580,
+      "sfx": "heat_vision",
+      "description": "Unleashes twin beams of 10,000-degree ruby heat vision from eyes, cleanly bisecting and melting web nodes."
+    },
+    {
+      "id": "arctic_freeze_breath",
+      "name": "Sub-Zero Arctic Freeze Breath",
+      "type": "dom_burn",
+      "damage": 350,
+      "cooldown": 1900,
+      "range": 500,
+      "sfx": "freeze_breath",
+      "description": "Exhales a freezing arctic blizzard that encases tables and cards in crystal ice, shattering them to dust."
+    },
+    {
+      "id": "super_sonic_ground_slam",
+      "name": "Seismic Super-Punch Crater",
+      "type": "dom_crush",
+      "damage": 410,
+      "cooldown": 1800,
+      "range": 460,
+      "sfx": "heavy_stomp",
+      "description": "Descends from the sky with a sonic-boom punch, fracturing the DOM hierarchy into flying debris."
+    }
+  ],
+  "voicelines": [
+    "Truth, justice, and a better tomorrow!",
+    "There is a superhero in all of us, we just need the courage to put on the cape.",
+    "Stand down. This layout is under my protection.",
+    "Up, up, and away!"
+  ]
+}

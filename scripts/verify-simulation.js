@@ -3,10 +3,58 @@ const path = require('path');
 
 // Setup minimal browser-like globals for headless simulation
 global.window = global;
+
+// Mock canvas 2D context to validate render methods and catch any canvas errors (like negative radii)
+const mockCtx = {
+  save: () => {},
+  restore: () => {},
+  translate: () => {},
+  rotate: () => {},
+  scale: () => {},
+  beginPath: () => {},
+  closePath: () => {},
+  moveTo: () => {},
+  lineTo: () => {},
+  quadraticCurveTo: () => {},
+  bezierCurveTo: () => {},
+  arc: (x, y, r) => {
+    if (r < 0) throw new Error(`Negative radius in arc: ${r}`);
+  },
+  ellipse: (x, y, rx, ry) => {
+    if (rx < 0 || ry < 0) throw new Error(`Negative radius in ellipse: rx=${rx}, ry=${ry}`);
+  },
+  fill: () => {},
+  stroke: () => {},
+  fillRect: () => {},
+  strokeRect: () => {},
+  rect: () => {},
+  roundRect: () => {},
+  fillText: () => {},
+  strokeText: () => {},
+  setLineDash: () => {},
+  createRadialGradient: () => ({ addColorStop: () => {} }),
+  createLinearGradient: () => ({ addColorStop: () => {} }),
+  setTransform: () => {}
+};
+
 global.document = {
   documentElement: { clientWidth: 1200, clientHeight: 800 },
   body: { clientWidth: 1200, clientHeight: 2000, appendChild: () => {}, removeChild: () => {} },
-  createElement: (tag) => ({
+  getElementById: () => null,
+  querySelectorAll: () => [],
+  addEventListener: () => {}
+};
+
+global.document.createElement = (tag) => {
+  if (tag.toLowerCase() === 'canvas') {
+    return {
+      getContext: () => mockCtx,
+      style: {},
+      width: 1200,
+      height: 800
+    };
+  }
+  return {
     tagName: tag.toUpperCase(),
     style: {},
     classList: { add: () => {}, remove: () => {}, contains: () => false },
@@ -18,11 +66,9 @@ global.document = {
     removeEventListener: () => {},
     remove: () => {},
     getBoundingClientRect: () => ({ left: 100, top: 200, width: 200, height: 50, right: 300, bottom: 250 })
-  }),
-  getElementById: () => null,
-  querySelectorAll: () => [],
-  addEventListener: () => {}
+  };
 };
+
 global.window.scrollX = 0;
 global.window.scrollY = 0;
 global.window.innerWidth = 1200;
@@ -107,9 +153,14 @@ window.WarzoneDOM.releaseClaim = function(monsterId) {
   });
 };
 
-console.log('--- STARTING VERIFICATION SIMULATION FOR HAWKEYE, CAPTAIN AMERICA & BLACK WIDOW ---');
+console.log('--- STARTING VERIFICATION SIMULATION FOR NEW TITANS & WEAPONS ---');
 
-const testCharacters = ['hawkeye', 'captainamerica', 'blackwidow'];
+const testCharacters = [
+  'hawkeye', 'captainamerica', 'blackwidow', 'flash', 'superman',
+  'shaktiman', 'odessa', 'doremon', 'messi', 'ronaldo',
+  'goku', 'krrish', 'ben10', 'ajaydevgan',
+  'salmankhan', 'akshaykumar', 'katrinakaif', 'aishwaryarai', 'baalveer'
+];
 
 for (const charKey of testCharacters) {
   destroyedTargets = [];
@@ -133,6 +184,7 @@ for (const charKey of testCharacters) {
   for (let tick = 0; tick < 1200; tick++) {
     simTime += 16.6;
     monster.update(16.6, allMonsters);
+    monster.draw(mockCtx);
 
     if (monster.target && monster.state === 'attacking') {
       monster.performAttack(simTime, allMonsters);

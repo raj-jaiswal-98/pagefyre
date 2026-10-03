@@ -1,0 +1,54 @@
+{
+  "id": "akshaykumar",
+  "name": "Akshay Kumar (Khiladi)",
+  "title": "Bollywood Khiladi & Martial Stunt Legend",
+  "description": "The martial arts superstar and undisputed Khiladi enters executing high-altitude helicopter drops and acrobatic stunts. Obliterates DOM structures with 360 flying dragon kicks, Paisa-Double energy multiplier claps, and blazing stunt punches.",
+  "color": "#eab308",
+  "secondaryColor": "#ca8a04",
+  "accentColor": "#fde047",
+  "glowColor": "rgba(234, 179, 8, 0.7)",
+  "themeClass": "theme-akshaykumar",
+  "health": 5100,
+  "speed": 7.4,
+  "size": 76,
+  "wingspan": 80,
+  "attacks": [
+    {
+      "id": "khiladi_flying_kick",
+      "name": "Khiladi 786 Flying Dragon Kick",
+      "type": "laser_slice",
+      "damage": 480,
+      "cooldown": 1500,
+      "range": 560,
+      "sfx": "khiladi_kick",
+      "description": "Performs a gravity-defying horizontal flying side kick that slices through paragraphs and buttons at Mach speed."
+    },
+    {
+      "id": "paisa_double_slap",
+      "name": "25 Din Mein Paisa Double Strike",
+      "type": "dom_crush",
+      "damage": 500,
+      "cooldown": 1900,
+      "range": 500,
+      "sfx": "akshay_chop",
+      "description": "Channels legendary Raju Hera Pheri energy, striking the target twice with duplicated gold coin shockwaves."
+    },
+    {
+      "id": "helicopter_stunt_drop",
+      "name": "Helicopter Stunt Dive Bomb",
+      "type": "dom_throw",
+      "damage": 440,
+      "cooldown": 1700,
+      "range": 620,
+      "sfx": "khiladi_kick",
+      "description": "Leaps from an imaginary stunt chopper at the top of the viewport, dive-bombing target sections with immense shock force."
+    }
+  ],
+  "voicelines": [
+    "Khiladi bhaiya zindabad!",
+    "25 din mein paisa double!",
+    "Jo main bolta hoon woh main karta hoon!",
+    "Asli Khiladi kabhi haar nahi maanta!",
+    "Direct action, no tension!"
+  ]
+}

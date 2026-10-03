@@ -1,0 +1,89 @@
+{
+  "id": "ben10",
+  "name": "Ben 10 (Omnitrix)",
+  "title": "Master of the Omnitrix & Hero of 10 Aliens",
+  "category": "omnitrix_hero",
+  "themeColor": "#22c55e",
+  "secondaryColor": "#052e16",
+  "accentGlow": "rgba(34, 197, 94, 0.95)",
+  "badge": "HERO TIME",
+  "avatarIcon": "🟢",
+  "stats": {
+    "health": 5000,
+    "maxHealth": 5000,
+    "speed": 7.5,
+    "damage": 420,
+    "attackRange": 580,
+    "chaosRating": "Galactic Protector",
+    "swarmCount": 6
+  },
+  "visuals": {
+    "type": "ben10_rig",
+    "width": 110,
+    "height": 125,
+    "dialColor": "#22c55e",
+    "shirtColor": "#f8fafc",
+    "jacketColor": "#15803d",
+    "glowColor": "#22c55e"
+  },
+  "attacks": [
+    {
+      "id": "omnitrix_alien_morph",
+      "name": "Omnitrix Alien Morph & Slam",
+      "type": "dom_crush",
+      "damage": 480,
+      "cooldown": 1800,
+      "range": 600,
+      "sfx": "omnitrix_transform",
+      "description": "Slams the emerald Omnitrix dial, transforming into Heatblast, Four Arms, XLR8, or Diamondhead with an explosive alien blast."
+    },
+    {
+      "id": "heatblast_inferno_blast",
+      "name": "Heatblast Magma Fireball",
+      "type": "dom_burn",
+      "damage": 440,
+      "cooldown": 1500,
+      "range": 550,
+      "sfx": "heatblast_fire",
+      "description": "Pyronite alien Heatblast projects molten volcanic fireballs that incinerate web images and cards into glowing embers."
+    },
+    {
+      "id": "fourarms_sonic_clap",
+      "name": "Four Arms Thunderclap Shockwave",
+      "type": "dom_crush",
+      "damage": 460,
+      "cooldown": 2100,
+      "range": 520,
+      "sfx": "fourarms_clap",
+      "description": "Tetramand red titan Four Arms slams all 4 muscular fists together in a massive sonic shockwave pulverizing paragraphs."
+    },
+    {
+      "id": "xlr8_hyper_dash",
+      "name": "XLR8 Supersonic Cyclone Strike",
+      "type": "laser_slice",
+      "damage": 400,
+      "cooldown": 1300,
+      "range": 680,
+      "sfx": "xlr8_speed",
+      "description": "Kineceleran speedster XLR8 dashes on frictionless wheel-feet at Mach 5, creating razor-sharp supersonic slipstreams."
+    },
+    {
+      "id": "diamondhead_shard_volley",
+      "name": "Diamondhead Crystal Shard Barrage",
+      "type": "dom_throw",
+      "damage": 420,
+      "cooldown": 1700,
+      "range": 580,
+      "sfx": "diamondhead_shard",
+      "description": "Petrosapien crystalline warrior Diamondhead fires sharp diamond crystal shard volleys that lodge and shatter DOM elements."
+    }
+  ],
+  "voicelines": [
+    "It's Hero Time!",
+    "Let's see what the Omnitrix has dialed in!",
+    "Heatblast! Ready to bring the heat!",
+    "Four Arms is in the house! Time to clobber!",
+    "Too fast for you! XLR8 can't be caught!",
+    "Diamondhead! You can't break diamond!"
+  ]
+}

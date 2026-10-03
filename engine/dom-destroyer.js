@@ -222,6 +222,152 @@ class WarzoneDOMDestroyer {
           /footer|card|dark|modal|sidebar|container|panel/i.test(el.className + ' ' + el.id)
         );
         break;
+
+      // 12. Flash: Targets Rapid Navigation, Fast Links, Breadcrumbs & Carousels
+      case 'fast':
+        matches = candidates.filter(el =>
+          el.tagName === 'A' ||
+          /fast|quick|carousel|slider|speed|track|nav|crumb/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 13. Superman: Targets Hero Headers, Massive Banners & Skylines
+      case 'heroic':
+        matches = candidates.filter(el =>
+          /^H[1-3]$/i.test(el.tagName) ||
+          /hero|banner|jumbotron|lead|headline|title/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 14. Shaktiman: Targets Meditative Blocks, Quotes, Centered Articles & Footers
+      case 'spiritual':
+        matches = candidates.filter(el =>
+          el.tagName === 'BLOCKQUOTE' ||
+          el.tagName === 'P' ||
+          /quote|center|manifesto|mission|about|truth|wisdom/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 15. Odessa: Targets Heavy Cards, Sidebars, Grids & Machine Panels
+      case 'heavy':
+        matches = candidates.filter(el =>
+          el.tagName === 'ASIDE' ||
+          el.tagName === 'SECTION' ||
+          /card|box|panel|metal|heavy|sidebar|widget|grid/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 16. Doraemon: Targets Playful Widgets, Buttons, Icons, Popups & Dialogs
+      case 'gadget':
+        matches = candidates.filter(el =>
+          el.tagName === 'BUTTON' ||
+          el.tagName === 'DIALOG' ||
+          /btn|icon|badge|popup|modal|gadget|tool|dropdown|select/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 17. Messi: Targets Precision Badges, Golden Cards, Media & Images
+      case 'precision':
+        matches = candidates.filter(el =>
+          el.tagName === 'IMG' ||
+          el.tagName === 'FIGURE' ||
+          /card|badge|trophy|gold|star|thumb|media|spotlight/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 18. Ronaldo: Targets Action Buttons, High Scores, Stats & Leaders
+      case 'striker':
+        matches = candidates.filter(el =>
+          el.tagName === 'BUTTON' ||
+          /^H[1-4]$/i.test(el.tagName) ||
+          /stat|score|number|leader|champion|btn|counter|metric/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 19. Goku: Targets High-Impact Hero Sections, Primary Headings & Main Containers
+      case 'saiyan':
+        matches = candidates.filter(el =>
+          /^H[1-3]$/i.test(el.tagName) ||
+          el.tagName === 'MAIN' ||
+          el.tagName === 'SECTION' ||
+          /hero|banner|titan|power|main|highlight|featured/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 20. Krrish: Targets Elevated Headers, Navigation Bars, Skyscraper Banners & Bio-Tech Labs
+      case 'krrish':
+        matches = candidates.filter(el =>
+          /^H[1-4]$/i.test(el.tagName) ||
+          el.tagName === 'NAV' ||
+          el.tagName === 'HEADER' ||
+          /sky|hero|top|nav|header|elevat|tower|lab|tech/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 21. Ben 10: Targets Interactive Widgets, Controls, Alien Technology & Dynamic Components
+      case 'alien':
+        matches = candidates.filter(el =>
+          el.tagName === 'BUTTON' ||
+          el.tagName === 'INPUT' ||
+          el.tagName === 'FORM' ||
+          /widget|control|dial|tech|alien|device|gear|btn/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 22. Ajay Devgn: Targets Luxury Brands, Vehicle Showrooms, Police Stunt Arenas & Saffron Headlines
+      case 'kesari':
+        matches = candidates.filter(el =>
+          el.tagName === 'ARTICLE' ||
+          el.tagName === 'SECTION' ||
+          /^H[1-4]$/i.test(el.tagName) ||
+          /card|brand|gold|car|auto|drive|luxury|kesari|police|stunt/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 23. Salman Khan: Targets Muscle Gyms, Vehicles, VIP Lounges & Bold Hero Banners
+      case 'bhaijaan':
+        matches = candidates.filter(el =>
+          el.tagName === 'SECTION' ||
+          /^H[1-3]$/i.test(el.tagName) ||
+          /hero|vip|gym|muscle|tiger|drive|suv|power|banner/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 24. Akshay Kumar: Targets Action Buttons, Stunt Cards & Financial / Multiplier Headers
+      case 'khiladi':
+        matches = candidates.filter(el =>
+          el.tagName === 'BUTTON' ||
+          /^H[1-4]$/i.test(el.tagName) ||
+          /action|stunt|kick|card|btn|invest|gold|double/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 25. Katrina Kaif: Targets Fashion Cards, Video Players, Dance Widgets & Media Containers
+      case 'diva':
+        matches = candidates.filter(el =>
+          el.tagName === 'IMG' ||
+          el.tagName === 'VIDEO' ||
+          /card|fashion|media|dance|glam|video|star/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 26. Aishwarya Rai: Targets Royal Cosmetics, Luxury Brands & Emerald/Gold Layout Elements
+      case 'queen':
+        matches = candidates.filter(el =>
+          el.tagName === 'HEADER' ||
+          el.tagName === 'ARTICLE' ||
+          /brand|luxury|royal|queen|gold|beauty|crown/i.test(el.className + ' ' + el.id)
+        );
+        break;
+
+      // 27. Baalveer: Targets Fantasy Headers, Children / Games Sections & Navbars
+      case 'fairy':
+        matches = candidates.filter(el =>
+          el.tagName === 'NAV' ||
+          /^H[1-4]$/i.test(el.tagName) ||
+          /fun|game|magic|fairy|hero|nav|star/i.test(el.className + ' ' + el.id)
+        );
+        break;
     }
 
     // If preferred matches found, sort by proximity to monster if coords provided
@@ -344,10 +490,6 @@ class WarzoneDOMDestroyer {
       const rect = el.getBoundingClientRect();
       const cx = rect.left + window.scrollX + rect.width / 2;
       const cy = rect.top + window.scrollY + rect.height / 2;
-
-      if (window.WarzoneParticles) {
-        window.WarzoneParticles.addDamageText(cx, cy, `-${damage} ${actionName.toUpperCase()}!`, monster ? monster.themeColor : '#ff0055', damage > 300);
-      }
     } catch (e) {}
 
     if (window.WarzoneHUD) {
@@ -1138,6 +1280,550 @@ class WarzoneDOMDestroyer {
           { name: 'Hellfire Sentry Beacon', icon: '🔥', status: 'Inferno Burning' },
           { name: 'Brimstone Chain Watch', icon: '⛓️', status: 'Chains Locked' }
         ]
+      },
+      flash: {
+        title: 'S.T.A.R. LABS PARTICLE ACCELERATOR & SPEED FORCE NEXUS',
+        subtitle: 'The fastest man alive has rebuilt the domain in femtoseconds! Golden lightning courses through hyper-speed transit loops.',
+        badge: 'SPEED FORCE SANCTUARY',
+        icon: '⚡',
+        bgGradient: 'linear-gradient(135deg, rgba(40, 5, 5, 0.98), rgba(80, 15, 15, 0.95), rgba(30, 5, 5, 0.98))',
+        borderColor: '#facc15',
+        accentColor: '#fde047',
+        widgets: [
+          { title: 'Cosmic Treadmill Matrix', desc: 'Relativistic quantum running track allowing time-travel acceleration', action: 'ENTER SPEED FORCE' },
+          { title: 'Particle Accelerator Core', desc: 'Central hyper-density collider generating clean Speed Force lightning', action: 'CHARGE SPEED FORCE' },
+          { title: 'Big Belly Burger Pavilion', desc: 'Serving 10,000 calorie hyper-metabolism banquets for speedsters', action: 'DEVOUR BURGERS' }
+        ],
+        posters: [
+          { title: 'FASTEST MAN ALIVE', sub: 'Speed • Hope • Lightning', quote: '“Life is locomotion... if you’re not moving, you’re not living.”', bg: 'linear-gradient(135deg, #7f1d1d, #b45309)', badge: 'VELOCITY' },
+          { title: 'S.T.A.R. LABS RESEARCH EXPO', sub: 'Tachyon Physics & Temporal Shields', quote: '“Break the sound barrier, touch the future.”', bg: 'linear-gradient(135deg, #991b1b, #ca8a04)', badge: 'SCIENCE' },
+          { title: 'CENTRAL CITY 5K MARATHON', sub: 'Speedster Fun-Run & Lightning Show', quote: '“Don’t blink or you’ll miss the whole race!”', bg: 'linear-gradient(135deg, #450a0a, #eab308)', badge: 'FESTIVAL' }
+        ],
+        roads: [
+          { name: 'Flash Lightning Expressway', vehicles: ['⚡ Golden Lightning Streak', '🏎️ S.T.A.R. Labs Mobile Unit', '🏍️ Flash-Pod Speeder', '⚡ Tachyon Skiff'] },
+          { name: 'Central City Avenue', vehicles: ['⚡ Red Blur Patrol', '🏎️ S.T.A.R. Tech Van', '🏍️ Electric Courier'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Flash Museum Hall of Fame', type: 'temple', pop: '+220 Central City Historians', desc: 'Golden statues & historical logs of the Scarlet Speedster' },
+          { icon: '🛡️', name: 'Tachyon Runner Barracks', type: 'barracks', pop: '+480 Speed Force Cadets', desc: 'Reflex reaction tubes & relativistic wind tunnels' },
+          { icon: '🏡', name: 'Central City Loft Apartments', type: 'house', pop: '+190 Speedster Families', desc: 'Futuristic high-rise suites with lightning rods' },
+          { icon: '🔬', name: 'Caitlin Snow Cryo-Bio Lab', type: 'lab', pop: '+110 Bio-Physicists', desc: 'Metabolic synthesis & Speed Force energy dampers' }
+        ],
+        watchtowers: [
+          { name: 'S.T.A.R. Labs Satellite Radar', icon: '📡', status: 'Tachyon Grid Active' },
+          { name: 'Lightning Rod Beacon', icon: '⚡', status: 'Charged 1.21 GW' },
+          { name: 'Central City Clocktower', icon: '🕰️', status: 'Time Flow Calibrated' }
+        ]
+      },
+      superman: {
+        title: 'CRYSTALLINE FORTRESS OF SOLITUDE & METROPOLIS CITADEL',
+        subtitle: 'Kryptonian heritage and solar power illuminate the horizon. Truth, justice, and a better tomorrow stand triumphant.',
+        badge: 'SOLAR KRYPTONIAN CITADEL',
+        icon: '🦸‍♂️',
+        bgGradient: 'linear-gradient(135deg, rgba(5, 20, 50, 0.98), rgba(15, 45, 95, 0.95), rgba(40, 10, 20, 0.98))',
+        borderColor: '#ef4444',
+        accentColor: '#38bdf8',
+        widgets: [
+          { title: 'Kryptonian Sunstone Vault', desc: 'Pristine self-growing crystalline matrices holding millennia of cosmic wisdom', action: 'GROW SUNSTONES' },
+          { title: 'Yellow Sun Solar Chamber', desc: 'Concentrated solar radiation bath supercharging cellular invulnerability', action: 'BASK IN YELLOW SUN' },
+          { title: 'Daily Planet Hologlobe', desc: 'Spinning golden globe transmitting galactic peace broadcasts to all nations', action: 'BROADCAST HOPE' }
+        ],
+        posters: [
+          { title: 'SYMBOL OF HOPE', sub: 'Truth • Justice • Tomorrow', quote: '“It’s not an S... in my world, it means Hope.”', bg: 'linear-gradient(135deg, #1e3a8a, #991b1b)', badge: 'HOPE' },
+          { title: 'DAILY PLANET EXTRA EDITION', sub: 'The Man of Steel Rebuilds the World', quote: '“A protector in the sky for all mankind.”', bg: 'linear-gradient(135deg, #0369a1, #b91c1c)', badge: 'HEADLINE' },
+          { title: 'KRYPTONIAN HERITAGE ARCHIVES', sub: 'Wisdom of Jor-El & the House of El', quote: '“You will give the people an ideal to strive towards.”', bg: 'linear-gradient(135deg, #1e1b4b, #1d4ed8)', badge: 'HERITAGE' }
+        ],
+        roads: [
+          { name: 'Metropolis Skyway Boulevard', vehicles: ['🦸‍♂️ Supersonic Red Streak', '🚀 Daily Planet Hover-Chopper', '🏎️ Metropolis Solar Car', '🛸 Sunstone Skiff'] },
+          { name: 'Arctic Fortress Ice Route', vehicles: ['🛸 Kryptonian Explorer', '🛷 High-Speed Snow-Cruiser', '🦸‍♂️ Golden Solar Flare'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Hall of El Ancestral Temple', type: 'temple', pop: '+240 Sunstone Keepers', desc: 'Towering crystalline arches whispering ancient cosmic poems' },
+          { icon: '🛡️', name: 'Metropolis Guardian Garrison', type: 'barracks', pop: '+520 Special First Responders', desc: 'Solar-shielded high-altitude emergency rescue squads' },
+          { icon: '🏡', name: 'Centennial Park Residences', type: 'house', pop: '+200 Metropolis Citizens', desc: 'Sunlit glass penthouses overlooking pristine parks' },
+          { icon: '🔬', name: 'Kelex AI Kryptonian Lab', type: 'lab', pop: '+105 Crystalline Engineers', desc: 'Sunstone memory matrices & solar-plasma refinement' }
+        ],
+        watchtowers: [
+          { name: 'Arctic Sunstone Spire', icon: '❄️', status: 'Sub-Zero Scan Clear' },
+          { name: 'Solar Energy Satellite', icon: '☀️', status: '100% Solar Charge' },
+          { name: 'Daily Planet Globe Spire', icon: '🌐', status: 'Global Transmit Ready' }
+        ]
+      },
+      shaktiman: {
+        title: 'SURYAVANSHI SACRED ASHRAM & KUNDALINI CHAKRA TEMPLE',
+        subtitle: 'Asato ma sadgamaya, tamaso ma jyotirgamaya! Kundalini supreme energy balances the universe with righteousness and eternal light.',
+        badge: 'KUNDALINI YOGIC DOMINION',
+        icon: '🕉️',
+        bgGradient: 'linear-gradient(135deg, rgba(40, 15, 5, 0.98), rgba(80, 25, 10, 0.95), rgba(45, 10, 5, 0.98))',
+        borderColor: '#eab308',
+        accentColor: '#f97316',
+        widgets: [
+          { title: 'Sahasrara Lotus Chakra', desc: 'Thousand-petaled golden lotus radiating supreme spiritual enlightenment', action: 'AWAKEN CHAKRAS' },
+          { title: 'Five Primal Elements Forge', desc: 'Earth, Water, Fire, Air & Ether resonating with Yogic balance', action: 'BALANCE ELEMENTS' },
+          { title: 'Chhoti Chhoti Magar Moti Baatein', desc: 'Broadcasting moral wisdom, civic duty, truth and fitness lessons to children', action: 'DISPENSE WISDOM' }
+        ],
+        posters: [
+          { title: 'VICTORY OF TRUTH (SATYAMEV JAYATE)', sub: 'Righteousness • Dharma • Yogic Power', quote: '“Buraai kitni bhi taqatwar ho, ant mein jeet sachhai ki hi hoti hai!”', bg: 'linear-gradient(135deg, #7c2d12, #a16207)', badge: 'DHARMA' },
+          { title: 'YOGA & KUNDALINI AWAKENING', sub: 'Seven Chakras • Supreme Cosmic Energy', quote: '“Pure mind, pure body, unstoppable power.”', bg: 'linear-gradient(135deg, #854d0e, #c2410c)', badge: 'SPIRITUAL' },
+          { title: 'CHHOTI CHHOTI MAGAR MOTI BAATEIN', sub: 'Moral Science & Daily Good Deeds', quote: '“Always brush your teeth and respect your elders!”', bg: 'linear-gradient(135deg, #451a03, #b45309)', badge: 'WISDOM' }
+        ],
+        roads: [
+          { name: 'Himalayan Golden Pilgrimage Highway', vehicles: ['🕉️ Spinning Golden Whirlwind', '🛺 Solar Vedic Chariot', '🐎 White Stallion Escort', '🛸 Lotus Cloud Skiff'] },
+          { name: 'Ganga Holy Riverway', vehicles: ['⛵ Golden Lotus Boat', '🕉️ Spiritual Energy Orb', '🛺 Electric Eco-Cart'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Suryavanshi Mahasabha Ashram', type: 'temple', pop: '+260 Suryavanshi Rishis', desc: 'Sacred chanting chambers resonating with OM vibrations' },
+          { icon: '🛡️', name: 'Dharmic Martial Gurukul', type: 'barracks', pop: '+490 Yoga & Kalaripayattu Disciples', desc: 'Kundalini meditation & ancient weapon mastery grounds' },
+          { icon: '🏡', name: 'Vedic Clay & Teak Manors', type: 'house', pop: '+180 Harmonious Settlers', desc: 'Eco-spiritual homes surrounded by tulsi gardens' },
+          { icon: '🔬', name: 'Ayurvedic Science Rasashala', type: 'lab', pop: '+95 Herbal Alchemists', desc: 'Distilling soma nectar & pranayama herbs' }
+        ],
+        watchtowers: [
+          { name: 'Himalayan Trishul Peak', icon: '🏔️', status: 'OM Chants Resonating' },
+          { name: 'Golden Sun Pillar', icon: '☀️', status: 'Solar Prana Infused' },
+          { name: 'Dharma Chakra Spire', icon: '☸️', status: 'Turning with Righteousness' }
+        ]
+      },
+      odessa: {
+        title: 'JUNKERTOWN SCRAP MEGAPLEX & GLADIATORIAL ARENA',
+        subtitle: 'The Junker Queen reigns supreme! Welcome to the wasteland scrap arena where might makes right and axes rule!',
+        badge: 'JUNKER WASTELAND ARENA',
+        icon: '🪓',
+        bgGradient: 'linear-gradient(135deg, rgba(30, 20, 10, 0.98), rgba(55, 35, 15, 0.95), rgba(20, 15, 10, 0.98))',
+        borderColor: '#f97316',
+        accentColor: '#38bdf8',
+        widgets: [
+          { title: 'Carnage Battle-Axe Forge', desc: 'Custom serrated steel forged from scrapped war tanks and turbine engines', action: 'SHARPEN AXE' },
+          { title: 'The Scrapper Thunderdome', desc: 'High-voltage electric cage match hosting nightly mech gladiators', action: 'ENTER THUNDERDOME' },
+          { title: 'Scrap Metal Recycler', desc: 'Converting destroyed DOM containers into custom armor plating and turbo buggies', action: 'SALVAGE SCRAP' }
+        ],
+        posters: [
+          { title: 'RECKONING AT JUNKERTOWN', sub: 'Bow to the Queen of Scrap', quote: '“I am your Queen! And what does the Queen say? OFF WITH THEIR HEADS!”', bg: 'linear-gradient(135deg, #7c2d12, #c2410c)', badge: 'REIGN' },
+          { title: 'ARENA GLADIATOR TRIALS', sub: 'No Rules • Pure Adrenaline • Heavy Metal', quote: '“If you can’t take a hit, don’t step in my ring!”', bg: 'linear-gradient(135deg, #431407, #ea580c)', badge: 'ARENA' },
+          { title: 'CUSTOM CHOPPER & MECH EXPO', sub: 'Supercharged V8 Wasteland Hotrods', quote: '“Loud, fast, and armed to the teeth!”', bg: 'linear-gradient(135deg, #18181b, #9a3412)', badge: 'WASTELAND' }
+        ],
+        roads: [
+          { name: 'Wasteland Dust Highway', vehicles: ['🚜 Junker Queen War Rig', '🏍️ Scrap Chopper', '🏎️ V8 Nitro Interceptor', '🛻 Armored Battle-Truck'] },
+          { name: 'Outback Scrap Route', vehicles: ['🏎️ Rusty Dune Buggy', '🏍️ Wasteland Dirtbike', '🚜 Heavy Scrap Loader'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'The Queen’s Scrap Throne Hall', type: 'temple', pop: '+210 Junker Warlords', desc: 'Towering throne built from reclaimed champion mechs' },
+          { icon: '🛡️', name: 'Scrapper Gladiator Pit', type: 'barracks', pop: '+540 Wasteland Brawlers', desc: 'Shotgun shooting ranges & jagged blade sparring' },
+          { icon: '🏡', name: 'Reinforced Metal Cargo Shacks', type: 'house', pop: '+175 Wasteland Survivors', desc: 'Riveted corrugated steel dwellings with solar panels' },
+          { icon: '🔬', name: 'Nitro & Magnetics Workshop', type: 'lab', pop: '+90 Scrapyard Mechanics', desc: 'Magnetic Gracie blade return & nitro boost injects' }
+        ],
+        watchtowers: [
+          { name: 'Scrap Crane Sniper Post', icon: '🏗️', status: '360° Wasteland Guard' },
+          { name: 'V8 Nitro Siren Tower', icon: '🚨', status: 'Alarm Horns Blaring' },
+          { name: 'Spiked Barricade Gate', icon: '🚧', status: 'Fortified & Armed' }
+        ]
+      },
+      doremon: {
+        title: '22ND CENTURY TOKYO GADGET PARADISE & MATSURI PARK',
+        subtitle: 'Boku Doraemon! The 4-Dimensional Pocket has transformed the page into a joyful wonderland of futuristic inventions and dorayaki treats!',
+        badge: '4D GADGET WONDERLAND',
+        icon: '🔔',
+        bgGradient: 'linear-gradient(135deg, rgba(10, 30, 60, 0.98), rgba(20, 60, 110, 0.95), rgba(10, 25, 50, 0.98))',
+        borderColor: '#38bdf8',
+        accentColor: '#facc15',
+        widgets: [
+          { title: '4-Dimensional Pocket Vault', desc: 'Infinite pocket storing 4,500 wondrous gadgets from the 22nd century', action: 'PULL SECRET GADGET' },
+          { title: 'Dokodemo Door Hub (Anywhere Door)', desc: 'Instant pink warp gateway connected to any point in the universe', action: 'OPEN ANYWHERE DOOR' },
+          { title: 'Grand Dorayaki Bakery & Buffet', desc: 'Unlimited sweet red-bean pancakes fresh from the steam oven', action: 'FEAST ON DORAYAKI' }
+        ],
+        posters: [
+          { title: 'BOKU DORAEMON!', sub: 'Friendship • Dreams • Wonder', quote: '“If you have an idea and a dream, the 22nd century will make it real!”', bg: 'linear-gradient(135deg, #0369a1, #1d4ed8)', badge: 'DREAMS' },
+          { title: 'TAKE-COPTER SKY CRUISE', sub: 'Fly Anywhere in the Open Breeze', quote: '“Attach the bamboo copter and touch the sky!”', bg: 'linear-gradient(135deg, #0284c7, #eab308)', badge: 'ADVENTURE' },
+          { title: 'SWEET DORAYAKI CARNIVAL', sub: 'Fresh Red Bean Treats for Everyone', quote: '“Warm, fluffy, and sweeter than honey!”', bg: 'linear-gradient(135deg, #1e3a8a, #dc2626)', badge: 'FESTIVAL' }
+        ],
+        roads: [
+          { name: 'Rainbow Cloud Skyway', vehicles: ['🚁 Take-Copter Squad', '🚪 Flying Anywhere Door', '🚀 Time Machine Pod', '🏎️ Mini Future Car'] },
+          { name: 'Tokyo 22nd Century Canal', vehicles: ['🛥️ Solar Duck Boat', '🚁 Take-Copter Courier', '🚀 Hover-Scooter'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Matsushiba Robot Factory Shrine', type: 'temple', pop: '+230 22nd Century Roboticists', desc: 'Birthplace of feline friend bots with bell chimes' },
+          { icon: '🛡️', name: 'Gadget Inventors Guildhall', type: 'barracks', pop: '+430 Future Inventors', desc: 'Air Cannon firing ranges & Small Light beam calibration' },
+          { icon: '🏡', name: 'Cozy Tokyo Tatami Homes', type: 'house', pop: '+210 Happy Neighborhood Friends', desc: 'Charming suburban homes with futons & comic bookshelves' },
+          { icon: '🔬', name: 'Secret 4D Pocket Lab', type: 'lab', pop: '+115 Quantum Pocket Physicists', desc: 'Folding infinite space-time manifolds into pocket cloth' }
+        ],
+        watchtowers: [
+          { name: 'Time-Patrol Radar Dish', icon: '📡', status: 'Timeline Stable' },
+          { name: 'Giant Bell Chime Tower', icon: '🔔', status: 'Ringing Melody of Joy' },
+          { name: 'Take-Copter Helipad', icon: '🚁', status: 'Breeze Patrol Up' }
+        ]
+      },
+      messi: {
+        title: 'ESTADIO MONUMENTAL & BUENOS AIRES GOLDEN ACADEMY',
+        subtitle: 'Muchaaaaachos! The 8-time Ballon d’Or legend and World Cup Champion has conquered the field with pure football magic!',
+        badge: 'WORLD CHAMPION LA SCALONETA',
+        icon: '🐐',
+        bgGradient: 'linear-gradient(135deg, rgba(10, 25, 45, 0.98), rgba(20, 50, 85, 0.95), rgba(15, 20, 35, 0.98))',
+        borderColor: '#7dd3fc',
+        accentColor: '#facc15',
+        widgets: [
+          { title: 'FIFA World Cup Golden Trophy', desc: '18-karat solid gold trophy glistening with 3 championship stars', action: 'LIFT WORLD CUP' },
+          { title: '8x Ballon d’Or Trophy Hall', desc: 'Eight golden football awards celebrating two decades of unmatched magic', action: 'POLISH BALLON D’OR' },
+          { title: 'La Albiceleste Asado Grill', desc: 'Traditional Argentine beef steak asado with chimichurri and yerba mate', action: 'DRINK YERBA MATE' }
+        ],
+        posters: [
+          { title: 'MUCHAAACHOS!', sub: 'Campeones del Mundo • Qatar 2022', quote: '“You have to fight to reach your dream. You have to sacrifice and work hard for it.”', bg: 'linear-gradient(135deg, #0284c7, #38bdf8)', badge: 'CAMPEÓN' },
+          { title: 'ANIKARA MESSI MAGIC', sub: 'Precision • Dribbling • The GOAT', quote: '“A step to the left, a drop of the shoulder... and GOOOOOL!”', bg: 'linear-gradient(135deg, #0369a1, #eab308)', badge: 'THE GOAT' },
+          { title: 'BUENOS AIRES ASADO FESTIVAL', sub: 'Tango, Yerba Mate & Championship Celebration', quote: '“Celebrating with all of Argentina tonight!”', bg: 'linear-gradient(135deg, #075985, #f59e0b)', badge: 'CELEBRATION' }
+        ],
+        roads: [
+          { name: 'Avenida 9 de Julio Champion Parade', vehicles: ['🚌 Open-Top Victory Bus', '⚽ Rolling Golden Football', '🏎️ Albiceleste Convertible', '🛵 Tango Moped'] },
+          { name: 'Rosario River Plate Avenue', vehicles: ['🏎️ Rosario Fast Cruiser', '🚌 Academy Team Bus', '🛵 Mate Courier'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Templo de D10S & Leo Messi', type: 'temple', pop: '+280 Argentine Fans & Legends', desc: 'Cathedral of football magic with sky-blue stained glass' },
+          { icon: '🛡️', name: 'La Masia Prodigy Academy', type: 'barracks', pop: '+500 Young Dribblers', desc: 'Cone slalom courses & precision corner-pocket shooting' },
+          { icon: '🏡', name: 'San Telmo Colonial Manors', type: 'house', pop: '+195 Football Families', desc: 'Colorful stucco townhomes with tango courtyard balconies' },
+          { icon: '🔬', name: 'Curved Free-Kick Aerodynamics Lab', type: 'lab', pop: '+100 Sports Biomechanics Scientists', desc: 'Calculating the Magnus effect on bending banana balls' }
+        ],
+        watchtowers: [
+          { name: 'Obelisco de Buenos Aires', icon: '🗼', status: 'Flags Waving High' },
+          { name: 'VAR Camera Sentry Tower', icon: '📹', status: 'Goal Confirmed Clean' },
+          { name: 'Championship Spotlight Mast', icon: '💡', status: 'Golden Beams Crossing' }
+        ]
+      },
+      ronaldo: {
+        title: 'ESTÁDIO CR7 & ROYAL MADEIRA MERENGUE KINGDOM',
+        subtitle: 'SIUUUU! The ultimate athletic machine and all-time top goalscorer has built an unstoppable empire of discipline and glory!',
+        badge: 'CR7 ATHLETIC MERENGUE EMPIRE',
+        icon: '⚽',
+        bgGradient: 'linear-gradient(135deg, rgba(20, 5, 10, 0.98), rgba(45, 10, 15, 0.95), rgba(15, 15, 20, 0.98))',
+        borderColor: '#facc15',
+        accentColor: '#22c55e',
+        widgets: [
+          { title: '5x UEFA Champions League Gallery', desc: 'Five European golden cups won through clutch knuckleball strikes and headers', action: 'LIFT UCL TROPHY' },
+          { title: 'CR7 Bio-Hyperbaric Gym', desc: 'Zero-gravity treadmill and cryotherapy chamber sculpting 3% body fat perfection', action: 'TRAIN LIKE CR7' },
+          { title: 'Pastel de Nata & Espresso Café', desc: 'Serving Portuguese custard tarts and dark roast espresso for peak athletic fuel', action: 'SIP ESPRESSO' }
+        ],
+        posters: [
+          { title: 'SIUUUU! THE GREATEST STRIKER', sub: 'Discipline • Relentless Drive • 900+ Goals', quote: '“Your love makes me strong, your hate makes me unstoppable!”', bg: 'linear-gradient(135deg, #7f1d1d, #14532d)', badge: 'CR7 GOAT' },
+          { title: 'MADEIRA PRIDE & GLORY', sub: 'From Funchal to the Top of the World', quote: '“Dreams are not what you see in sleep, they are what keeps you from sleeping.”', bg: 'linear-gradient(135deg, #15803d, #b45309)', badge: 'LEGACY' },
+          { title: 'CR7 FITNESS & DISCIPLINE EXPO', sub: 'Ice Baths • 1,000 Sit-ups • Pure Focus', quote: '“Dedication, hard work, and belief. No excuses!”', bg: 'linear-gradient(135deg, #991b1b, #166534)', badge: 'FITNESS' }
+        ],
+        roads: [
+          { name: 'Madeira Oceanfront Hyper-Track', vehicles: ['🏎️ Bugatti Chiron CR7', '⚽ Flaming Knuckleball Rocket', '🏍️ Merengue Superbike', '🏎️ Ferrari F12'] },
+          { name: 'Lisbon Royal Strip', vehicles: ['🏎️ Custom Rolls Royce', '🏍️ Sportbike Escort', '🚌 CR7 Team Coach'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Museu CR7 Golden Monument', type: 'temple', pop: '+290 Global Football Devotees', desc: 'Towering bronze statue of the iconic free-kick stance' },
+          { icon: '🛡️', name: 'Sporting Striker Finishing Camp', type: 'barracks', pop: '+510 Explosive Strikers', desc: 'Vertical jump header rigs & 100km/h knuckleball cannons' },
+          { icon: '🏡', name: 'Funchal Clifftop Luxury Villas', type: 'house', pop: '+190 Merengue Residents', desc: 'Modern white infinity villas overlooking the Atlantic' },
+          { icon: '🔬', name: 'Bio-Athletic Performance Lab', type: 'lab', pop: '+110 Sports Nutritionists', desc: 'Analyzing muscle elasticity & knuckleball atmospheric dip' }
+        ],
+        watchtowers: [
+          { name: 'Cabo Girão Skywalk Lookout', icon: '🌊', status: 'Atlantic Ocean Clear' },
+          { name: 'SIUUU Stadium Acoustic Pylon', icon: '📢', status: 'Decibels at 140 dB' },
+          { name: 'Golden Boot Sentry Tower', icon: '👟', status: 'Laser Aim Calibrated' }
+        ]
+      },
+      goku: {
+        title: 'KAMI’S LOOKOUT, HYPERBOLIC TIME CHAMBER & MOUNT PAOZU',
+        subtitle: 'The Dragon Balls have restored the universe! Sacred Senzu bean trees and flowing golden ki auras protect this sovereign realm.',
+        badge: 'SUPER SAIYAN GOD REALM',
+        icon: '🐉',
+        bgGradient: 'linear-gradient(135deg, rgba(40, 15, 5, 0.98), rgba(75, 30, 5, 0.95), rgba(10, 25, 60, 0.98))',
+        borderColor: '#facc15',
+        accentColor: '#38bdf8',
+        widgets: [
+          { title: '7 Sacred Dragon Balls Shrine', desc: 'Summoning the eternal dragon Shenron to grant any wish across the digital cosmos', action: 'SUMMON SHENRON' },
+          { title: 'Hyperbolic Time Chamber', desc: 'One year of intensive gravity training condensed into a single webpage second', action: 'ENTER TIME CHAMBER' },
+          { title: 'Karin’s Senzu Bean Tree', desc: 'Immortal green miracle beans restoring HP to 100% instantly for all warriors', action: 'EAT SENZU BEAN' }
+        ],
+        posters: [
+          { title: 'KA... ME... HA... ME... HA!', sub: 'Turtle Hermit School Secret Technique', quote: '“I am the Super Saiyan, Son Goku!”', bg: 'linear-gradient(135deg, #7c2d12, #0284c7)', badge: 'KAMEHAMEHA' },
+          { title: 'SUPER SAIYAN GOD ASCENSION', sub: 'Surpassing All Limits • Pure Heart', quote: '“Power comes in response to a need, not a desire.”', bg: 'linear-gradient(135deg, #c2410c, #ca8a04)', badge: 'ASCENSION' },
+          { title: 'FLYING NIMBUS (KINTO’UN)', sub: 'Only the Pure of Heart May Ride', quote: '“Soaring through the clouds with a free spirit!”', bg: 'linear-gradient(135deg, #1e3a8a, #eab308)', badge: 'NIMBUS' }
+        ],
+        roads: [
+          { name: 'Serpentine Snake Way Hyperway', vehicles: ['☁️ Flying Nimbus Cloud', '🚀 Capsule Corp Air Car', '🐉 Shenron Spirit Escort', '🏍️ Bulma Hoverbike'] },
+          { name: 'Mount Paozu Forest Trail', vehicles: ['🏍️ Capsule Corp Scooter', '☁️ Gold Nimbus', '🏎️ Turtle Hermit Buggy'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Kami’s Celestial Lookout Shrine', type: 'temple', pop: '+310 Z-Fighter Disciples', desc: 'Floating marble sanctuary towering above the stratosphere' },
+          { icon: '🛡️', name: 'Turtle School Training Dojo', type: 'barracks', pop: '+580 Super Saiyan Cadets', desc: 'Heavy shell weight lifting & Ki blast deflection rings' },
+          { icon: '🏡', name: 'Mount Paozu Dome Cottages', type: 'house', pop: '+210 Harmonious Families', desc: 'Cozy round Capsule Corp cottages nestled among pine valleys' },
+          { icon: '🔬', name: 'Capsule Corp Capsule Lab', type: 'lab', pop: '+120 DynoCap Engineers', desc: 'Compressing houses, jets and submarines into pocket capsules' }
+        ],
+        watchtowers: [
+          { name: 'Korin Tower Sentry Perch', icon: '🗼', status: 'Sacred Water Guarded' },
+          { name: 'Dragon Radar Scanning Beacon', icon: '🧭', status: '7 Balls Located' },
+          { name: 'Instant Transmission Teleport Pad', icon: '✨', status: 'Coordinates Locked' }
+        ]
+      },
+      krrish: {
+        title: 'KRRISH ISLAND SANCTUARY, ARYA BIO-TECH LAB & SINGAPORE MARINA',
+        subtitle: 'With the divine cosmic gift of Jadoo and the courage of Krishna, the page transforms into a high-tech fortress of hope and superhuman valor!',
+        badge: 'ASTRAL HERO GUARDIAN',
+        icon: '⚡',
+        bgGradient: 'linear-gradient(135deg, rgba(8, 25, 45, 0.98), rgba(6, 40, 70, 0.95), rgba(5, 15, 30, 0.98))',
+        borderColor: '#06b6d4',
+        accentColor: '#38bdf8',
+        widgets: [
+          { title: 'Jadoo Astral Energy Crystal', desc: 'Cosmic solar beacon channeling alien sun frequencies restoring 100% vitality', action: 'CHANNEL JADOO LIGHT' },
+          { title: 'Dr. Arya Supercomputer Complex', desc: 'Quantum predictive mainframe calculating all future timelines to prevent destruction', action: 'CALCULATE TIMELINE' },
+          { title: 'Singapore Skybridge Zipline Hub', desc: 'High-altitude ziplines and leap perches spanning between digital skyscrapers', action: 'LEAP ACROSS TOWERS' }
+        ],
+        posters: [
+          { title: 'JADOO KI SHAKTI!', sub: 'Courage • Selflessness • Protection', quote: '“The mask is just a symbol — the real power is the courage to stand for others!”', bg: 'linear-gradient(135deg, #083344, #0284c7)', badge: 'VALOR' },
+          { title: 'SUPERHUMAN SKY LEAP', sub: 'Defying Gravity with Mind and Heart', quote: '“No obstacle is too high when your heart is pure!”', bg: 'linear-gradient(135deg, #0e7490, #38bdf8)', badge: 'ASTRAL' },
+          { title: 'SINGAPORE MARINA GUARDIANS', sub: 'Biotech Innovation for World Peace', quote: '“Protecting tomorrow, today!”', bg: 'linear-gradient(135deg, #0f172a, #06b6d4)', badge: 'DEFENDER' }
+        ],
+        roads: [
+          { name: 'Skyline Skybridge Promenade', vehicles: ['⚡ Krrish Super-Leap Trail', '🚁 Police Tech Heli', '🏎️ Bio-Tech Roadster', '🏍️ Electric Stealth Bike'] },
+          { name: 'Marina Bay Waterfront Esplanade', vehicles: ['🚤 Solar Hydrofoil', '⚡ Astral Pulse Cruiser', '🏎️ Singapore GT'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Krishna Mehra Mountain Hermitage', type: 'temple', pop: '+290 Himalayan Sages & Friends', desc: 'Serene mountain sanctuary echoing with flute melodies' },
+          { icon: '🛡️', name: 'Krrish Guardian Rapid Response HQ', type: 'barracks', pop: '+540 Astral Volunteers', desc: 'High-altitude skydiving & acrobatic vault training rings' },
+          { icon: '🏡', name: 'Singapore Sky Garden Penthouse', type: 'house', pop: '+230 Harmonious Families', desc: 'Futuristic green towers with vertical rainforest balconies' },
+          { icon: '🔬', name: 'Rohit Mehra Cognitive Biotech Lab', type: 'lab', pop: '+140 Quantum Cyberneticists', desc: 'Deciphering alien radio waves from distant celestial stars' }
+        ],
+        watchtowers: [
+          { name: 'Jadoo Solar Transmitter Dish', icon: '📡', status: 'Cosmic Ray Active' },
+          { name: 'Marina Bay Skyscraper Sentry', icon: '🗼', status: 'Skyline Clear' },
+          { name: 'Astral Lotus Energy Beacon', icon: '⚡', status: 'Shields at 100%' }
+        ]
+      },
+      ben10: {
+        title: 'BELLWOOD PLUMBER HEADQUARTERS & RUST BUCKET CARAVAN',
+        subtitle: 'It’s Hero Time! The Level 20 Galvan Omnitrix has unlocked ultimate alien DNA, fortifying the page with Plumber alien defense tech and smoothies!',
+        badge: 'GALVAN OMNITRIX HEADQUARTERS',
+        icon: '🟢',
+        bgGradient: 'linear-gradient(135deg, rgba(5, 30, 15, 0.98), rgba(15, 50, 25, 0.95), rgba(5, 20, 10, 0.98))',
+        borderColor: '#22c55e',
+        accentColor: '#4ade80',
+        widgets: [
+          { title: 'Omnitrix DNA Core Console', desc: 'Calibrating 1,000,912 alien DNA samples from Galvan Prime via Master Control', action: 'CYCLE ALIEN DNA' },
+          { title: 'Mr. Smoothy Mega Fountain', desc: 'Ice-cold grasshopper & golden mango smoothies restoring full HP to heroes', action: 'DRINK MR. SMOOTHY' },
+          { title: 'Plumber Null Void Gateway', desc: 'High-security interdimensional portal banishing cyber invaders to the Null Void', action: 'OPEN NULL VOID' }
+        ],
+        posters: [
+          { title: 'IT’S HERO TIME!', sub: 'Benjamin Kirby Tennyson • Omnitrix Bearer', quote: '“You don’t need an Omnitrix to be a hero, but it sure makes it cooler!”', bg: 'linear-gradient(135deg, #14532d, #16a34a)', badge: 'HERO' },
+          { title: 'THE ORIGINAL 10 ALIENS', sub: 'Heatblast • Four Arms • XLR8 • Diamondhead', quote: '“Whatever alien you need, the watch has got your back!”', bg: 'linear-gradient(135deg, #15803d, #22c55e)', badge: 'OMNITRIX' },
+          { title: 'RUST BUCKET ROADTRIP TOUR', sub: 'Cross-Country Plumber Alien Mystery Tour', quote: '“Next stop: Mount Rushmore alien base!”', bg: 'linear-gradient(135deg, #052e16, #15803d)', badge: 'ROADTRIP' }
+        ],
+        roads: [
+          { name: 'Bellwood Route 66 Intergalactic Highway', vehicles: ['🚐 Plumber Rust Bucket Caravan', '⚡ XLR8 Sonic Blue Streak', '🏎️ Kevin 11 Muscle Car', '🛸 Galvan Flying Saucer'] },
+          { name: 'Plumber Secret Underground Tube', vehicles: ['🏎️ Plumber Hover Cruiser', '🚐 Rust Bucket Sub', '🛸 Mini Scout Pod'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Galvan Prime DNA Cathedral', type: 'temple', pop: '+320 Galvan & Cerebrocrustacean Scholars', desc: 'Floating micro-spires storing genetic memory of the galaxy' },
+          { icon: '🛡️', name: 'Plumber Sector 4 Strategic Command', type: 'barracks', pop: '+620 Level 5 Plumber Cadets', desc: 'Laser blaster shooting ranges & Null Void containment grids' },
+          { icon: '🏡', name: 'Bellwood Suburban Green Townhomes', type: 'house', pop: '+240 Peaceful Earthling Citizens', desc: 'Charming leafy streets with manicured lawns and smoothie stands' },
+          { icon: '🔬', name: 'Azmuth Galvanic Engineering Lab', type: 'lab', pop: '+110 First Thinker Technicians', desc: 'Calibrating Level 20 Omnitrix firmware & evolutionary DNA repair' }
+        ],
+        watchtowers: [
+          { name: 'Omnitrix Green Hologram Beacon', icon: '🟢', status: 'Dial Ready' },
+          { name: 'Plumber Orbital Defense Satellite', icon: '🛰️', status: 'Earth Sector Scanned' },
+          { name: 'Null Void Containment Tower', icon: '🔒', status: 'All Portals Secured' }
+        ]
+      },
+      ajaydevgan: {
+        title: 'KESARI EMPIRE, SINGHAM POLICE HEADQUARTERS & GOA CAR STUNT ARENA',
+        subtitle: 'Bolo Zubaan Kesari! The legendary Bollywood superstar enters balancing on two speeding stunt cars, turning the ruins into a saffron-tinted cinematic paradise!',
+        badge: 'KESARI ACTION LEGEND',
+        icon: '🦁',
+        bgGradient: 'linear-gradient(135deg, rgba(40, 15, 0, 0.98), rgba(65, 25, 5, 0.95), rgba(25, 10, 0, 0.98))',
+        borderColor: '#e65100',
+        accentColor: '#ff9800',
+        widgets: [
+          { title: 'Zubaan Kesari Saffron Reserve', desc: 'Vast golden vault dispensing royal saffron essence and high-potency energy to all allies', action: 'DISTRIBUTE KESARI' },
+          { title: 'Singham Panja Strike Gym', desc: 'Bollywood martial training arena where one open-palm slap sends villains into orbit', action: 'TRAIN PANJA SLAP' },
+          { title: 'Two-Car Stunt Simulator', desc: 'Synchronized drift track testing extreme balance and high-speed highway precision', action: 'EXECUTE TWO-CAR DRIFT' }
+        ],
+        posters: [
+          { title: 'BOLO ZUBAAN KESARI!', sub: 'Style • Swag • Superstar Demeanor', quote: '“Daan daan mein kesari ka dum — flavor the entire universe!”', bg: 'linear-gradient(135deg, #7c2d12, #ea580c)', badge: 'KESARI' },
+          { title: 'AATA MAJHI SATAKLI!', sub: 'Bajirao Singham • Lion of Goa Police', quote: '“Jisme hai dum, toh fakht Bajirao Singham!”', bg: 'linear-gradient(135deg, #9a3412, #f59e0b)', badge: 'SINGHAM' },
+          { title: 'STUNT ENTRY ON TWO CARS', sub: 'The Signature Bollywood Entrance', quote: '“Why walk when you can balance between two drifting speedsters?”', bg: 'linear-gradient(135deg, #431407, #c2410c)', badge: 'LEGEND' }
+        ],
+        roads: [
+          { name: 'Marine Drive Bollywood Stunt Highway', vehicles: ['🏎️ Twin Drifting Stunt Sedans', '🚓 Singham Police Cruiser', '🏍️ Heavy Stunt Chopper', '🏎️ Kesari Gold GT'] },
+          { name: 'Goa Coastal Palm Boulevard', vehicles: ['🚓 Scorpio Stunt 4x4', '🏍️ Bullet Roarer', '🏎️ Crimson Saffron Convertible'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Zubaan Kesari Palace of Cinema', type: 'temple', pop: '+350 Bollywood Film Crew & Fans', desc: 'Magnificent golden palace screening action blockbusters 24/7' },
+          { icon: '🛡️', name: 'Singham Special Anti-Crime Fortress', type: 'barracks', pop: '+680 Iron-Fisted Police Cadets', desc: 'Explosive car vaulting & anti-corruption tactical dojo' },
+          { icon: '🏡', name: 'Juhu Beach Sea-Facing Bungalow', type: 'house', pop: '+260 Film Industry Legends', desc: 'Art-deco ocean estates with private screening rooms & gyms' },
+          { icon: '🔬', name: 'Rohit Shetty Stunt R&D Hangar', type: 'lab', pop: '+150 Pyrotechnic Specialists', desc: 'Designing catapult rigs and flipping SUVs through fiery rings' }
+        ],
+        watchtowers: [
+          { name: 'Singham Lion Roar Sentry Tower', icon: '🦁', status: 'Goa Coast Secured' },
+          { name: 'Kesari Saffron Searchlight', icon: '✨', status: 'Illuminating Skyline' },
+          { name: 'Twin Car Stunt Radar Beacon', icon: '🏎️', status: 'Drift Angles Optimal' }
+        ]
+      },
+      salmankhan: {
+        title: 'GALAXY APARTMENTS & TIGER RAW COVERT COMMAND CITADEL',
+        subtitle: 'Bhaijaan is in the house! The unstoppable Bollywood Tiger claims the ruined city with the turquoise Firoza bracelet, Dabangg swagger, and pure Being Human benevolence!',
+        badge: 'BHAIJAAN OF BOLLYWOOD',
+        icon: '🐅',
+        bgGradient: 'linear-gradient(135deg, rgba(8, 28, 48, 0.98), rgba(4, 70, 90, 0.95), rgba(6, 20, 36, 0.98))',
+        borderColor: '#0284c7',
+        accentColor: '#38bdf8',
+        widgets: [
+          { title: 'Being Human Charity Pavilion', desc: 'Global benevolence hub providing healthcare, bicycles, and hope to all citizens', action: 'DISTRIBUTE BEING HUMAN RELIEF' },
+          { title: 'Panvel Farmhouse Stunt Range', desc: 'Off-road dirt trails, equestrian stables, and heavy bodybuilding iron gym', action: 'TRAIN TIGER BODYBUILDING' },
+          { title: 'Chulbul Pandey Police Chowki', desc: 'High-swagger Dabangg precinct where sunglasses hang coolly behind the collar', action: 'DEPLOY DABANGG SWAGGER' }
+        ],
+        posters: [
+          { title: 'EK BAAR JO MAINE COMMITMENT KAR DI...', sub: 'Bhaijaan • Unfiltered Legend', quote: '“...toh phir main khud ki bhi nahi sunta!”', bg: 'linear-gradient(135deg, #0369a1, #0284c7)', badge: 'COMMITMENT' },
+          { title: 'TIGER ZINDA HAI!', sub: 'Avinash Singh Rathore • RAW Apex Operative', quote: '“Shikar toh sab karte hain lekin Tiger se behtar shikar koi nahi karta!”', bg: 'linear-gradient(135deg, #075985, #38bdf8)', badge: 'TIGER' },
+          { title: 'SWAG SE SWAAGAT!', sub: 'Global Bollywood Anthem', quote: '“Milke baanto pyaar aur sabka swaagat karo!”', bg: 'linear-gradient(135deg, #0c4a6e, #06b6d4)', badge: 'SWAG' }
+        ],
+        roads: [
+          { name: 'Bandra Bandstand Sea-Facing Highway', vehicles: ['🚙 Tiger RAW Armored Cruiser', '🏍️ Hayabusa Superbike', '🏎️ Galaxy Blue Supercar', '🚲 Being Human E-Bike'] },
+          { name: 'Panvel Farmhouse Dirt Express', vehicles: ['🚜 Heavy Farm Tractor', '🐎 Arabian Thoroughbred Stallions', '🚙 4x4 Offroad Beast'] }
+        ],
+        buildings: [
+          { icon: '🏢', name: 'Galaxy Apartments Sea-View Complex', type: 'temple', pop: '+500 Thousands of Cheering Fans', desc: 'Famous balcony where Bhai greets millions of adoring devotees' },
+          { icon: '🛡️', name: 'Chulbul Pandey Dabangg Precinct', type: 'barracks', pop: '+750 Aviator-Wearing Police Commandos', desc: 'Mustache grooming parlor & belt-shaking acoustic training hall' },
+          { icon: '🏡', name: 'Panvel Organic Farmstead Villa', type: 'house', pop: '+180 Family & Fitness Crew', desc: 'Serene lakeside haven with outdoor gym and riding tracks' },
+          { icon: '🔬', name: 'Tiger Covert RAW Technical Bunker', type: 'lab', pop: '+120 Cyber Intelligence Hackers', desc: 'Tracking villainous cartels and calibrating combat titanium bracelets' }
+        ],
+        watchtowers: [
+          { name: 'Turquoise Firoza Beacon Tower', icon: '💎', status: 'Radiating Good Luck' },
+          { name: 'Galaxy Balcony Searchlight', icon: '🏢', status: 'Bandra Wave Illuminated' },
+          { name: 'Tiger Recon Drone Array', icon: '🛰️', status: 'Airspace Secured' }
+        ]
+      },
+      akshaykumar: {
+        title: 'KHILADI MARTIAL ARTS ACADEMY & 25-DIN GOLDEN VAULT',
+        subtitle: 'Khiladi 786 has landed! From 4:00 AM workouts to death-defying helicopter stunts, the martial arts master rebuilds the DOM with pure stamina and Hera Pheri gold!',
+        badge: 'KHILADI SUPREME',
+        icon: '🥋',
+        bgGradient: 'linear-gradient(135deg, rgba(38, 20, 0, 0.98), rgba(70, 40, 5, 0.95), rgba(30, 15, 0, 0.98))',
+        borderColor: '#f59e0b',
+        accentColor: '#fbbf24',
+        widgets: [
+          { title: '25-Din-Mein-Paisa-Double Vault', desc: 'Legendary Hera Pheri financial institution doubling gold coins every 25 days', action: 'INVEST IN LAXMI CHIT FUND' },
+          { title: '4:00 AM Brahma Muhurta Fitness Arena', desc: 'Strict sunrise calisthenics, tree climbing, and obstacle courses for all citizens', action: 'START 4 AM WORKOUT' },
+          { title: 'Helicopter Stunt Skid Platform', desc: 'Hanging from helicopter skids in mid-air with zero green-screen or stunt doubles', action: 'PERFORM ROTOR HANG' }
+        ],
+        posters: [
+          { title: 'DON’T ANGRY ME!', sub: 'Rowdy Rathore • Vikram Rathore IPS', quote: '“Jo main bolta hoon woh main karta hoon, jo nahi bolta woh definitely karta hoon!”', bg: 'linear-gradient(135deg, #b45309, #d97706)', badge: 'ROWDY' },
+          { title: '25 DIN MEIN PAISA DOUBLE!', sub: 'Raju • Hera Pheri Finance Mastermind', quote: '“Golmaal hai bhai sab golmaal hai! Zor zor se bolke scheme bata de!”', bg: 'linear-gradient(135deg, #78350f, #f59e0b)', badge: 'HERA PHERI' },
+          { title: 'KHILADI 786', sub: 'The Master of 100 Stunts', quote: '“Jigar mein aag aur seene mein dum, hum hain Khiladi no. 1!”', bg: 'linear-gradient(135deg, #451a03, #fbbf24)', badge: 'KHILADI' }
+        ],
+        roads: [
+          { name: 'Khiladi Speed Stunt Runway', vehicles: ['🚁 Stunt Rotorcraft', '🏎️ Golden Lambo Racer', '🏍️ Royal Enfield Khiladi Bullet', '🚲 High-Speed Carbon Bicycle'] },
+          { name: 'Hera Pheri Taxi Boulevard', vehicles: ['🚕 Babu Bhaiya Fiat Taxi', '🚐 Vintage Red Delivery Van', '🚚 Samosa Express Truck'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Grand Hera Pheri Treasury Complex', type: 'temple', pop: '+420 Babu Bhaiya & Raju Associates', desc: 'Massive vault filled with glittering gold bullion and double returns' },
+          { icon: '🥋', name: 'Khiladi Black Belt Combat Hangar', type: 'barracks', pop: '+820 Disciplined Martial Artists', desc: 'Taekwondo kickboards, iron palm bags, and high-altitude wire rigs' },
+          { icon: '🏡', name: 'Juhu Oceanfront Zen Sanctuary', type: 'house', pop: '+210 Family & Personal Trainers', desc: 'Eco-friendly bamboo pavilions, organic herb gardens, and beach track' },
+          { icon: '🔬', name: 'Stunt Engineering & Safety Lab', type: 'lab', pop: '+130 Stunt Rigging Engineers', desc: 'Designing harness cables, crash mats, and fire-resistant stunt suits' }
+        ],
+        watchtowers: [
+          { name: '786 Golden Sentry Spire', icon: '✨', status: 'Radiating Golden Aura' },
+          { name: '4 AM Sunrise Watchtower', icon: '🌅', status: 'Morning Patrol Active' },
+          { name: 'Helicopter Helipad Beacon', icon: '🚁', status: 'Clear for Stunt Landing' }
+        ]
+      },
+      katrinakaif: {
+        title: 'KAMLI DANCE PALACE & TIGER ZOYA SPECIAL OPERATIONS VAULT',
+        subtitle: 'The Queen of Bollywood Dance and elite operative Zoya! Transforming the battle zone with mesmerizing rhythm, glittering stardust, and tactical sharpshooting precision!',
+        badge: 'DIVA & APEX AGENT',
+        icon: '💃',
+        bgGradient: 'linear-gradient(135deg, rgba(45, 10, 30, 0.98), rgba(75, 15, 55, 0.95), rgba(30, 5, 20, 0.98))',
+        borderColor: '#ec4899',
+        accentColor: '#f472b6',
+        widgets: [
+          { title: 'Kamli Aerial Silk Studio', desc: 'High-altitude acrobatic studio training flexibility, rhythm, and whirlwind dance attacks', action: 'PRACTICE AERIAL SILKS' },
+          { title: 'Zoya Covert Armory & Firing Range', desc: 'State-of-the-art dual-wielding SMG simulation and hand-to-hand combat dojo', action: 'CALIBRATE AKIMBO SMGS' },
+          { title: 'Kay Beauty Cosmetics Pavilion', desc: 'Glamour laboratory synthesizing radiant stardust powders that blind and charm foes', action: 'SYNTHESIZE GLITTER STARDUST' }
+        ],
+        posters: [
+          { title: 'MAIN KAMLI HO GAYI!', sub: 'Dhoom 3 • Whirlwind Acrobatic Marvel', quote: '“Rhythm in motion, unstoppable grace in every beat!”', bg: 'linear-gradient(135deg, #be185d, #ec4899)', badge: 'KAMLI' },
+          { title: 'SHEILA KI JAWANI!', sub: 'Bollywood’s Most Electrifying Number', quote: '“Pure energy, pure charisma, taking over the center stage!”', bg: 'linear-gradient(135deg, #9d174d, #f43f5e)', badge: 'SHEILA' },
+          { title: 'ZOYA: TIGER’S DEADLIEST PARTNER', sub: 'Covert Operative Extraordinaire', quote: '“A nation’s greatest asset and a villain’s worst nightmare.”', bg: 'linear-gradient(135deg, #701a75, #a855f7)', badge: 'ZOYA' }
+        ],
+        roads: [
+          { name: 'Glittering Stardust Fashion Avenue', vehicles: ['🏎️ Magenta Supercar', '🏍️ Matte Black Stealth Ducati', 'Limousine Champagne Cruiser', '🚁 Tactical Covert Chopper'] },
+          { name: 'Broadway Dance Promenade', vehicles: ['🩰 Illuminated Parade Floats', '🛵 Retro Vespa Scooters', '🏎️ Pink Pearl Convertible'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Grand Kamli Opera & Dance Colosseum', type: 'temple', pop: '+480 Dancers & Choreographers', desc: 'Magnificent velvet amphitheater with rotating crystal stages' },
+          { icon: '🛡️', name: 'Zoya ISI-RAW Joint Operations Base', type: 'barracks', pop: '+650 Elite Female Agents', desc: 'Tactical sniper perches, laser wire training rooms, and armories' },
+          { icon: '🏡', name: 'Bandra Glamour Penthouse Residence', type: 'house', pop: '+190 Fashion Icons & Guests', desc: 'Panoramic Arabian Sea views with private makeup suites & gyms' },
+          { icon: '🔬', name: 'Kay Beauty Glow Research Lab', type: 'lab', pop: '+140 Cosmetic Scientists', desc: 'Formulating ultra-radiant minerals and holographic glitter shields' }
+        ],
+        watchtowers: [
+          { name: 'Stardust Hologram Beacon', icon: '✨', status: 'Radiating Magenta Beams' },
+          { name: 'Kamli Aerial Sentry Perch', icon: '💃', status: 'Dance Patrol in Sync' },
+          { name: 'Zoya Sniper Recon Pod', icon: '🎯', status: 'Perimeter 100% Clear' }
+        ]
+      },
+      aishwaryarai: {
+        title: 'DOLA RE ROYAL HAVELI & IMPERIAL JEWEL PRISM PALACE',
+        subtitle: 'The timeless Empress of Indian Cinema and Miss World! Infusing the domain with royal ghungroo rhythms, emerald brilliance, and unmatched celestial majesty!',
+        badge: 'ETERNAL QUEEN OF BEAUTY',
+        icon: '👑',
+        bgGradient: 'linear-gradient(135deg, rgba(20, 10, 45, 0.98), rgba(40, 15, 80, 0.95), rgba(15, 5, 35, 0.98))',
+        borderColor: '#a855f7',
+        accentColor: '#c084fc',
+        widgets: [
+          { title: 'Dola Re Dola Courtyard', desc: 'Royal marble courtyard where synchronized Kathak dancers summon divine sonic waves', action: 'SOUND GHUNGROO BELLS' },
+          { title: 'Miss World Emerald Diamond Vault', desc: 'Gleaming treasury of world-renowned crowns and prisms of pure emerald light', action: 'REFRACT EMERALD BEAMS' },
+          { title: 'Sunheri Dhoom Mastermind Chamber', desc: 'High-tech stealth chamber where intricate museum heists and acrobatics are planned', action: 'PLAN ROYAL HEIST' }
+        ],
+        posters: [
+          { title: 'DOLA RE DOLA RE DOLA!', sub: 'Devdas • Timeless Masterpiece', quote: '“Chhalke jhalke sajke dhalke — the eternal dance of love and devotion!”', bg: 'linear-gradient(135deg, #7e22ce, #a855f7)', badge: 'DOLA RE' },
+          { title: 'MISS WORLD & GLOBAL ICON', sub: 'The Crown of Universal Grace', quote: '“Grace in thought, kindness in action, royalty in presence.”', bg: 'linear-gradient(135deg, #6b21a8, #c084fc)', badge: 'QUEEN' },
+          { title: 'SUNHERI: DHOOM 2 CAT BURGLAR', sub: 'High-Stakes Mastermind', quote: '“Are you like checking me out? Diamonds never lie!”', bg: 'linear-gradient(135deg, #581c87, #e879f9)', badge: 'SUNHERI' }
+        ],
+        roads: [
+          { name: 'Imperial Cannes Red Carpet Boulevard', vehicles: ['💎 Diamond-Studded Royal Chariot', '🏎️ Amethyst Phantom Coupe', 'Limousine Royal Rolls Royce', '🏍️ Chrome Stealth Speeder'] },
+          { name: 'Devdas Marble Palace Causeway', vehicles: ['🛺 Gold Filigree Palanquins', '🐎 White Royal Steeds', '🏎️ Violet Pearl Roadster'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Imperial Dola Re Palace of Kathak', type: 'temple', pop: '+520 Classical Artists & Musicians', desc: 'Grand royal palace echoing with sitar melodies and tabla rhythms' },
+          { icon: '🛡️', name: 'Royal Guard Jodha Imperial Citadel', type: 'barracks', pop: '+700 Golden Armor Royal Sentinels', desc: 'Archery courtyards, sword pavilions, and royal ceremonial guards' },
+          { icon: '🏡', name: 'Jalsa Royal Family Waterfront Estate', type: 'house', pop: '+220 Regal Family & Scholars', desc: 'Aristocratic sandstone archways, lotus fountains, and libraries' },
+          { icon: '🔬', name: 'Emerald Refraction Optics Academy', type: 'lab', pop: '+160 Gemological Light Masters', desc: 'Tuning hypnotic light beams that calm titans and cure all fatigue' }
+        ],
+        watchtowers: [
+          { name: 'Miss World Crown Jewel Spire', icon: '👑', status: 'Gleaming Across Skies' },
+          { name: 'Emerald Radiance Sentry Tower', icon: '💚', status: 'Hypnotic Shield Active' },
+          { name: 'Dola Re Chime Pillar', icon: '🔔', status: 'Echoing Musical Blessings' }
+        ]
+      },
+      baalveer: {
+        title: 'PARI LOK REALM OF 7 FAIRIES & SHAURYA ASTRAL CITADEL',
+        subtitle: 'Shaurya ki shakti! The pure-hearted superhero of Pari Lok protects the universe, casting seven-colored fairy blessings and banishing darkness with the magic wand!',
+        badge: 'SAVIOR OF PARI LOK',
+        icon: '🪄',
+        bgGradient: 'linear-gradient(135deg, rgba(8, 20, 45, 0.98), rgba(12, 45, 80, 0.95), rgba(5, 15, 35, 0.98))',
+        borderColor: '#06b6d4',
+        accentColor: '#22d3ee',
+        widgets: [
+          { title: 'Seven Fairies Astral Well', desc: 'Mystical crystal well channeling powers of Natkhat Pari, Gaal Pari, Vijhdar Pari & all 7 realms', action: 'CHANNEL 7 FAIRY BLESSINGS' },
+          { title: 'Shaurya Magic Wand Armory', desc: 'Sacred forge where the golden wand is charged with cosmic starlight and righteousness', action: 'CHARGE SHAURYA WAND' },
+          { title: 'Baal Mitra Child Protection Sanctuary', desc: 'Safe haven for children everywhere, guarded by floating fairy shields and smiling cherubs', action: 'CAST CHILDREN’S ASTRAL SHIELD' }
+        ],
+        posters: [
+          { title: 'SHAURYA KI SHAKTI!', sub: 'Baalveer • Protector of Earth & Pari Lok', quote: '“Sachai ki hamesha jeet hoti hai, aur burai ka ant nishchit hai!”', bg: 'linear-gradient(135deg, #0e7490, #06b6d4)', badge: 'SHAURYA' },
+          { title: 'PARI LOK KI RANI PARI', sub: 'Guardian of the Seven Fairy Thrones', quote: '“Baalveer, Pari Lok ka samman tumhare haathon mein surakshit hai!”', bg: 'linear-gradient(135deg, #0891b2, #22d3ee)', badge: 'PARI LOK' },
+          { title: 'BAAL SAKHA & SUPERPOWERS', sub: 'Defender of the Innocent', quote: '“Fly high, strike true, and protect everyone in need!”', bg: 'linear-gradient(135deg, #155e75, #67e8f9)', badge: 'DEFENDER' }
+        ],
+        roads: [
+          { name: 'Rainbow Cloud Astral Highway', vehicles: ['🌈 Floating Seven-Color Cloud', '🪄 Golden Shaurya Sky Sled', '🛸 Pari Lok Astral Cruiser', '🦅 Giant Golden Gryphon'] },
+          { name: 'Dharti-Lok Supersonic Transit Lane', vehicles: ['⚡ Supersonic Cape Streak', '🛷 Silver Stardust Chariot', '🛸 Mini Fairy Scout Ship'] }
+        ],
+        buildings: [
+          { icon: '🏛️', name: 'Rani Pari Seven Thrones Crystal Temple', type: 'temple', pop: '+550 Fairies & Astral Guardians', desc: 'Floating quartz towers with fountains of eternal light and fairy dust' },
+          { icon: '🛡️', name: 'Shaurya Warrior Vanguard Academy', type: 'barracks', pop: '+720 Young Astral Protectors', desc: 'Magic wand dueling rings and aerial flight obstacle courses' },
+          { icon: '🏡', name: 'Baalveer Earthly Home & School Haven', type: 'house', pop: '+280 Happy Children & Families', desc: 'Cozy neighborhood homes with playground swings and toy workshops' },
+          { icon: '🔬', name: 'Pari Lok Astral Alchemy Observatory', type: 'lab', pop: '+130 Elder Mystic Alchemists', desc: 'Brewing potions of pure courage and repairing cracks in dimension gates' }
+        ],
+        watchtowers: [
+          { name: 'Shaurya Cosmic Beacon', icon: '🪄', status: 'Wand Energy at 100%' },
+          { name: 'Seven Fairies Rainbow Spire', icon: '🌈', status: 'Astral Dome Fully Online' },
+          { name: 'Child Protection Watchtower', icon: '⭐', status: 'Guarding All Smiles' }
+        ]
       }
     };
 
@@ -1228,6 +1914,102 @@ class WarzoneDOMDestroyer {
         tables: 'Obsidian Fire Pits with Pomegranate Nectar 🍷, Spicy Brimstone Ribs 🍖 & Underworld Cider 🍺',
         companions: ['Underworld Nymph', 'Hades Guard', 'Soul Singer', 'Brimstone Shaman'],
         quotes: ['“Three heads, three times the party!”', '“Drink from the River Styx!”', '“Hellfire burns with joy tonight!”', '“Let the underworld dance begin!”']
+      },
+      flash: {
+        partyName: 'Central City CC Jitters & Speedster Victory Party',
+        tables: 'High-Tech Cafe Booths with Triple-Espresso Lattes ☕, 10,000 Calorie Burgers 🍔 & Golden Lightning Donuts 🍩',
+        companions: ['Iris West-Allen', 'Cisco Ramon', 'Caitlin Snow', 'Reverse-Flash (Reformed)'],
+        quotes: ['“Fastest party in the multiverse!”', '“Cisco made this DJ mix in three seconds!”', '“Another 50 burgers, please!”', '“Speed Force is rocking tonight!”']
+      },
+      superman: {
+        partyName: 'Metropolis Centennial Park Peace Gala & Solar Banquet',
+        tables: 'Marble Garden Tables with Kansas Sweet Apple Pie 🥧, Chilled Grape Juice 🍇 & Golden Roast Beef 🥩',
+        companions: ['Lois Lane', 'Jimmy Olsen', 'Supergirl (Kara)', 'Perry White'],
+        quotes: ['“Great Caesar’s Ghost, what a celebration!”', '“To truth, justice, and all our friends!”', '“Best front-page story in Daily Planet history!”', '“Look! Up in the sky! It’s party time!”']
+      },
+      shaktiman: {
+        partyName: 'Suryavanshi Diwali Festival of Lights & Vedic Feast',
+        tables: 'Sacred Teak Low Tables with Kaju Katli 🍬, Pure Cow Ghee Ladoos 🧆, Masala Chai ☕ & Saffron Halwa 🍯',
+        companions: ['Geeta Vishwas', 'Mahaguru Suryavanshi', 'Inspector Amar', 'Chhoti Si Gudiya'],
+        quotes: ['“Satyamev Jayate! Let there be light in every heart!”', '“Eat sweets, speak sweet truth!”', '“Burai par achhai ki jeet!”', '“OM Shanti Shanti Shanti!”']
+      },
+      odessa: {
+        partyName: 'Junkertown Thunderdome Pit Roast & Heavy Metal Bash',
+        tables: 'Crushed Mech Engine Blocks loaded with Roasted Boar 🍖, Nitro Moonshine 🥃 & Spiced Jerky 🥩',
+        companions: ['Wrecking Ball (Hammond)', 'Roadhog', 'Junkrat', 'Scrapyard Arena Master'],
+        quotes: ['“Drink up, you mongrels!”', '“Turn the heavy metal speakers up!”', '“Nobody parties harder than the Queen!”', '“More fireworks, Junkrat!”']
+      },
+      doremon: {
+        partyName: '22nd Century Dorayaki Sky Carnival & Matsuri',
+        tables: 'Hovering Cloud Platforms overflowing with Sweet Dorayaki 🥞, Ramune Soda 🍾 & Green Tea Mochi 🍡',
+        companions: ['Nobita Nobi', 'Shizuka Minamoto', 'Dorami (Sister)', 'Takeshi (Gian) DJ'],
+        quotes: ['“Boku Doraemon! Eat as many dorayaki as you want!”', '“Gian’s singing actually sounds great tonight!”', '“Take-Copters for everybody!”', '“Doraemon, this is the best festival ever!”']
+      },
+      messi: {
+        partyName: 'Obelisco World Champion Asado & Cumbia Fiesta',
+        tables: 'Long Argentine Wooden Tables loaded with Grilled Asado Steaks 🥩, Yerba Mate Gourds 🧉 & Dulce de Leche Alfajores 🍪',
+        companions: ['Antonela Roccuzzo', 'Rodrigo De Paul', 'Ángel Di María', 'Kun Agüero'],
+        quotes: ['“Muchaaaachos! Ahora nos volvimo’ a ilusionar!”', '“Pass the yerba mate, Rodri!”', '“Que mirás, bobo? Come y baila!”', '“Somos campeones del mundo!”']
+      },
+      ronaldo: {
+        partyName: 'Estádio CR7 Royal Merengue Gala & Champions Toast',
+        tables: 'Pristine White Marble Tables with Grilled Sea Bass 🐟, Fresh Fruit Salads 🍉, Pastel de Nata 🧁 & Sparkling Water 🥂',
+        companions: ['Georgina Rodríguez', 'Cristiano Jr.', 'Fernando Santos', 'Merengue Teammate'],
+        quotes: ['“SIUUUU! Champions never rest, but tonight we celebrate!”', '“Aqua, not Coca-Cola!”', '“Dedication, focus, perfection!”', '“Number one in the world!”']
+      },
+      goku: {
+        partyName: 'Mount Paozu Dragon Ball Victory Feast & Barbecue',
+        tables: 'Colossal Wooden Tables overflowing with Roasted Whole Boars 🍖, Giant Ramen Bowls 🍜, Steamed Buns 🥟 & Senzu Beans 🫘',
+        companions: ['Chi-Chi', 'Gohan', 'Vegeta (Prince of Saiyans)', 'Master Roshi', 'Krillin'],
+        quotes: ['“I’m so hungry I could eat a dinosaur!”', '“Kakacarrot-cake, stop eating my meat!”', '“Senzu beans for dessert!”', '“Dragon Balls are shining bright!”']
+      },
+      krrish: {
+        partyName: 'Krrish Victory Carnival & Bollywood Festival of Valor',
+        tables: 'Lavish Festive Tables with Samosas 🥟, Sweet Gulab Jamuns 🧆, Mango Lassi 🥭 & Kashmiri Kahwa 🍵',
+        companions: ['Priya (Journalist)', 'Rohit Mehra (Father)', 'Jadoo (Cosmic Alien)', 'Dr. Siddhant Arya (Reformed)'],
+        quotes: ['“Jadoo ki shakti sabke dilon mein hai!”', '“Proud of you, my son Krishna!”', '“Best front-page scoop in Singapore!”', '“Dhoop! Dhoop! Let’s dance!”']
+      },
+      ben10: {
+        partyName: 'Rust Bucket Summer Roadtrip BBQ & Alien Jam',
+        tables: 'Campfire Picnic Tables with Grandpa Max’s Alien Tentacle Chili 🥣, Mr. Smoothies 🥤 & Flame-Grilled Burgers 🍔',
+        companions: ['Gwen Tennyson (Lucky Girl)', 'Grandpa Max (Plumber Magister)', 'Kevin Levin (Kevin 11)', 'Azmuth (First Thinker)'],
+        quotes: ['“It’s Hero Time! Pass the fries!”', '“Ben, don’t eat all the chili, you’ll turn into Heatblast!”', '“Try my secret deep-space worm stew, kids!”', '“A victory worthy of the Omnitrix!”']
+      },
+      ajaydevgan: {
+        partyName: 'Bolo Zubaan Kesari Grand Bollywood Celebration & Car Stunt Gala',
+        tables: 'Golden Royal Buffet with Biryani Pots 🍲, Tandoori Platters 🍗, Saffron Kulfi 🍨 & Kesari Chai ☕',
+        companions: ['Kareena Kapoor (Co-Star)', 'Rohit Shetty (Stunt Director)', 'Inspector Daya (Door Breaker)', 'Akshay Kumar (Khiladi)'],
+        quotes: ['“Bolo Zubaan Kesari! Aaj ki raat apun ka raj hai!”', '“Sir, ek gaadi aur uda dein hawa mein?”', '“Daya, darwaza todne ki zaroorat nahi, party shuru hai!”', '“Aata majhi satakli... with pure joy!”']
+      },
+      salmankhan: {
+        partyName: 'Galaxy Apartments Balcony Eid Gala & Biryani Feast',
+        tables: 'Mutton Dum Biryani Degchis 🍲, Sheer Khurma Bowls 🥣, Turquoise Mocktails 🍹 & Kaju Katli Platters 🍬',
+        companions: ['Shera (Head of Security)', 'Katrina Kaif (Zoya)', 'Jacqueline Fernandez', 'Arbaaz Khan'],
+        quotes: ['“Swag se karenge sabka swaagat!”', '“Ek baar jo maine commitment kar di toh bas!”', '“Bhaijaan style celebration!”', '“Party chalegi subah tak!”']
+      },
+      akshaykumar: {
+        partyName: 'Khiladi Stunt Champions Banquet & Hera Pheri 25-Din Feast',
+        tables: 'Crispy Butter Masala Dosas 🥞, Punjabi Kadhi Chawal 🍛, High-Protein Energy Shakes 🥤 & Jalebi Towers 🥨',
+        companions: ['Paresh Rawal (Babu Bhaiya)', 'Suniel Shetty (Shyam)', 'Raveena Tandon', 'Katrina Kaif'],
+        quotes: ['“25 din mein celebration double!”', '“Zor zor se bolke sabko feast bata de!”', '“Khiladi 786 style party!”', '“Subah 4 baje uthna hai exercise ke liye!”']
+      },
+      katrinakaif: {
+        partyName: 'Kamli Grand Bollywood Glamour Soiree & Dance Gala',
+        tables: 'Organic Avocado Citrus Salads 🥑, Sparkling Pink Berry Smoothies 🍓, Turkish Baklava 🍯 & Macrobiotic Treats 🥗',
+        companions: ['Salman Khan (Tiger)', 'Vicky Kaushal', 'Farah Khan (Choreographer)', 'Deepika Padukone'],
+        quotes: ['“Main kamli ho gayi victory mein!”', '“Sheila ki jawani is rocking the dance floor!”', '“Zoya mission accomplished: celebration time!”', '“Dance like the whole world is watching!”']
+      },
+      aishwaryarai: {
+        partyName: 'Dola Re Dola Royal Court Feast & Emerald Empress Soiree',
+        tables: 'Royal Nawabi Biryani Platters 🍲, Ethereal Saffron Malpua 🍯, Emerald Pistachio Kulfi 🍨 & Darjeeling First Flush Tea 🍵',
+        companions: ['Shah Rukh Khan (Devdas)', 'Madhuri Dixit (Chandramukhi)', 'Abhishek Bachchan', 'Amitabh Bachchan'],
+        quotes: ['“Dola re dola re dola, celebrate with royal elegance!”', '“An ethereal evening of timeless grace and victory!”', '“Beauty, strength and dignity reign supreme!”', '“Let the ghungroos chime all night!”']
+      },
+      baalveer: {
+        partyName: 'Pari Lok Seven-Color Nectar Banquet & Astral Sky Revel',
+        tables: 'Seven-Color Fairy Dust Cupcakes 🧁, Rainbow Lotus Nectar 🧃, Pari Lok Golden Apples 🍎 & Sweet Khoya Barfi 🍬',
+        companions: ['Rani Pari (Queen of Fairies)', 'Natkhat Pari', 'Gaal Pari', 'Manav & Meher'],
+        quotes: ['“Shaurya ki shakti, sachai ki jeet!”', '“Pari Lok mein sabhi bacchon aur heroes ka swaagat hai!”', '“Burai par achhai ka parcham lehra gaya!”', '“Baalveer hamesha sachai ke saath khada hai!”']
       }
     };
 

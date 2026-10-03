@@ -1,0 +1,64 @@
+{
+  "id": "flash",
+  "name": "The Flash",
+  "title": "Fastest Man Alive & Scarlet Speedster",
+  "category": "superhero",
+  "themeColor": "#ef4444",
+  "secondaryColor": "#facc15",
+  "accentGlow": "rgba(239, 68, 68, 0.85)",
+  "badge": "SPEED FORCE",
+  "avatarIcon": "⚡",
+  "stats": {
+    "health": 3600,
+    "maxHealth": 3600,
+    "speed": 14.0,
+    "damage": 280,
+    "attackRange": 520,
+    "chaosRating": "Supersonic Blitz",
+    "swarmCount": 10
+  },
+  "visuals": {
+    "type": "flash_rig",
+    "width": 95,
+    "height": 115,
+    "glowColor": "#facc15"
+  },
+  "attacks": [
+    {
+      "id": "speed_force_lightning",
+      "name": "Speed Force Lightning Discharge",
+      "type": "dom_burn",
+      "damage": 340,
+      "cooldown": 1400,
+      "range": 540,
+      "sfx": "speed_force",
+      "description": "Hurls crackling yellow Speed Force lightning bolts from fingertips, frying images and layout containers."
+    },
+    {
+      "id": "sonic_cyclone_vortex",
+      "name": "Supersonic Arm Cyclone",
+      "type": "dom_throw",
+      "damage": 310,
+      "cooldown": 1600,
+      "range": 480,
+      "sfx": "speed_force",
+      "description": "Spins arms at Mach 3 generating miniature tornadoes that rip navigation headers and throw them airborne."
+    },
+    {
+      "id": "infinite_mass_punch",
+      "name": "Infinite Mass Supersonic Punch",
+      "type": "dom_crush",
+      "damage": 390,
+      "cooldown": 1900,
+      "range": 420,
+      "sfx": "sonic_boom",
+      "description": "Accelerates to near light-speed, delivering a devastating relativistic punch that implodes DOM cards."
+    }
+  ],
+  "voicelines": [
+    "My name is Barry Allen, and I am the fastest man alive!",
+    "Too slow! You didn't even see that coming.",
+    "Speed Force is flowing through every pixel!",
+    "I just ran around the page four times before you clicked."
+  ]
+}

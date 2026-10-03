@@ -1,0 +1,64 @@
+{
+  "id": "shaktiman",
+  "name": "Shaktiman",
+  "title": "Supreme Cosmic Warrior & Sun Lord",
+  "category": "superhero",
+  "themeColor": "#b91c1c",
+  "secondaryColor": "#eab308",
+  "accentGlow": "rgba(234, 179, 8, 0.9)",
+  "badge": "KUNDALINI POWER",
+  "avatarIcon": "☀️",
+  "stats": {
+    "health": 4300,
+    "maxHealth": 4300,
+    "speed": 8.0,
+    "damage": 360,
+    "attackRange": 520,
+    "chaosRating": "Divine Awakening",
+    "swarmCount": 7
+  },
+  "visuals": {
+    "type": "shaktiman_rig",
+    "width": 100,
+    "height": 122,
+    "glowColor": "#ffd700"
+  },
+  "attacks": [
+    {
+      "id": "chakra_spiral_spin",
+      "name": "Kundalini Whirlwind Spin",
+      "type": "dom_throw",
+      "damage": 350,
+      "cooldown": 1600,
+      "range": 520,
+      "sfx": "shaktiman_spin",
+      "description": "Executes the iconic rapid upright spin ('fck-fck-fck-fck') forming a cosmic tornado that tosses DOM elements skyward."
+    },
+    {
+      "id": "kundalini_solar_beam",
+      "name": "7-Chakra Concentrated Solar Ray",
+      "type": "laser_slice",
+      "damage": 380,
+      "cooldown": 1800,
+      "range": 550,
+      "sfx": "kundalini_laser",
+      "description": "Channels cosmic solar energy through the golden chest medallion, bisecting corrupted containers."
+    },
+    {
+      "id": "divine_om_shockwave",
+      "name": "Resonant Divine Om Shockwave",
+      "type": "dom_burn",
+      "damage": 360,
+      "cooldown": 1700,
+      "range": 480,
+      "sfx": "shaktiman_spin",
+      "description": "Emits a sacred spiritual soundwave that vaporizes ads and negative elements into golden sparkles."
+    }
+  ],
+  "voicelines": [
+    "Shakti Shakti Shaktimaan! Adharm ka nash ho!",
+    "Andhera kayam rahe nahi sakta! Truth shall prevail!",
+    "7 chakras activated! Feel the cosmic light!",
+    "Chhoti chhoti magar moti baatein: Always keep your DOM clean!"
+  ]
+}

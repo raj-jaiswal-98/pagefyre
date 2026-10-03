@@ -1,0 +1,77 @@
+{
+  "id": "goku",
+  "name": "Son Goku",
+  "title": "Super Saiyan God & Universe 7 Defender",
+  "category": "saiyan_god",
+  "themeColor": "#ff7700",
+  "secondaryColor": "#0284c7",
+  "accentGlow": "rgba(255, 119, 0, 0.95)",
+  "badge": "SUPER SAIYAN",
+  "avatarIcon": "🔥",
+  "stats": {
+    "health": 5400,
+    "maxHealth": 5400,
+    "speed": 8.8,
+    "damage": 460,
+    "attackRange": 600,
+    "chaosRating": "Universal Threat",
+    "swarmCount": 7
+  },
+  "visuals": {
+    "type": "goku_rig",
+    "width": 105,
+    "height": 125,
+    "hairColor": "#facc15",
+    "giColor": "#ea580c",
+    "undershirtColor": "#1d4ed8",
+    "glowColor": "#facc15"
+  },
+  "attacks": [
+    {
+      "id": "ki_blast_ball_barrage",
+      "name": "Continuous Ki Blast Energy Balls",
+      "type": "dom_burn",
+      "damage": 440,
+      "cooldown": 1400,
+      "range": 650,
+      "sfx": "kamehameha",
+      "description": "Fires rapid pulsating Ki energy balls that detonate elements on contact with golden shockwaves and sparks."
+    },
+    {
+      "id": "kamehameha_wave",
+      "name": "God Kamehameha Super-Beam",
+      "type": "laser_slice",
+      "damage": 540,
+      "cooldown": 2200,
+      "range": 750,
+      "sfx": "kamehameha",
+      "description": "Cups hands behind back, gathers blazing cyan-white ki plasma, and unleashes a screen-shattering Kamehameha beam across web containers."
+    },
+    {
+      "id": "spirit_bomb_cataclysm",
+      "name": "Super Spirit Bomb (Genki Dama)",
+      "type": "dom_crush",
+      "damage": 600,
+      "cooldown": 3200,
+      "range": 700,
+      "sfx": "spirit_bomb",
+      "description": "Raises both hands high to gather life energy across the digital cosmos, dropping a colossal turquoise Spirit Bomb."
+    },
+    {
+      "id": "instant_transmission_strike",
+      "name": "Instant Transmission Strike",
+      "type": "dom_throw",
+      "damage": 400,
+      "cooldown": 1800,
+      "range": 550,
+      "sfx": "speed_force",
+      "description": "Places two fingers to forehead, teleports behind targets instantly, and delivers a meteor smash."
+    }
+  ],
+  "voicelines": [
+    "KA... ME... HA... ME... HAAA!",
+    "I am the hope of the universe! I am the Super Saiyan Son Goku!",
+    "Even a low-class warrior can surpass an elite, if he works hard enough!",
+    "Lend me your energy, everyone!"
+  ]
+}

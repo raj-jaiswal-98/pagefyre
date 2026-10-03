@@ -1,0 +1,77 @@
+{
+  "id": "krrish",
+  "name": "Krrish (Krishna Mehra)",
+  "title": "India's Superhero & Astral Guardian",
+  "category": "superhero",
+  "themeColor": "#06b6d4",
+  "secondaryColor": "#0f172a",
+  "accentGlow": "rgba(6, 182, 212, 0.9)",
+  "badge": "ASTRAL GUARDIAN",
+  "avatarIcon": "⚡",
+  "stats": {
+    "health": 4800,
+    "maxHealth": 4800,
+    "speed": 8.5,
+    "damage": 380,
+    "attackRange": 520,
+    "chaosRating": "Superhuman Valor",
+    "swarmCount": 6
+  },
+  "visuals": {
+    "type": "krrish_rig",
+    "width": 105,
+    "height": 125,
+    "maskColor": "#000000",
+    "coatColor": "#09090b",
+    "eyeGlow": "#38bdf8",
+    "glowColor": "#06b6d4"
+  },
+  "attacks": [
+    {
+      "id": "super_leap_punch",
+      "name": "Superhuman Telekinetic Meteor Punch",
+      "type": "dom_crush",
+      "damage": 450,
+      "cooldown": 1700,
+      "range": 580,
+      "sfx": "krrish_punch",
+      "description": "Leaps hundreds of feet into the sky and crashes down with superhuman velocity and a celestial astral punch shattering DOM containers."
+    },
+    {
+      "id": "astral_lotus_shockwave",
+      "name": "Jadoo Astral Lotus Shockwave",
+      "type": "dom_burn",
+      "damage": 400,
+      "cooldown": 2000,
+      "range": 540,
+      "sfx": "krrish_whoosh",
+      "description": "Unleashes the sacred cosmic lotus energy frequency gifted by Jadoo, projecting expanding cyan astral shockwaves."
+    },
+    {
+      "id": "cosmic_deflection",
+      "name": "Cosmic Telekinetic Barrier Deflection",
+      "type": "dom_throw",
+      "damage": 360,
+      "cooldown": 1600,
+      "range": 500,
+      "sfx": "force_crush",
+      "description": "Projects an impenetrable astral telekinesis field, reflecting projectiles and repelling surrounding web elements."
+    },
+    {
+      "id": "acrobatic_vault_slam",
+      "name": "Acrobatic Skyscraper Vault & Slice",
+      "type": "laser_slice",
+      "damage": 420,
+      "cooldown": 1900,
+      "range": 560,
+      "sfx": "speed_force",
+      "description": "Performs gravity-defying superhuman parkour flips through midair, cleaving headers and content cards with sheer momentum."
+    }
+  ],
+  "voicelines": [
+    "Jadoo ki shakti aur himmat se, main Krrish hoon!",
+    "No power can defeat the courage to protect!",
+    "The mask is just a symbol — the real power is inside!",
+    "You cannot outrun the leap of Krrish!"
+  ]
+}

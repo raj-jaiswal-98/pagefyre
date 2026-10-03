@@ -88,6 +88,102 @@ const MONSTER_INFO = {
     stats: 'DMG: 300 | HP: 3100',
     desc: 'Rapid-fires dual tactical Glock pistols with muzzle recoil and discharges high-voltage Widow’s Bite electro-tasers.',
     color: '#ef4444'
+  },
+  flash: {
+    name: 'The Flash',
+    stats: 'DMG: 310 | HP: 3400',
+    desc: 'Taps into the Speed Force with golden lightning trails, hurling speed-force lightning and delivering infinite mass punches.',
+    color: '#facc15'
+  },
+  superman: {
+    name: 'Superman',
+    stats: 'DMG: 480 | HP: 5200',
+    desc: 'Man of Steel firing piercing crimson heat-vision lasers, arctic freeze breath, and supersonic planetary tackles.',
+    color: '#ef4444'
+  },
+  shaktiman: {
+    name: 'Shaktiman',
+    stats: 'DMG: 360 | HP: 4200',
+    desc: 'Kundalini master spinning in a golden whirlwind tornado, throwing spinning chakras, and firing divya drishti rays.',
+    color: '#eab308'
+  },
+  odessa: {
+    name: 'Junker Queen Odessa',
+    stats: 'DMG: 390 | HP: 4100',
+    desc: 'Junkertown monarch cleaving targets with her serrated Carnage axe, hurling magnetic Gracie blades, and blasting shotguns.',
+    color: '#f97316'
+  },
+  doremon: {
+    name: 'Doraemon',
+    stats: 'DMG: 330 | HP: 3600',
+    desc: '22nd-century cat robot deploying Anywhere Doors with 10-ton mallet smashes, Air Cannon rings, and shrinking Small Lights.',
+    color: '#38bdf8'
+  },
+  messi: {
+    name: 'Lionel Messi',
+    stats: 'DMG: 350 | HP: 3800',
+    desc: 'World Cup GOAT curling magical golden banana-curve football strikes with golden stardust trails and celebratory fireworks.',
+    color: '#7dd3fc'
+  },
+  ronaldo: {
+    name: 'Cristiano Ronaldo',
+    stats: 'DMG: 370 | HP: 4000',
+    desc: 'CR7 El Bicho blasting 120km/h knuckleball rockets, seismic ground stomp SIUUUU shockwaves, and bullet headers.',
+    color: '#facc15'
+  },
+  goku: {
+    name: 'Son Goku',
+    stats: 'DMG: 460 | HP: 5400',
+    desc: 'Super Saiyan God firing rapid pulsating Ki energy blast balls, cosmic Spirit Bombs, and screen-shattering Kamehameha beams.',
+    color: '#ff7700'
+  },
+  krrish: {
+    name: 'Krrish',
+    stats: 'DMG: 380 | HP: 4800',
+    desc: 'India’s superhero leaping across skyscrapers with glowing cyan eyes, delivering telekinetic meteor punches and astral lotus waves.',
+    color: '#06b6d4'
+  },
+  ben10: {
+    name: 'Ben 10 (Omnitrix)',
+    stats: 'DMG: 420 | HP: 5000',
+    desc: 'Hero with dynamic Omnitrix alien switching: morphs in real-time between Heatblast, Four Arms, XLR8, and Diamondhead!',
+    color: '#22c55e'
+  },
+  ajaydevgan: {
+    name: 'Ajay Devgn (Bolo Zubaan Kesari)',
+    stats: 'DMG: 450 | HP: 5000',
+    desc: 'Bollywood superstar entering on two moving stunt cars, uncorking pressurized saffron Vimal spit streams, and Singham lion slaps.',
+    color: '#e65100'
+  },
+  salmankhan: {
+    name: 'Salman Khan (Bhaijaan)',
+    stats: 'DMG: 470 | HP: 5600',
+    desc: 'Bhaijaan of Bollywood with the turquoise Firoza bracelet blast, Tiger raw shockwave punch, and Dabangg acoustic belt shock.',
+    color: '#0284c7'
+  },
+  akshaykumar: {
+    name: 'Akshay Kumar (Khiladi 786)',
+    stats: 'DMG: 440 | HP: 5200',
+    desc: 'Master of 100 stunts with flying dragon side kicks, 25-Din-Mein-Paisa-Double gold bullion strikes, and 4 AM sunrise energy.',
+    color: '#f59e0b'
+  },
+  katrinakaif: {
+    name: 'Katrina Kaif (Kamli Diva)',
+    stats: 'DMG: 430 | HP: 4800',
+    desc: 'Queen of dance with whirlwind Kamli tornadoes, Zoya tactical akimbo SMG bursts, and hypnotic Sheila stardust glitter blasts.',
+    color: '#ec4899'
+  },
+  aishwaryarai: {
+    name: 'Aishwarya Rai (Miss World)',
+    stats: 'DMG: 420 | HP: 5100',
+    desc: 'Empress of elegance with Dola Re ghungroo sonic shockwaves, hypnotic emerald gaze beams, and celestial diamond prism bursts.',
+    color: '#a855f7'
+  },
+  baalveer: {
+    name: 'Baalveer (Pari Lok Savior)',
+    stats: 'DMG: 450 | HP: 5300',
+    desc: 'Pari Lok superhero with Shaurya magic wand cosmic beams, 7-fairy rainbow astral shields, and supersonic cape dives.',
+    color: '#06b6d4'
   }
 };
 

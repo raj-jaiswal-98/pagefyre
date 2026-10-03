@@ -1,0 +1,55 @@
+{
+  "id": "ajaydevgan",
+  "name": "Ajay Devgn (Bolo Zubaan Kesari)",
+  "title": "Kesari Action Legend & Singham",
+  "description": "The iconic Bollywood action superstar enters standing atop two roaring stunt cars, wearing reflective aviator shades and channeling legendary saffron fury. Uncorks the devastating Vimal Zubaan Kesari Spit projectile that coats web pages in crimson saffron stains, backed by Singham lion slaps and split car drift shockwaves.",
+  "color": "#e65100",
+  "secondaryColor": "#ff9800",
+  "accentColor": "#d84315",
+  "glowColor": "rgba(230, 81, 0, 0.7)",
+  "themeClass": "theme-ajaydevgan",
+  "health": 5000,
+  "speed": 3.8,
+  "size": 76,
+  "wingspan": 80,
+  "attacks": [
+    {
+      "id": "vimal_kesari_spit",
+      "name": "Vimal Zubaan Kesari Spit",
+      "type": "fireball",
+      "damage": 450,
+      "cooldown": 1400,
+      "range": 600,
+      "sfx": "vimal_spit",
+      "description": "Flicks two fingers across lips in the iconic Zubaan Kesari gesture and unleashes a high-velocity pressurized stream of saffron-red Vimal spit that violently splatters and corrodes DOM elements."
+    },
+    {
+      "id": "singham_panja_slap",
+      "name": "Aata Majhi Satakli Panja Slap",
+      "type": "dom_crush",
+      "damage": 520,
+      "cooldown": 2000,
+      "range": 480,
+      "sfx": "singham_slap",
+      "description": "Channels the Singham lion fury and delivers a bone-crunching open-palm Bollywood slap that sends web elements spinning 360 degrees through the air."
+    },
+    {
+      "id": "two_car_split_drift",
+      "name": "Two-Car Stunt Split Drift",
+      "type": "dom_throw",
+      "damage": 430,
+      "cooldown": 1800,
+      "range": 640,
+      "sfx": "car_split_drift",
+      "description": "Summons twin speeding stunt cars and balances effortlessly between their roofs, drifting sideways to bulldoze through whole web sections."
+    }
+  ],
+  "voicelines": [
+    "Bolo Zubaan Kesari!",
+    "Aata majhi satakli!",
+    "Dono gaadiyon pe khade hoke aane ki aadat hai meri!",
+    "Kasam zubaan ki, sab saaf ho jayega!",
+    "Daan daan mein kesari ka dum!",
+    "Jisme hai dum, toh fakht Bajirao Singham!"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "salmankhan",
+  "name": "Salman Khan (Bhaijaan & Tiger)",
+  "title": "Bollywood Megastar & Raw Tiger",
+  "description": "The indomitable Bhaijaan enters with his iconic turquoise Firoza bracelet, aviators hooked on collar, and superhuman shirtless swagger. Crushes web sections with Tiger Raw Punches, Dabangg belt shockwaves, and vehicle-tossing blockbuster force.",
+  "color": "#0284c7",
+  "secondaryColor": "#0369a1",
+  "accentColor": "#38bdf8",
+  "glowColor": "rgba(2, 132, 199, 0.7)",
+  "themeClass": "theme-salmankhan",
+  "health": 5200,
+  "speed": 7.0,
+  "size": 80,
+  "wingspan": 85,
+  "attacks": [
+    {
+      "id": "tiger_raw_strike",
+      "name": "Tiger RAW Carnage Strike",
+      "type": "dom_crush",
+      "damage": 490,
+      "cooldown": 1600,
+      "range": 520,
+      "sfx": "salman_punch",
+      "description": "Channels raw Tiger fury with high-velocity shockwave punches that pulverize web cards and headers into pixel dust."
+    },
+    {
+      "id": "dabangg_belt_shockwave",
+      "name": "Dabangg Belt Sonic Wave",
+      "type": "laser_slice",
+      "damage": 430,
+      "cooldown": 1400,
+      "range": 580,
+      "sfx": "salman_punch",
+      "description": "Wiggles police belt in iconic Chulbul Pandey swagger, radiating concentric kinetic sonic rings across the screen."
+    },
+    {
+      "id": "firoza_bracelet_smash",
+      "name": "Firoza Bracelet Cosmic Slam",
+      "type": "dom_throw",
+      "damage": 530,
+      "cooldown": 2100,
+      "range": 600,
+      "sfx": "salman_punch",
+      "description": "Flashes the legendary turquoise silver bracelet, discharging turquoise kinetic meteor strikes that fling DOM containers."
+    }
+  ],
+  "voicelines": [
+    "Ek baar jo maine commitment kar di...",
+    "Swag se karenge sabka swagat!",
+    "Mujhpe ek ehsaan karna, ki mujhpe koi ehsaan mat karna!",
+    "Tiger zinda hai aur rahega!",
+    "Dabangg naam hai humara!"
+  ]
+}

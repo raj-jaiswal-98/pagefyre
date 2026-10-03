@@ -1,0 +1,75 @@
+{
+  "id": "doremon",
+  "name": "Doraemon",
+  "title": "22nd Century Robotic Cat & 4D Gadget Master",
+  "category": "robotic_cat",
+  "themeColor": "#0284c7",
+  "secondaryColor": "#f43f5e",
+  "accentGlow": "rgba(56, 189, 248, 0.9)",
+  "badge": "4D GADGET MASTER",
+  "avatarIcon": "🚪",
+  "stats": {
+    "health": 3800,
+    "maxHealth": 3800,
+    "speed": 7.4,
+    "damage": 330,
+    "attackRange": 520,
+    "chaosRating": "Gadget Wonderland",
+    "swarmCount": 8
+  },
+  "visuals": {
+    "type": "doremon_rig",
+    "width": 105,
+    "height": 110,
+    "glowColor": "#38bdf8"
+  },
+  "attacks": [
+    {
+      "id": "anywhere_door_smash",
+      "name": "Anywhere Door 10-Ton Mallet Surprise",
+      "type": "dom_crush",
+      "damage": 380,
+      "cooldown": 1900,
+      "range": 520,
+      "sfx": "anywhere_door",
+      "description": "Pulls the pink Anywhere Door from his 4D pocket; it opens and a giant cartoon mallet whacks the element flat."
+    },
+    {
+      "id": "air_cannon_blast",
+      "name": "Air Cannon 'Kuuki Hou!' Shockwave",
+      "type": "dom_burn",
+      "damage": 340,
+      "cooldown": 1500,
+      "range": 500,
+      "sfx": "air_cannon",
+      "description": "Equips the iconic Air Cannon onto paw, firing high-velocity expanding sonic air rings that blast containers."
+    },
+    {
+      "id": "small_light_shrink",
+      "name": "Small Light Molecular Shrink Ray",
+      "type": "dom_crush",
+      "damage": 320,
+      "cooldown": 1800,
+      "range": 480,
+      "sfx": "doraemon_gadget",
+      "description": "Flashes the yellow Small Light beam, shrinking layout structures down to microscopic dust."
+    },
+    {
+      "id": "take_copter_aerial_drop",
+      "name": "Take-Copter Aerial Snatch & Drop",
+      "type": "dom_throw",
+      "damage": 310,
+      "cooldown": 1600,
+      "range": 460,
+      "sfx": "doraemon_gadget",
+      "description": "Spins yellow Take-Copter propeller on head, lifting heavy headers into the sky and chucking them."
+    }
+  ],
+  "voicelines": [
+    "Boku Doraemon! (I'm Doraemon!)",
+    "Doko demo Do-a! Anywhere Door activated!",
+    "Kuuki Hou! (Air Cannon!) BANG!",
+    "Wait, did someone say Dorayaki?! Where is my sweet snack?!",
+    "Take-copter! Up into the clouds we go!"
+  ]
+}

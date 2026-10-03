@@ -1,0 +1,54 @@
+{
+  "id": "aishwaryarai",
+  "name": "Aishwarya Rai (Miss World & Sunheri)",
+  "title": "Eternal Queen of Cinema & Miss World",
+  "description": "The global epitome of beauty, grace, and master thief Sunheri enters with mesmerizing emerald eyes, shimmering royal jewels, and cosmic radiance. Casts Dola Re classical dance waves, Diamond Prism lasers, and celestial mirror shields to deconstruct web pages.",
+  "color": "#14b8a6",
+  "secondaryColor": "#0f766e",
+  "accentColor": "#5eead4",
+  "glowColor": "rgba(20, 184, 166, 0.7)",
+  "themeClass": "theme-aishwaryarai",
+  "health": 4900,
+  "speed": 7.3,
+  "size": 75,
+  "wingspan": 80,
+  "attacks": [
+    {
+      "id": "dola_re_dance_wave",
+      "name": "Dola Re Dola Classical Rhapsody",
+      "type": "dom_crush",
+      "damage": 470,
+      "cooldown": 1500,
+      "range": 580,
+      "sfx": "dola_re",
+      "description": "Performs intricate kathak/ghungroo footwork and flowing scarlet-emerald veil ripples that sweep away layout sections."
+    },
+    {
+      "id": "emerald_gaze_beam",
+      "name": "Hypnotic Emerald Gaze Laser",
+      "type": "laser_slice",
+      "damage": 500,
+      "cooldown": 1800,
+      "range": 650,
+      "sfx": "aishwarya_grace",
+      "description": "Fires twin focused beams of hypnotic aquamarine light from legendary emerald eyes, petrifying and splitting DOM structures."
+    },
+    {
+      "id": "sunheri_diamond_theft",
+      "name": "Sunheri High-Stakes Diamond Prism",
+      "type": "dom_throw",
+      "damage": 450,
+      "cooldown": 1600,
+      "range": 600,
+      "sfx": "aishwarya_grace",
+      "description": "Snatches precious DOM headers and transforms them into faceted crystalline gems with acrobatic cat burglar finesse."
+    }
+  ],
+  "voicelines": [
+    "Dola re dola re dola!",
+    "Like a girl... like a thief... like Sunheri!",
+    "Elegance is the only beauty that never fades!",
+    "Paro is here to claim the stage!",
+    "Beauty with brains and unstoppable power!"
+  ]
+}

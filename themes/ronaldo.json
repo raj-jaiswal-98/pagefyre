@@ -1,0 +1,64 @@
+{
+  "id": "ronaldo",
+  "name": "Cristiano Ronaldo",
+  "title": "CR7 El Bicho & Master of the Knuckleball",
+  "category": "football_legend",
+  "themeColor": "#dc2626",
+  "secondaryColor": "#10b981",
+  "accentGlow": "rgba(220, 38, 38, 0.9)",
+  "badge": "CR7 EL BICHO",
+  "avatarIcon": "⚽",
+  "stats": {
+    "health": 4300,
+    "maxHealth": 4300,
+    "speed": 10.0,
+    "damage": 390,
+    "attackRange": 580,
+    "chaosRating": "Unstoppable Power",
+    "swarmCount": 8
+  },
+  "visuals": {
+    "type": "ronaldo_rig",
+    "width": 98,
+    "height": 122,
+    "glowColor": "#fbbf24"
+  },
+  "attacks": [
+    {
+      "id": "knuckleball_rocket_strike",
+      "name": "Unstoppable Knuckleball Rocket Strike",
+      "type": "dom_burn",
+      "damage": 420,
+      "cooldown": 1600,
+      "range": 600,
+      "sfx": "football_kick",
+      "description": "Assumes wide-stance free kick pose and hammers a knuckleball rocket with chaotic aerodynamic swerve into targets."
+    },
+    {
+      "id": "supersonic_header_leap",
+      "name": "2.9-Meter Gravity-Defying Bullet Header",
+      "type": "dom_crush",
+      "damage": 380,
+      "cooldown": 1800,
+      "range": 520,
+      "sfx": "heavy_stomp",
+      "description": "Leaps into the stratosphere above the browser, power-heading the ball down to crater layout sections."
+    },
+    {
+      "id": "siuuu_kinetic_slam",
+      "name": "'SIUUUU!' Airborne 180° Ground Shockwave",
+      "type": "dom_throw",
+      "damage": 350,
+      "cooldown": 1700,
+      "range": 480,
+      "sfx": "siuuu_cheer",
+      "description": "Performs his legendary 180° jumping celebration, landing with outstretched arms and blasting elements away."
+    }
+  ],
+  "voicelines": [
+    "SIUUUUUUUUUUUUUU!",
+    "Your love makes me strong, your hate makes me unstoppable!",
+    "I am living a dream I never want to wake up from.",
+    "Calma, calma! CR7 is here!"
+  ]
+}

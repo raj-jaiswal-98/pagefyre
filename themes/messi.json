@@ -1,0 +1,64 @@
+{
+  "id": "messi",
+  "name": "Lionel Messi",
+  "title": "The GOAT & Argentina #10 Champion",
+  "category": "football_legend",
+  "themeColor": "#38bdf8",
+  "secondaryColor": "#facc15",
+  "accentGlow": "rgba(56, 189, 248, 0.9)",
+  "badge": "THE GOAT #10",
+  "avatarIcon": "⚽",
+  "stats": {
+    "health": 4200,
+    "maxHealth": 4200,
+    "speed": 10.5,
+    "damage": 380,
+    "attackRange": 560,
+    "chaosRating": "Pure Football Magic",
+    "swarmCount": 8
+  },
+  "visuals": {
+    "type": "messi_rig",
+    "width": 95,
+    "height": 116,
+    "glowColor": "#facc15"
+  },
+  "attacks": [
+    {
+      "id": "banana_freekick_strike",
+      "name": "Curling Banana Free-Kick Football Strike",
+      "type": "dom_burn",
+      "damage": 410,
+      "cooldown": 1600,
+      "range": 580,
+      "sfx": "football_kick",
+      "description": "Strikes an official spinning soccer ball with legendary left-foot curve, bending around elements into the net."
+    },
+    {
+      "id": "ballon_dor_super_blast",
+      "name": "8x Ballon d'Or Golden Trophy Blast",
+      "type": "dom_crush",
+      "damage": 370,
+      "cooldown": 1900,
+      "range": 520,
+      "sfx": "goal_cheer",
+      "description": "Channels golden Ballon d'Or champion trophies in a dazzling burst that crushes tables and cards."
+    },
+    {
+      "id": "dribble_tornado_rush",
+      "name": "Supersonic Ankle-Breaker Dribble Run",
+      "type": "dom_throw",
+      "damage": 330,
+      "cooldown": 1500,
+      "range": 480,
+      "sfx": "football_kick",
+      "description": "Dribbles through page containers with magical precision, flicking elements airborne like chipped balls."
+    }
+  ],
+  "voicelines": [
+    "Muchachos! Now we are champions of the world!",
+    "Que mirás, bobo? Andá pa' allá!",
+    "One more goal for the history books!",
+    "Football is art, and this web page is my pitch!"
+  ]
+}

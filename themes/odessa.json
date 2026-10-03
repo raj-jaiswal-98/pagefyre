@@ -1,0 +1,64 @@
+{
+  "id": "odessa",
+  "name": "Odessa Stone",
+  "title": "The Junker Queen & Wasteland Warlord",
+  "category": "warlord",
+  "themeColor": "#06b6d4",
+  "secondaryColor": "#f97316",
+  "accentGlow": "rgba(6, 182, 212, 0.85)",
+  "badge": "WASTELAND QUEEN",
+  "avatarIcon": "🪓",
+  "stats": {
+    "health": 4400,
+    "maxHealth": 4400,
+    "speed": 7.8,
+    "damage": 370,
+    "attackRange": 480,
+    "chaosRating": "Wasteland Carnage",
+    "swarmCount": 7
+  },
+  "visuals": {
+    "type": "odessa_rig",
+    "width": 102,
+    "height": 122,
+    "glowColor": "#06b6d4"
+  },
+  "attacks": [
+    {
+      "id": "carnage_axe_cleave",
+      "name": "Heavy Carnage Battleaxe Cleave",
+      "type": "laser_slice",
+      "damage": 390,
+      "cooldown": 1700,
+      "range": 460,
+      "sfx": "axe_cleave",
+      "description": "Swings massive two-handed jagged Carnage battleaxe in a wide overhead arc, cleaving DOM cards in two."
+    },
+    {
+      "id": "gracie_magnetic_throw",
+      "name": "Gracie Jagged Blade Magnetic Throw",
+      "type": "dom_throw",
+      "damage": 340,
+      "cooldown": 1500,
+      "range": 520,
+      "sfx": "gracie_blade",
+      "description": "Hurls her serrated magnetic throwing knife 'Gracie' across elements, then reels it back with magnetic force."
+    },
+    {
+      "id": "rampage_scatter_blast",
+      "name": "Wasteland Scattergun Shrapnel",
+      "type": "dom_burn",
+      "damage": 360,
+      "cooldown": 1800,
+      "range": 440,
+      "sfx": "shotgun_blast",
+      "description": "Fires high-density scrap metal and shrapnel from pump shotgun with an aggressive commanding battle cry."
+    }
+  ],
+  "voicelines": [
+    "Bow down to the Queen!",
+    "Bring out the big axe, it's reckoning time!",
+    "Gracie loves a good target!",
+    "Welcome to the wasteland, mate!"
+  ]
+}

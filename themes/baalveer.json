@@ -1,0 +1,54 @@
+{
+  "id": "baalveer",
+  "name": "Baalveer (Pari Lok Superhero)",
+  "title": "Champion of Pari Lok & Earth's Protector",
+  "description": "The blessed superhero child of Pari Lok endowed with powers of 7 sacred fairies (Aasman Pari, Baal Pari, Rani Pari, Vijhdhar Pari). Flies with crimson-gold cape, brandishing the Shaurya Wand and celestial magic bolts to vanquish website evils.",
+  "color": "#dc2626",
+  "secondaryColor": "#b91c1c",
+  "accentColor": "#facc15",
+  "glowColor": "rgba(220, 38, 38, 0.7)",
+  "themeClass": "theme-baalveer",
+  "health": 5100,
+  "speed": 7.5,
+  "size": 75,
+  "wingspan": 82,
+  "attacks": [
+    {
+      "id": "shaurya_wand_blast",
+      "name": "Shaurya Magic Wand Blast",
+      "type": "fireball",
+      "damage": 480,
+      "cooldown": 1400,
+      "range": 620,
+      "sfx": "baalveer_magic",
+      "description": "Channels divine Pari Lok celestial star magic through the Shaurya Wand, blasting glittering red-gold orbs that shatter webpage blocks."
+    },
+    {
+      "id": "seven_fairy_shield_slam",
+      "name": "7 Fairies Astral Convergence",
+      "type": "dom_crush",
+      "damage": 520,
+      "cooldown": 1900,
+      "range": 520,
+      "sfx": "parilok_chime",
+      "description": "Invokes the combined blessings of Rani Pari and Baal Pari, creating an iridescent floral prismatic barrier that slams forward."
+    },
+    {
+      "id": "baalveer_aerial_dive",
+      "name": "Pari Lok Supersonic Sky Dive",
+      "type": "laser_slice",
+      "damage": 440,
+      "cooldown": 1500,
+      "range": 650,
+      "sfx": "baalveer_magic",
+      "description": "Soars high above the viewport trailing gold stardust ribbons and dives at terminal velocity with glowing magic gauntlets."
+    }
+  ],
+  "voicelines": [
+    "Pari Lok ki shakti se main hoon Baalveer!",
+    "Rani Pari ka aashirwaad mere saath hai!",
+    "Buraai ka ant nishchit hai!",
+    "Dharti aur Pari Lok ki raksha mera dharam hai!",
+    "Shaurya dharmi, shaurya balwaan!"
+  ]
+}
