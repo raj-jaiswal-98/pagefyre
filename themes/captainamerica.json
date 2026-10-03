@@ -1,0 +1,64 @@
+{
+  "id": "captainamerica",
+  "name": "Captain America",
+  "title": "The First Avenger & Super Soldier",
+  "category": "superhero",
+  "themeColor": "#0284c7",
+  "secondaryColor": "#dc2626",
+  "accentGlow": "rgba(2, 132, 199, 0.85)",
+  "badge": "FIRST AVENGER",
+  "avatarIcon": "🛡️",
+  "stats": {
+    "health": 3800,
+    "maxHealth": 3800,
+    "speed": 7.0,
+    "damage": 290,
+    "attackRange": 440,
+    "chaosRating": "Tactical Commander",
+    "swarmCount": 7
+  },
+  "visuals": {
+    "type": "captainamerica_rig",
+    "width": 105,
+    "height": 125,
+    "glowColor": "#0284c7"
+  },
+  "attacks": [
+    {
+      "id": "vibranium_shield_throw",
+      "name": "Vibranium Shield Ricochet",
+      "type": "laser_slice",
+      "damage": 380,
+      "cooldown": 1800,
+      "range": 520,
+      "sfx": "shield_ricochet",
+      "description": "Hurls the circular Vibranium shield across multiple DOM elements in a blinding ricochet arc, slicing them cleanly."
+    },
+    {
+      "id": "shield_slam_crush",
+      "name": "Super-Soldier Shield Slam",
+      "type": "dom_crush",
+      "damage": 350,
+      "cooldown": 2000,
+      "range": 400,
+      "sfx": "shield_ricochet",
+      "description": "Leaps with kinetic shockwave and slams shield downwards into DOM containers and tables, imploding them."
+    },
+    {
+      "id": "avengers_rally_strike",
+      "name": "Avengers Charge Kick",
+      "type": "dom_throw",
+      "damage": 310,
+      "cooldown": 1600,
+      "range": 420,
+      "sfx": "generic_impact",
+      "description": "Sprints forward and delivers a super-soldier dropkick, launching elements into rigid physics."
+    }
+  ],
+  "voicelines": [
+    "I can do this all day!",
+    "Avengers... Assemble!",
+    "Language! But that DOM element had to go.",
+    "Stand your ground, soldiers!"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "batman",
+  "name": "Batman (The Dark Knight)",
+  "title": "Gotham's Vengeance & Master Tactician",
+  "category": "superhero",
+  "themeColor": "#475569",
+  "secondaryColor": "#0f172a",
+  "accentGlow": "rgba(234, 179, 8, 0.85)",
+  "badge": "DARK KNIGHT",
+  "avatarIcon": "🦇",
+  "stats": {
+    "health": 3800,
+    "maxHealth": 3800,
+    "speed": 7.0,
+    "damage": 310,
+    "attackRange": 450,
+    "chaosRating": "Gotham Nightmare",
+    "swarmCount": 6
+  },
+  "visuals": {
+    "type": "batman_rig",
+    "width": 105,
+    "height": 130,
+    "glowColor": "#eab308"
+  },
+  "attacks": [
+    {
+      "id": "batarang_slice_barrage",
+      "name": "Explosive Batarang Volley",
+      "type": "laser_slice",
+      "damage": 390,
+      "cooldown": 1800,
+      "range": 520,
+      "sfx": "batarang_whoosh",
+      "description": "Flings high-speed titanium batarangs across footers, cards, and dark theme sections, severing them in clean arcs."
+    },
+    {
+      "id": "grapple_gun_takedown",
+      "name": "Bat-Grapple Element Slam",
+      "type": "dom_throw",
+      "damage": 370,
+      "cooldown": 2400,
+      "range": 490,
+      "sfx": "force_throw",
+      "description": "Fires high-tensile magnetic grapple cable onto page containers and slams them into the floor with immense torque."
+    },
+    {
+      "id": "smoke_pellet_implosion",
+      "name": "Bat-Smoke Pellet Blackout",
+      "type": "dom_crush",
+      "damage": 340,
+      "cooldown": 2800,
+      "range": 440,
+      "sfx": "explosion",
+      "description": "Detonates concussion smoke pellets that engulf page sections in darkness and collapse them into rubble."
+    }
+  ],
+  "voicelines": [
+    "I am vengeance. I am the night. I am Batman!",
+    "You have failed this website.",
+    "It's not who I am underneath, but what DOM elements I destroy that defines me.",
+    "This website isn't yours to control anymore."
+  ]
+}

@@ -1,0 +1,453 @@
+/* Warzone Web Destroyer - In-Page Styles & Tactical HUD */
+
+@keyframes warzonePulseRed {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.6), inset 0 0 10px rgba(255, 0, 51, 0.3); }
+  50% { box-shadow: 0 0 35px rgba(255, 0, 51, 0.95), inset 0 0 20px rgba(255, 0, 51, 0.6); }
+}
+
+@keyframes warzoneSwarmGlow {
+  0% { filter: hue-rotate(0deg) drop-shadow(0 0 8px #ff0055); }
+  50% { filter: hue-rotate(90deg) drop-shadow(0 0 18px #ffaa00); }
+  100% { filter: hue-rotate(0deg) drop-shadow(0 0 8px #ff0055); }
+}
+
+/* Burning Element Shader */
+.warzone-burning-fx {
+  position: relative !important;
+  pointer-events: none !important;
+  animation: warzoneBurnJitter 0.15s infinite alternate !important;
+}
+
+@keyframes warzoneBurnJitter {
+  0% { transform: scale(0.98) translate(-1px, 1px) rotate(-0.5deg); }
+  100% { transform: scale(0.96) translate(1px, -1px) rotate(0.5deg); }
+}
+
+/* Tactical Floating War HUD */
+#warzone-hud {
+  position: fixed !important;
+  top: 16px !important;
+  right: 16px !important;
+  width: 340px !important;
+  max-width: 95vw !important;
+  background: rgba(12, 14, 22, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 60, 60, 0.4) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 0, 60, 0.25) !important;
+  color: #f1f5f9 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 13px !important;
+  line-height: normal !important;
+  z-index: 2147483647 !important;
+  user-select: none !important;
+  transition: width 0.2s ease, border-radius 0.2s ease, box-shadow 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+#warzone-hud * {
+  box-sizing: border-box !important;
+}
+
+/* Fixed Clean Minimize State */
+#warzone-hud.minimized {
+  width: auto !important;
+  min-width: 250px !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 60, 0.3) !important;
+  transform: none !important;
+}
+
+#warzone-hud.minimized .wz-body {
+  display: none !important;
+}
+
+#warzone-hud.minimized .wz-header {
+  border-bottom: none !important;
+  border-radius: 14px !important;
+}
+
+.wz-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px 14px !important;
+  background: linear-gradient(90deg, rgba(255, 0, 60, 0.35) 0%, rgba(30, 10, 40, 0.6) 100%) !important;
+  border-bottom: 1px solid rgba(255, 60, 60, 0.3) !important;
+  border-radius: 14px 14px 0 0 !important;
+  cursor: grab !important;
+}
+
+.wz-title-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+}
+
+.wz-badge-live {
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  padding: 2px 6px !important;
+  background: #ff0055 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+  letter-spacing: 0.5px !important;
+  animation: warzonePulseRed 2s infinite !important;
+}
+
+.wz-title {
+  font-weight: 800 !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.5px !important;
+  color: #ffffff !important;
+  text-transform: uppercase !important;
+}
+
+.wz-header-actions {
+  display: flex !important;
+  gap: 6px !important;
+}
+
+.wz-icon-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #94a3b8 !important;
+  border-radius: 6px !important;
+  width: 26px !important;
+  height: 26px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  transition: all 0.2s ease !important;
+}
+
+.wz-icon-btn:hover {
+  background: rgba(255, 60, 60, 0.35) !important;
+  color: #ffffff !important;
+  border-color: #ff3366 !important;
+}
+
+.wz-icon-btn.close:hover {
+  background: rgba(239, 68, 68, 0.7) !important;
+  border-color: #ef4444 !important;
+}
+
+.wz-body {
+  padding: 12px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+/* Stats Matrix */
+.wz-stats-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 6px !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  padding: 8px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.wz-stat-box {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.wz-stat-label {
+  font-size: 9.5px !important;
+  text-transform: uppercase !important;
+  color: #94a3b8 !important;
+  font-weight: 600 !important;
+}
+
+.wz-stat-val {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #38bdf8 !important;
+}
+
+.wz-stat-val.chaos {
+  color: #f43f5e !important;
+}
+
+/* Big Unleash Button */
+.wz-unleash-btn {
+  background: linear-gradient(135deg, #ff0055 0%, #ff5500 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.8px !important;
+  padding: 11px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  box-shadow: 0 4px 15px rgba(255, 0, 85, 0.4) !important;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  animation: warzoneSwarmGlow 4s infinite !important;
+}
+
+.wz-unleash-btn:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 25px rgba(255, 0, 85, 0.7) !important;
+}
+
+.wz-unleash-btn:active {
+  transform: translateY(1px) scale(0.98) !important;
+}
+
+/* Monster Selector Roster (8 Titans in 4x2 Grid) */
+.wz-section-title {
+  font-size: 10.5px !important;
+  text-transform: uppercase !important;
+  color: #94a3b8 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.wz-monster-roster {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 5px !important;
+}
+
+.wz-monster-btn {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 7px !important;
+  padding: 6px 3px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 3px !important;
+  transition: all 0.2s ease !important;
+}
+
+.wz-monster-btn:hover {
+  background: rgba(255, 60, 60, 0.25) !important;
+  border-color: #ff3366 !important;
+  transform: translateY(-2px) !important;
+}
+
+.wz-monster-icon {
+  font-size: 17px !important;
+}
+
+.wz-monster-name {
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  color: #e2e8f0 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+/* Utility Toolbar */
+.wz-tools-row {
+  display: flex !important;
+  gap: 6px !important;
+}
+
+.wz-tool-btn {
+  flex: 1 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #cbd5e1 !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  padding: 7px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+.wz-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+.wz-tool-btn.active {
+  background: rgba(0, 240, 255, 0.25) !important;
+  border-color: #00f0ff !important;
+  color: #00f0ff !important;
+}
+
+.wz-tool-btn.restore:hover {
+  background: rgba(34, 197, 94, 0.25) !important;
+  border-color: #22c55e !important;
+  color: #4ade80 !important;
+}
+
+/* Tactical Kill Feed */
+.wz-kill-feed {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 6px !important;
+  padding: 6px 8px !important;
+  max-height: 70px !important;
+  overflow-y: auto !important;
+  font-family: monospace !important;
+  font-size: 9.5px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.wz-kill-item {
+  color: #cbd5e1 !important;
+  line-height: 1.2 !important;
+}
+
+.wz-kill-actor {
+  color: #ff3366 !important;
+  font-weight: bold !important;
+}
+
+.wz-kill-action {
+  color: #f59e0b !important;
+}
+
+.wz-kill-target {
+  color: #38bdf8 !important;
+}
+
+/* Targeting Reticle Cursor when Target Weapon Mode Active */
+body.warzone-target-mode-active * {
+  cursor: crosshair !important;
+}
+
+@keyframes warzoneRealmFadeIn {
+  0% { opacity: 0; transform: scale(0.92) translateY(30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes warzoneRoadDash {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 0; }
+}
+
+@keyframes warzoneNeonGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px currentColor); }
+  50% { filter: drop-shadow(0 0 20px currentColor); }
+}
+
+@keyframes warzoneDiscoPulse {
+  0% { background-color: rgba(255, 0, 100, 0.2); }
+  33% { background-color: rgba(0, 200, 255, 0.2); }
+  66% { background-color: rgba(255, 200, 0, 0.2); }
+  100% { background-color: rgba(255, 0, 100, 0.2); }
+}
+
+@keyframes warzonePatrolMove {
+  0% { transform: translateX(0) scaleX(1); }
+  48% { transform: translateX(calc(100% - 60px)) scaleX(1); }
+  52% { transform: translateX(calc(100% - 60px)) scaleX(-1); }
+  98% { transform: translateX(0) scaleX(-1); }
+  100% { transform: translateX(0) scaleX(1); }
+}
+
+/* Whole-Page Hero Dominion Theme Styles */
+body.wz-dominion-active {
+  transition: background 0.8s ease, color 0.8s ease !important;
+}
+
+.wz-dominion-road {
+  position: relative !important;
+  height: 48px !important;
+  margin: 18px 0 !important;
+  background: #111827 !important;
+  border-top: 3px solid #374151 !important;
+  border-bottom: 3px solid #374151 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.4) !important;
+}
+
+.wz-dominion-road::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 4px !important;
+  transform: translateY(-50%) !important;
+  background: repeating-linear-gradient(90deg, #eab308 0, #eab308 20px, transparent 20px, transparent 40px) !important;
+  animation: warzoneRoadDash 1.2s linear infinite !important;
+}
+
+.wz-road-patrol-unit {
+  position: absolute !important;
+  font-size: 22px !important;
+  z-index: 2 !important;
+  animation: warzonePatrolMove 12s linear infinite !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease !important;
+}
+
+.wz-road-patrol-unit:hover {
+  transform: scale(1.4) !important;
+}
+
+.wz-hero-poster {
+  position: relative !important;
+  border-radius: 16px !important;
+  padding: 22px !important;
+  margin: 18px 0 !important;
+  background-size: cover !important;
+  background-position: center !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.6) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+}
+
+.wz-hero-poster:hover {
+  transform: translateY(-6px) scale(1.01) !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.95), 0 0 30px rgba(255,255,255,0.2) !important;
+}
+
+.wz-building-card {
+  flex: 1 !important;
+  min-width: 220px !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  border-radius: 14px !important;
+  padding: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+  transition: transform 0.2s ease, border-color 0.2s ease !important;
+}
+
+.wz-building-card:hover {
+  transform: translateY(-5px) !important;
+}
+
+.wz-party-dancefloor {
+  animation: warzoneDiscoPulse 4s infinite linear !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  margin: 20px 0 !important;
+  box-shadow: 0 0 30px rgba(255, 0, 120, 0.3) !important;
+}
+
+
+

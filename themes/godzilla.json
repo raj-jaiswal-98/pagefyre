@@ -1,0 +1,102 @@
+{
+  "id": "godzilla",
+  "name": "Titanus Gojira",
+  "title": "King of the Monsters & Nuclear Kaiju",
+  "category": "kaiju_titan",
+  "themeColor": "#00f0ff",
+  "secondaryColor": "#0a192f",
+  "accentGlow": "rgba(0, 240, 255, 0.9)",
+  "badge": "NUCLEAR DEVASTATION",
+  "stats": {
+    "health": 5500,
+    "speed": 4.8,
+    "damage": 340,
+    "attackRange": 500,
+    "chaosRating": "Extinction Event",
+    "swarmUnitCount": 4
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 150,
+    "height": 140,
+    "dorsalSpinesGlow": true,
+    "atomicChargeColor": "#00e5ff",
+    "beamColor": "#7df9ff",
+    "footprintDecals": true,
+    "skylightRoar": "kaiju_skreeonk_roar"
+  },
+  "attacks": [
+    {
+      "id": "atomic_breath_beam",
+      "name": "Supercharged Atomic Ray",
+      "type": "laser_slice",
+      "damage": 520,
+      "cooldown": 2600,
+      "range": 650,
+      "description": "Charges neon blue dorsal plates with blinding electrical sound, then fires a colossal beam of pure nuclear plasma that dissolves containers, tables, and paragraphs into glowing vapor.",
+      "effects": {
+        "chargeTimeMs": 600,
+        "beamWidth": 28,
+        "plasmaParticles": 50,
+        "screenShakeIntensity": 14,
+        "sfx": "kaiju_atomic_breath"
+      }
+    },
+    {
+      "id": "seismic_ground_stomp",
+      "name": "Cataclysmic Seismic Stomp",
+      "type": "dom_crush",
+      "damage": 360,
+      "cooldown": 2200,
+      "range": 400,
+      "description": "Slams titanic kaiju foot onto the website, creating fractured ground fault fissures, tilting all nearby divs 15 degrees, and shattering elements into falling rubble.",
+      "effects": {
+        "earthquakeDuration": 1500,
+        "fissureCrackOverlay": true,
+        "rubbleCount": 30,
+        "sfx": "earthquake_stomp_boom"
+      }
+    },
+    {
+      "id": "tail_whip_smash",
+      "name": "Continental Tail Sweep",
+      "type": "dom_throw",
+      "damage": 390,
+      "cooldown": 2800,
+      "range": 450,
+      "description": "Spins 360 degrees and sweeps armored tail through site sidebars and navbars, sending UI buttons and cards cartwheeling into the opposite corner.",
+      "effects": {
+        "sweepAngle": 360,
+        "knockbackForce": 45,
+        "rotationalTorque": 0.6,
+        "sfx": "tail_whip_crack"
+      }
+    },
+    {
+      "id": "kaiju_frenzy_swarm",
+      "name": "Hollow Earth Kaiju Stampede",
+      "type": "swarm_barrage",
+      "damage": 1100,
+      "cooldown": 7000,
+      "description": "Calls forth mini-titans, warbats, and juvenile kaijus stampeding across the entire document grid.",
+      "effects": {
+        "stampedeCount": 6,
+        "heavyFootsteps": true,
+        "sfx": "kaiju_stampede_roar"
+      }
+    }
+  ],
+  "animations": {
+    "idle": { "frames": 8, "loop": true, "speed": 0.1, "spinePulse": 0.05, "heavyBreathe": 8 },
+    "walk": { "frames": 10, "loop": true, "speed": 0.15, "stompRumble": true, "headBob": 10 },
+    "charge_atomic": { "frames": 15, "loop": false, "speed": 0.2, "spineSequentialLight": true },
+    "fire_beam": { "frames": 20, "loop": false, "speed": 0.3, "recoilShift": 15 },
+    "tail_sweep": { "frames": 12, "loop": false, "speed": 0.28, "fullSpin": true }
+  },
+  "voicelines": [
+    "SKREEEEEE-OOOONK!",
+    "*Radiation levels critical on this domain!*",
+    "Your web layout cannot withstand 100,000 tons of Kaiju!",
+    "BOW BEFORE THE KING OF MONSTERS!"
+  ]
+}

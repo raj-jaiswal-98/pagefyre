@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warzone Web Destroyer - Interactive Test Arena (Wikipedia Sample)</title>
+  <link rel="stylesheet" href="../content/warzone.css" />
+  <style>
+    :root {
+      --wiki-bg: #ffffff;
+      --wiki-text: #202122;
+      --wiki-border: #a2a9b1;
+      --wiki-link: #3366cc;
+      --wiki-box-bg: #f8f9fa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f6f6f6;
+      color: var(--wiki-text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    .wiki-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--wiki-border);
+      padding: 32px 40px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .wiki-top-nav {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--wiki-border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #54595d;
+    }
+
+    .wiki-title {
+      font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+      font-size: 32px;
+      font-weight: 400;
+      border-bottom: 1px solid var(--wiki-border);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    .wiki-lead-section {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .wiki-text-col {
+      flex: 1;
+    }
+
+    .wiki-text-col p {
+      margin-bottom: 14px;
+      font-size: 14.5px;
+      color: #202122;
+    }
+
+    .wiki-infobox {
+      width: 300px;
+      background: var(--wiki-box-bg);
+      border: 1px solid var(--wiki-border);
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    .infobox-title {
+      font-weight: bold;
+      text-align: center;
+      background: #eaecf0;
+      padding: 6px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .infobox-img-wrap {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .infobox-img-wrap img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border: 1px solid #c8ccd1;
+      border-radius: 4px;
+    }
+
+    .infobox-caption {
+      font-size: 11.5px;
+      color: #54595d;
+      margin-top: 4px;
+    }
+
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .infobox-table th, .infobox-table td {
+      padding: 6px 4px;
+      border-top: 1px solid #eaecf0;
+      text-align: left;
+    }
+
+    .infobox-table th {
+      color: #54595d;
+      width: 40%;
+    }
+
+    .wiki-heading {
+      font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+      font-size: 22px;
+      font-weight: 500;
+      border-bottom: 1px solid var(--wiki-border);
+      padding-bottom: 6px;
+      margin: 28px 0 14px 0;
+    }
+
+    .wiki-toc {
+      background: var(--wiki-box-bg);
+      border: 1px solid var(--wiki-border);
+      padding: 14px;
+      display: inline-block;
+      min-width: 220px;
+      margin: 14px 0 20px 0;
+      border-radius: 2px;
+    }
+
+    .toc-title {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .toc-list {
+      list-style-type: none;
+      font-size: 13px;
+    }
+
+    .toc-list li {
+      margin-bottom: 4px;
+      color: var(--wiki-link);
+    }
+
+    .wiki-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .gallery-item {
+      background: var(--wiki-box-bg);
+      border: 1px solid var(--wiki-border);
+      padding: 8px;
+      text-align: center;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      margin-bottom: 6px;
+    }
+
+    .gallery-caption {
+      font-size: 12px;
+      color: #54595d;
+    }
+
+    .wiki-blockquote {
+      background: #fdfdfd;
+      border-left: 4px solid var(--wiki-link);
+      padding: 12px 18px;
+      margin: 20px 0;
+      font-style: italic;
+      color: #333333;
+    }
+
+    .banner-warzone {
+      background: linear-gradient(90deg, #1e1b4b 0%, #311042 100%);
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+
+    .banner-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ff3366;
+    }
+
+    .banner-desc {
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+
+    .banner-btn-wrap {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-quick-swarm {
+      background: linear-gradient(135deg, #ff0055 0%, #ff5500 100%);
+      border: none;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-quick-swarm:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- Test Sandbox Header Banner -->
+  <div class="banner-warzone">
+    <div>
+      <div class="banner-title">🔥 WARZONE WEB DESTROYER TEST ARENA</div>
+      <div class="banner-desc">Interactive Wikipedia simulation. Use the HUD on top-right to spawn Dragons, Vader, Godzilla, Mechas, or Unleash the Swarm!</div>
+    </div>
+    <div class="banner-btn-wrap">
+      <button class="btn-quick-swarm" onclick="window.WarzoneEngine?.unleashSwarm(16)">
+        ⚡ UNLEASH SWARM NOW
+      </button>
+    </div>
+  </div>
+
+  <div class="wiki-container">
+    <div class="wiki-top-nav">
+      <span>Article Talk</span>
+      <span>Read Edit View history Tools ▾</span>
+    </div>
+
+    <h1 class="wiki-title">Draconic Apocalypse & Ancient Galactic Titans</h1>
+
+    <div class="wiki-lead-section">
+      <div class="wiki-text-col">
+        <p>
+          In legendary folklore and interplanetary histories, <b>Ancient Dragons</b> and <b>Galactic Sith Lords</b> represent the zenith of terrestrial and cosmic destructive capability. Across centuries of documented encounters, entire civilizations have witnessed high-energy dragonfire incinerations, kinetic telekinetic object throws, and atomic radiation surges.
+        </p>
+        <p>
+          Historical accounts from the Outer Rim and ancient medieval chronicles describe apex beasts capable of devouring fortified castle gates and melting granite battlements in mere seconds. When opposing colossal kaijus or cybernetic siege armors engage in open combat, surrounding layouts undergo catastrophic structural failure.
+        </p>
+
+        <div class="wiki-toc">
+          <div class="toc-title">Contents</div>
+          <ul class="toc-list">
+            <li>1. Historical Classifications</li>
+            <li>2. Combat Methodologies & DOM Devastation</li>
+            <li>3. The 5 Apex Warzone Monsters</li>
+            <li>4. Swarm Invasion Protocols</li>
+            <li>5. References and Further Reading</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Wikipedia Infobox -->
+      <aside class="wiki-infobox">
+        <div class="infobox-title">Apex Warzone Entity</div>
+        <div class="infobox-img-wrap">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=60" alt="Dragon Fire" />
+          <div class="infobox-caption">Ancient Crimson Dragon unleashing inferno breath across medieval fortifications.</div>
+        </div>
+        <table class="infobox-table">
+          <tr>
+            <th>Destruction Rating</th>
+            <td>Extinction Event / Calamity</td>
+          </tr>
+          <tr>
+            <th>Primary Weapons</th>
+            <td>Dragonfire, Red Lightsaber, Atomic Ray</td>
+          </tr>
+          <tr>
+            <th>Swarm Capacity</th>
+            <td>Up to 30 Active Units</td>
+          </tr>
+          <tr>
+            <th>DOM Interaction</th>
+            <td>Burn, Eat, Throw, Crush, Slice</td>
+          </tr>
+        </table>
+      </aside>
+    </div>
+
+    <h2 class="wiki-heading">Combat Methodologies & DOM Devastation</h2>
+    <p>
+      When monsters deploy upon a target website, the environmental deformation follows strict physical and thermal dynamics:
+    </p>
+
+    <blockquote class="wiki-blockquote">
+      "No HTML element could withstand the searing heat of the crimson flame. Titles were torn from the heavens and hurled like falling stars across the browser window." — Galactic Chronicle Archives
+    </blockquote>
+
+    <div class="wiki-gallery">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&auto=format&fit=crop&q=60" alt="Cosmic Energy" />
+        <div class="gallery-caption">Sith Force Lightning and Telekinetic Implosion Field</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop&q=60" alt="Cyber Mecha" />
+        <div class="gallery-caption">Cyber Mecha-01 Micro-Missile Saturation Salvo</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&auto=format&fit=crop&q=60" alt="Cosmic Void" />
+        <div class="gallery-caption">Eldritch Void Rift devouring images and background layers</div>
+      </div>
+    </div>
+
+    <h2 class="wiki-heading">The 5 Apex Warzone Monsters</h2>
+    <p>
+      Modern warzone analysis recognizes five supreme titan classes:
+    </p>
+    <ul style="margin-left: 24px; margin-bottom: 16px;">
+      <li><b>Lord Darth Vader</b>: Uses Force Choke element compression and lightsaber throws slicing images into molten halves.</li>
+      <li><b>Ignis the World-Burner (Dragon)</b>: Torrents of dragonfire incinerating text blocks and razor talons snatching titles into high velocity trajectories.</li>
+      <li><b>Titanus Gojira (Godzilla)</b>: Neon blue dorsal spine supercharging into continuous nuclear beam vaporizing containers.</li>
+      <li><b>Apex Mecha-01</b>: Dual rocket pods launching homing micro-missiles and high-frequency plasma blades.</li>
+      <li><b>Cthulhu Void Lord</b>: Writhing black-purple tentacles pulling elements into the cosmic abyss and black hole vortexes.</li>
+    </ul>
+
+    <h2 class="wiki-heading">Swarm Invasion Protocols</h2>
+    <p>
+      Triggering the <i>Unleash the Swarm</i> protocol commands all five monster classes to dispatch mini-titans in high frequency sweeps, simultaneously attacking images, headings, navigation bars, and cards across the viewport.
+    </p>
+  </div>
+
+  <!-- Load all modular Warzone Engines -->
+  <script src="../engine/sfx.js"></script>
+  <script src="../engine/physics.js"></script>
+  <script src="../engine/particles.js"></script>
+  <script src="../engine/dom-destroyer.js"></script>
+  <script src="../engine/monster-ai.js"></script>
+  <script src="../themes/monster-data.js"></script>
+  <script src="../content/warzone-hud.js"></script>
+  <script src="../content/content-main.js"></script>
+  <script>
+    // In sandbox demo, automatically mount HUD for instant playground testing
+    window.addEventListener('load', () => {
+      window.WarzoneHUD?.mount();
+    });
+  </script>
+</body>
+</html>

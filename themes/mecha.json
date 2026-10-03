@@ -1,0 +1,101 @@
+{
+  "id": "mecha",
+  "name": "Apex Omega Mecha-01",
+  "title": "Orbital Siege Warmachine",
+  "category": "cyber_mecha",
+  "themeColor": "#39ff14",
+  "secondaryColor": "#0b140d",
+  "accentGlow": "rgba(57, 255, 20, 0.85)",
+  "badge": "CYBERNETIC WARFARE",
+  "stats": {
+    "health": 4800,
+    "speed": 7.2,
+    "damage": 310,
+    "attackRange": 600,
+    "chaosRating": "Military Superweapon",
+    "swarmUnitCount": 5
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 130,
+    "height": 135,
+    "thrusterParticles": true,
+    "targetingReticle": true,
+    "laserSightColor": "#39ff14",
+    "shieldBubble": true,
+    "servoSfx": "mecha_hydraulic_step"
+  },
+  "attacks": [
+    {
+      "id": "missile_barrage_swarm",
+      "name": "Micro-Missile Macross Salvo",
+      "type": "dom_burn",
+      "damage": 460,
+      "cooldown": 2400,
+      "range": 700,
+      "description": "Fires a swarm of 12 spiraling laser-guided micro-missiles that seek out webpage images, ads, and paragraphs, detonating them into burning debris clusters.",
+      "effects": {
+        "missileCount": 12,
+        "spiralTrajectory": true,
+        "smokeTrails": true,
+        "shrapnelSparks": 40,
+        "sfx": "mecha_missile_launch_volley"
+      }
+    },
+    {
+      "id": "plasma_blade_bisection",
+      "name": "High-Frequency Plasma Blade",
+      "type": "laser_slice",
+      "damage": 390,
+      "cooldown": 1900,
+      "range": 400,
+      "description": "Ignites dual emerald plasma beam sabers and dashes across target titles/images, slicing them cleanly in half with particle fireworks and sparks.",
+      "effects": {
+        "dashSpeed": 30,
+        "sliceGlowColor": "#39ff14",
+        "sparkShowerCount": 50,
+        "sfx": "mecha_plasma_slash"
+      }
+    },
+    {
+      "id": "hydraulic_kinetic_pile_driver",
+      "name": "Kinetic Pile Driver Strike",
+      "type": "dom_throw",
+      "damage": 410,
+      "cooldown": 2600,
+      "range": 380,
+      "description": "Powers up pneumatic booster arm and punches web elements into deep screen space, shattering them against the viewport boundaries.",
+      "effects": {
+        "punchRebound": true,
+        "impactFlash": "#39ff14",
+        "knockbackForce": 50,
+        "sfx": "mecha_hydraulic_punch"
+      }
+    },
+    {
+      "id": "drone_strike_swarm",
+      "name": "Attack Drone Fleet Swarm",
+      "type": "swarm_barrage",
+      "damage": 950,
+      "cooldown": 6000,
+      "description": "Deploys an automated squadron of quad-rotor laser attack drones targeting every visible HTML element simultaneously.",
+      "effects": {
+        "droneCount": 10,
+        "laserTracerLines": true,
+        "sfx": "mecha_drone_barrage"
+      }
+    }
+  ],
+  "animations": {
+    "idle": { "frames": 8, "loop": true, "speed": 0.12, "thrusterFlicker": true, "radarScan": true },
+    "hover": { "frames": 10, "loop": true, "speed": 0.2, "thrusterPlume": 25, "altitudeFloat": 8 },
+    "fire_missiles": { "frames": 16, "loop": false, "speed": 0.3, "hatchOpen": true, "podEject": true },
+    "plasma_slice": { "frames": 14, "loop": false, "speed": 0.35, "bladeExtend": true, "trailBlur": true }
+  },
+  "voicelines": [
+    "TARGET LOCKED: Webpage structure identified as hostile.",
+    "Engaging full kinetic bombardment protocol.",
+    "System diagnostics: 100% destruction efficiency.",
+    "DOM integrity dropping to zero. All systems operational."
+  ]
+}

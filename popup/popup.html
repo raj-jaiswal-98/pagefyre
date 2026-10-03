@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warzone Web Destroyer</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon">🔥</span>
+        <div>
+          <h1 class="brand-title">WARZONE DESTROYER</h1>
+          <p class="brand-sub">Monsters & Dragons Web Obliterator</p>
+        </div>
+      </div>
+      <span class="live-pill">ARMED</span>
+    </header>
+
+    <!-- Apocalypse Unleash Swarm Button -->
+    <section class="action-section">
+      <button id="btn-unleash-swarm" class="btn-apocalypse">
+        <span class="apoc-icon">⚡</span>
+        <div class="apoc-text">
+          <span class="apoc-title">UNLEASH THE SWARM</span>
+          <span class="apoc-sub">Summon Horde to Devastate Webpage</span>
+        </div>
+      </button>
+    </section>
+
+    <!-- Monster Selection Grid -->
+    <section class="roster-section">
+      <div class="section-heading">
+        <span>CHOOSE APEX MONSTER</span>
+        <span class="monster-count-badge">14 TITANS & HEROES</span>
+      </div>
+
+      <div class="monster-cards">
+        <!-- Darth Vader -->
+        <div class="monster-card active" data-type="vader" data-color="#ff0033">
+          <div class="card-top">
+            <span class="card-icon">🗡️</span>
+            <span class="card-badge">FORCE CRUSHER</span>
+          </div>
+          <div class="card-name">Lord Darth Vader</div>
+          <div class="card-sub">Sith Lord & Choke Master</div>
+        </div>
+
+        <!-- Fire Dragon -->
+        <div class="monster-card" data-type="dragon" data-color="#ff6600">
+          <div class="card-top">
+            <span class="card-icon">🐉</span>
+            <span class="card-badge">INFERNO</span>
+          </div>
+          <div class="card-name">Ignis The Dragon</div>
+          <div class="card-sub">Fire Breath & Jaw Devour</div>
+        </div>
+
+        <!-- Godzilla -->
+        <div class="monster-card" data-type="godzilla" data-color="#00f0ff">
+          <div class="card-top">
+            <span class="card-icon">🦖</span>
+            <span class="card-badge">NUCLEAR KAIJU</span>
+          </div>
+          <div class="card-name">Titanus Gojira</div>
+          <div class="card-sub">Atomic Ray & Seismic Stomp</div>
+        </div>
+
+        <!-- Cyber Mecha -->
+        <div class="monster-card" data-type="mecha" data-color="#39ff14">
+          <div class="card-top">
+            <span class="card-icon">🤖</span>
+            <span class="card-badge">CYBER MECHA</span>
+          </div>
+          <div class="card-name">Apex Mecha-01</div>
+          <div class="card-sub">Micro-Missiles & Plasma Blade</div>
+        </div>
+
+        <!-- Cthulhu -->
+        <div class="monster-card" data-type="cthulhu" data-color="#bf00ff">
+          <div class="card-top">
+            <span class="card-icon">🐙</span>
+            <span class="card-badge">ELDRITCH LORD</span>
+          </div>
+          <div class="card-name">Cthulhu Void Lord</div>
+          <div class="card-sub">Abyssal Tentacles & Black Hole</div>
+        </div>
+
+        <!-- Titanus Kong -->
+        <div class="monster-card" data-type="kong" data-color="#eab308">
+          <div class="card-top">
+            <span class="card-icon">🦍</span>
+            <span class="card-badge">PRIMAL SMASH</span>
+          </div>
+          <div class="card-name">Titanus Kong</div>
+          <div class="card-sub">Two-Handed Slam & Boulder Pitch</div>
+        </div>
+
+        <!-- Cerberus -->
+        <div class="monster-card" data-type="cerberus" data-color="#f43f5e">
+          <div class="card-top">
+            <span class="card-icon">🐺</span>
+            <span class="card-badge">HELLFIRE</span>
+          </div>
+          <div class="card-name">Cerberus Hound</div>
+          <div class="card-sub">Triple Jaw Frenzy & Hellfire</div>
+        </div>
+
+        <!-- Thor -->
+        <div class="monster-card" data-type="thor" data-color="#38bdf8">
+          <div class="card-top">
+            <span class="card-icon">⚡</span>
+            <span class="card-badge">THUNDER GOD</span>
+          </div>
+          <div class="card-name">Thor Odinson</div>
+          <div class="card-sub">Mjolnir Toss & Lightning Storm</div>
+        </div>
+
+        <!-- Iron Man -->
+        <div class="monster-card" data-type="ironman" data-color="#e63946">
+          <div class="card-top">
+            <span class="card-icon">🦾</span>
+            <span class="card-badge">AVENGER</span>
+          </div>
+          <div class="card-name">Iron Man</div>
+          <div class="card-sub">Chest Unibeam & Smart Missiles</div>
+        </div>
+
+        <!-- Spider-Man -->
+        <div class="monster-card" data-type="spiderman" data-color="#ef4444">
+          <div class="card-top">
+            <span class="card-icon">🕷️</span>
+            <span class="card-badge">WEB SLINGER</span>
+          </div>
+          <div class="card-name">Spider-Man</div>
+          <div class="card-sub">Web Slingshot & Spider-Sense</div>
+        </div>
+
+        <!-- Batman -->
+        <div class="monster-card" data-type="batman" data-color="#64748b">
+          <div class="card-top">
+            <span class="card-icon">🦇</span>
+            <span class="card-badge">DARK KNIGHT</span>
+          </div>
+          <div class="card-name">Batman</div>
+          <div class="card-sub">Batarang Volley & Bat-Grapple</div>
+        </div>
+
+        <!-- Captain America -->
+        <div class="monster-card" data-type="captainamerica" data-color="#0284c7">
+          <div class="card-top">
+            <span class="card-icon">🛡️</span>
+            <span class="card-badge">FIRST AVENGER</span>
+          </div>
+          <div class="card-name">Captain America</div>
+          <div class="card-sub">Vibranium Shield Ricochet & Bash</div>
+        </div>
+
+        <!-- Hawkeye -->
+        <div class="monster-card" data-type="hawkeye" data-color="#9333ea">
+          <div class="card-top">
+            <span class="card-icon">🏹</span>
+            <span class="card-badge">MASTER ARCHER</span>
+          </div>
+          <div class="card-name">Hawkeye</div>
+          <div class="card-sub">Trick Arrow Volley & Pym Collapser</div>
+        </div>
+
+        <!-- Black Widow -->
+        <div class="monster-card" data-type="blackwidow" data-color="#ef4444">
+          <div class="card-top">
+            <span class="card-icon">🎯</span>
+            <span class="card-badge">DEADLY ASSASSIN</span>
+          </div>
+          <div class="card-name">Black Widow</div>
+          <div class="card-sub">Dual Tactical Glock & Widow's Bite</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Monster Details & Spawn -->
+    <section class="selected-details">
+      <div class="detail-header">
+        <span id="detail-name" class="detail-title">Lord Darth Vader</span>
+        <span id="detail-dmg" class="detail-stat">DMG: 220 | HP: 3500</span>
+      </div>
+      <p id="detail-desc" class="detail-desc">
+        Lifts webpage headers with purple force lightning, crushes them into a dense sphere and detonates into debris.
+      </p>
+      <button id="btn-spawn-selected" class="btn-spawn">
+        <span>🚀</span> DEPLOY THIS TITAN ON SITE
+      </button>
+    </section>
+
+    <!-- Controls & Global Actions -->
+    <footer class="footer-actions">
+      <button id="btn-toggle-hud" class="btn-tool hud">
+        🎮 Toggle In-Page HUD
+      </button>
+      <button id="btn-spray-signature" class="btn-tool spray">
+        🎨 Signature Tag
+      </button>
+      <button id="btn-restore-page" class="btn-tool restore">
+        ✨ Restore Page
+      </button>
+      <button id="btn-open-arena" class="btn-tool arena">
+        ⚔️ Sandbox
+      </button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

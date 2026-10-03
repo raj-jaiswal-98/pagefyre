@@ -1,0 +1,61 @@
+{
+  "id": "kong",
+  "name": "Titanus Kong",
+  "title": "King of Skull Island & Primal Colossus",
+  "category": "primal_titan",
+  "themeColor": "#eab308",
+  "secondaryColor": "#291b00",
+  "accentGlow": "rgba(234, 179, 8, 0.85)",
+  "badge": "PRIMAL SMASH",
+  "avatarIcon": "🦍",
+  "stats": {
+    "health": 5200,
+    "speed": 6.8,
+    "damage": 350,
+    "attackRange": 420,
+    "chaosRating": "Primal Rampage",
+    "swarmUnitCount": 4
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 140,
+    "height": 135,
+    "chestBeat": true,
+    "glowColor": "#eab308"
+  },
+  "attacks": [
+    {
+      "id": "kong_ground_slam",
+      "name": "Two-Handed Seismic Slam",
+      "type": "dom_crush",
+      "damage": 440,
+      "cooldown": 2100,
+      "range": 400,
+      "description": "Brings colossal fists down with thunderous force, fracturing surrounding containers and tilting the DOM grid."
+    },
+    {
+      "id": "kong_boulder_throw",
+      "name": "Primal Heading Pitch",
+      "type": "dom_throw",
+      "damage": 390,
+      "cooldown": 2500,
+      "range": 520,
+      "description": "Rips website headings and buttons out from the page and hurls them like massive asteroids across the viewport."
+    },
+    {
+      "id": "kong_primal_chomp",
+      "name": "Primal Jaw Tear",
+      "type": "dom_eat",
+      "damage": 410,
+      "cooldown": 2300,
+      "range": 350,
+      "description": "Snatches image banners and tears them in half with razor ape fangs."
+    }
+  ],
+  "voicelines": [
+    "ROOOOAAAR-GHHH!",
+    "*Beats chest with earth-shattering power*",
+    "Hollow Earth bows to no HTML!",
+    "SKULL ISLAND SENDS ITS REGARDS!"
+  ]
+}

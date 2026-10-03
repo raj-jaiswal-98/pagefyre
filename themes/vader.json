@@ -1,0 +1,102 @@
+{
+  "id": "vader",
+  "name": "Lord Darth Vader",
+  "title": "Sith Lord & Galactic Enforcer",
+  "category": "sith_lord",
+  "themeColor": "#ff0033",
+  "secondaryColor": "#1a0005",
+  "accentGlow": "rgba(255, 0, 51, 0.75)",
+  "badge": "FORCE DESTROYER",
+  "stats": {
+    "health": 3500,
+    "speed": 6.5,
+    "damage": 220,
+    "attackRange": 380,
+    "chaosRating": "Galactic Menace",
+    "swarmUnitCount": 6
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 110,
+    "height": 130,
+    "capePhysics": true,
+    "glowAura": true,
+    "saberColor": "#ff073a",
+    "saberLength": 85,
+    "breathingAudio": "vader_breath"
+  },
+  "attacks": [
+    {
+      "id": "force_choke_crush",
+      "name": "Force Choke & Element Compression",
+      "type": "dom_crush",
+      "damage": 350,
+      "cooldown": 2200,
+      "range": 450,
+      "description": "Lifts webpage headers or text blocks, shakes them violently with purple-red force lightning, crushes them into a dense sphere and detonates them into debris.",
+      "effects": {
+        "shakeDuration": 1200,
+        "compressionScale": 0.05,
+        "lightningArs": 8,
+        "particleType": "force_spark",
+        "sfx": "force_choke_detonation"
+      }
+    },
+    {
+      "id": "saber_throw_slice",
+      "name": "Sith Lightsaber Saber-Throw",
+      "type": "laser_slice",
+      "damage": 280,
+      "cooldown": 1800,
+      "range": 550,
+      "description": "Hurls spinning red lightsaber across web elements, cleanly slicing images and paragraphs into glowing molten halves with gravity tumbling physics.",
+      "effects": {
+        "sliceAngle": -25,
+        "moltenGlow": "#ff0044",
+        "trailSparks": 25,
+        "sfx": "saber_slash_throw"
+      }
+    },
+    {
+      "id": "telekinetic_hurled_title",
+      "name": "Telekinetic Object Throw",
+      "type": "dom_throw",
+      "damage": 400,
+      "cooldown": 3000,
+      "range": 500,
+      "description": "Rips H1/H2 titles from page hierarchy, floats them high into air, and hurls them like supersonic projectiles crashing into images.",
+      "effects": {
+        "impulse": 35,
+        "spinTorque": 0.4,
+        "shatterOnImpact": true,
+        "sfx": "force_slam"
+      }
+    },
+    {
+      "id": "sith_rage_swarm",
+      "name": "Death Squadron Swarm Assault",
+      "type": "swarm_barrage",
+      "damage": 800,
+      "cooldown": 6000,
+      "description": "Summons Imperial TIE fighters and Sith phantom acolytes carpet bombing entire sections with crimson laser fire.",
+      "effects": {
+        "strikeCount": 12,
+        "screenFlash": "rgba(255, 0, 50, 0.35)",
+        "sfx": "orbital_crimson_strike"
+      }
+    }
+  ],
+  "animations": {
+    "idle": { "frames": 8, "loop": true, "speed": 0.1, "capeDrift": 4, "saberHum": true },
+    "walk": { "frames": 10, "loop": true, "speed": 0.2, "stepBob": 6, "stride": 14 },
+    "attack_choke": { "frames": 16, "loop": false, "speed": 0.25, "handRaise": 1.0, "lightning": true },
+    "attack_slash": { "frames": 12, "loop": false, "speed": 0.35, "saberArc": 180, "lunge": 40 },
+    "rage_unleashed": { "frames": 24, "loop": false, "speed": 0.3, "forceShockwave": true }
+  },
+  "voicelines": [
+    "You don't know the power of the Dark Side!",
+    "I find your lack of DOM structure disturbing.",
+    "All I am surrounded by is fear... and dead HTML elements!",
+    "The Force is with me. Your layout is not."
+  ]
+}

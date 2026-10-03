@@ -1,0 +1,61 @@
+{
+  "id": "cerberus",
+  "name": "Cerberus, Underworld Hound",
+  "title": "Infernal Three-Headed Guardian",
+  "category": "mythic_beast",
+  "themeColor": "#f43f5e",
+  "secondaryColor": "#33000b",
+  "accentGlow": "rgba(244, 63, 94, 0.85)",
+  "badge": "HELLFIRE FRENZY",
+  "avatarIcon": "🐺",
+  "stats": {
+    "health": 4400,
+    "speed": 8.5,
+    "damage": 330,
+    "attackRange": 390,
+    "chaosRating": "Infernal Calamity",
+    "swarmUnitCount": 5
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 145,
+    "height": 115,
+    "flamingSpines": true,
+    "glowColor": "#f43f5e"
+  },
+  "attacks": [
+    {
+      "id": "cerberus_triple_chomp",
+      "name": "Triple-Jaw Feeding Frenzy",
+      "type": "dom_eat",
+      "damage": 470,
+      "cooldown": 2000,
+      "range": 380,
+      "description": "All three hellhound heads snap and tear into website images simultaneously, chewing blocks into jagged ash."
+    },
+    {
+      "id": "cerberus_hellfire_breath",
+      "name": "Stygian Hellfire Torrent",
+      "type": "dom_burn",
+      "damage": 400,
+      "cooldown": 2300,
+      "range": 460,
+      "description": "Unleashes crimson-black hellfire burning website paragraphs and cards into cinder."
+    },
+    {
+      "id": "cerberus_frenzy_throw",
+      "name": "Underworld Pounce & Hurl",
+      "type": "dom_throw",
+      "damage": 360,
+      "cooldown": 2700,
+      "range": 420,
+      "description": "Pounces on DOM cards and flings them violently into the ceiling with three-headed whip."
+    }
+  ],
+  "voicelines": [
+    "GRRRR-HOWWWL! Three heads, triple the destruction!",
+    "The Gates of Hades open upon this DOM!",
+    "No soul or CSS element escapes the Underworld!",
+    "*Three synchronized terrifying snarls*"
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "id": "dragon",
+  "name": "Ignis the World-Burner",
+  "title": "Ancient Crimson Wyrm",
+  "category": "draconic_beast",
+  "themeColor": "#ff6600",
+  "secondaryColor": "#4a0f00",
+  "accentGlow": "rgba(255, 102, 0, 0.8)",
+  "badge": "INFERNO APOCALYPSE",
+  "stats": {
+    "health": 4000,
+    "speed": 8.0,
+    "damage": 260,
+    "attackRange": 420,
+    "chaosRating": "Calamity Class",
+    "swarmUnitCount": 5
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 140,
+    "height": 110,
+    "wingSpan": 180,
+    "smokeParticles": true,
+    "breathColor": "#ff4400",
+    "flameCoreColor": "#ffff88",
+    "roaringAudio": "dragon_inferno_roar"
+  },
+  "attacks": [
+    {
+      "id": "inferno_breath_burn",
+      "name": "Dragonfire Incineration",
+      "type": "dom_burn",
+      "damage": 380,
+      "cooldown": 1900,
+      "range": 480,
+      "description": "Breathes an unrelenting torrent of roaring dragonfire across images and content blocks, charring them black with flame shaders and turning them to ash particles.",
+      "effects": {
+        "burnDuration": 1600,
+        "charShading": true,
+        "emberSparks": 45,
+        "flameParticleCount": 60,
+        "sfx": "dragon_flamethrower"
+      }
+    },
+    {
+      "id": "predator_devour_image",
+      "name": "Apex Jaw Devour",
+      "type": "dom_eat",
+      "damage": 420,
+      "cooldown": 2500,
+      "range": 350,
+      "description": "Swoops down and takes massive fiery bites out of images, leaving charred bite curves and swallowing the media whole into the dragon's fiery belly.",
+      "effects": {
+        "biteArcs": 4,
+        "salivaAcid": true,
+        "chewCycles": 3,
+        "sfx": "monster_crunch_swallow"
+      }
+    },
+    {
+      "id": "talon_aerial_snatch_throw",
+      "name": "Talon Snatch & Catapult Throw",
+      "type": "dom_throw",
+      "damage": 340,
+      "cooldown": 2800,
+      "range": 400,
+      "description": "Snatches website headers, buttons or paragraphs in razor talons, flies them into high orbit, and hurls them down at hyper velocity causing crater shockwaves.",
+      "effects": {
+        "liftAltitude": 200,
+        "throwSpeed": 40,
+        "groundImpactCrater": true,
+        "sfx": "dragon_swoop_hurl"
+      }
+    },
+    {
+      "id": "dragon_brood_swarm",
+      "name": "Wyrmling Brood Swarm",
+      "type": "swarm_barrage",
+      "damage": 900,
+      "cooldown": 6500,
+      "description": "Summons a flock of ferocious baby fire drakes sweeping across the DOM in a flaming V-formation, torching every header and image in sight.",
+      "effects": {
+        "drakeCount": 8,
+        "flightSpeed": 14,
+        "fireTrail": true,
+        "sfx": "wyrm_swarm_screech"
+      }
+    }
+  ],
+  "animations": {
+    "idle": { "frames": 10, "loop": true, "speed": 0.12, "wingFlapRate": 0.08, "tailSway": 12 },
+    "fly": { "frames": 12, "loop": true, "speed": 0.25, "wingFlapRate": 0.2, "bankAngle": 25 },
+    "dive": { "frames": 8, "loop": false, "speed": 0.35, "tuckWings": true, "speedBoost": 2.5 },
+    "breath_fire": { "frames": 18, "loop": false, "speed": 0.2, "neckExtend": 30, "jawGape": 35 },
+    "chomp": { "frames": 10, "loop": false, "speed": 0.3, "snapJaw": true }
+  },
+  "voicelines": [
+    "ROOOAAAR! Ash and cinder to all CSS!",
+    "This webpage shall be my gold hoard's pyre!",
+    "Delicious images... crispy and well done!",
+    "Burn in dragon's fury!"
+  ]
+}

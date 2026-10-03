@@ -1,0 +1,61 @@
+{
+  "id": "thor",
+  "name": "Thor Odinson",
+  "title": "Norse God of Thunder & Storms",
+  "category": "storm_god",
+  "themeColor": "#38bdf8",
+  "secondaryColor": "#082f49",
+  "accentGlow": "rgba(56, 189, 248, 0.9)",
+  "badge": "DIVINE LIGHTNING",
+  "avatarIcon": "⚡",
+  "stats": {
+    "health": 4600,
+    "speed": 7.8,
+    "damage": 360,
+    "attackRange": 500,
+    "chaosRating": "Asgardian Wrath",
+    "swarmUnitCount": 5
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 120,
+    "height": 125,
+    "mjolnirHammer": true,
+    "glowColor": "#38bdf8"
+  },
+  "attacks": [
+    {
+      "id": "thor_mjolnir_strike",
+      "name": "Mjolnir Kinetic Catapult",
+      "type": "dom_throw",
+      "damage": 430,
+      "cooldown": 2200,
+      "range": 520,
+      "description": "Hurls the enchanted hammer Mjolnir through website headers, sending them flying in supercharged ballistic arcs."
+    },
+    {
+      "id": "thor_lightning_storm",
+      "name": "Asgardian Thunder Tempest",
+      "type": "dom_crush",
+      "damage": 480,
+      "cooldown": 2400,
+      "range": 580,
+      "description": "Summons bolts of sky-blue divine lightning striking down from the clouds, electrifying and shattering containers."
+    },
+    {
+      "id": "thor_thunderclap_bisection",
+      "name": "Sonic Thunderclap Slice",
+      "type": "laser_slice",
+      "damage": 410,
+      "cooldown": 2000,
+      "range": 440,
+      "description": "Claps armored gauntlets together creating a supersonic lightning shockwave that slices elements in half."
+    }
+  ],
+  "voicelines": [
+    "FOR ASGARD! FEEL THE WRATH OF MJOLNIR!",
+    "You dare challenge the God of Thunder's CSS?!",
+    "BRING ME MORE WEBPAGES TO SMITE!",
+    "*Thunder echoes across the browser viewport*"
+  ]
+}

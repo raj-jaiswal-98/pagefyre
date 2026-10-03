@@ -1,0 +1,101 @@
+{
+  "id": "cthulhu",
+  "name": "Cthulhu, The Void Sleeper",
+  "title": "Cosmic Great Old One & Reality Corruptor",
+  "category": "eldritch_horror",
+  "themeColor": "#bf00ff",
+  "secondaryColor": "#120024",
+  "accentGlow": "rgba(191, 0, 255, 0.85)",
+  "badge": "ELDRITCH ANNIHILATION",
+  "stats": {
+    "health": 6000,
+    "speed": 5.2,
+    "damage": 380,
+    "attackRange": 550,
+    "chaosRating": "Cosmic Insanity",
+    "swarmUnitCount": 6
+  },
+  "visuals": {
+    "type": "canvas_vector_rig",
+    "width": 145,
+    "height": 150,
+    "tentacleSwayCount": 8,
+    "voidParticles": true,
+    "madnessAura": true,
+    "eyeOfAbyssGlow": "#00ffcc",
+    "cosmicChant": "eldritch_void_whisper"
+  },
+  "attacks": [
+    {
+      "id": "tentacle_abyss_drag_eat",
+      "name": "Abyssal Tentacle Drag & Devour",
+      "type": "dom_eat",
+      "damage": 480,
+      "cooldown": 2300,
+      "range": 500,
+      "description": "Black-purple writhing tentacles burst from the bottom of the viewport, entangling target images and headers, pulling them screaming down into the dark abyss.",
+      "effects": {
+        "tentacleCount": 6,
+        "dragSpeed": 15,
+        "voidSwirl": true,
+        "inkSpillSplatter": true,
+        "sfx": "tentacle_grab_slither_swallow"
+      }
+    },
+    {
+      "id": "madness_vortex_eat_text",
+      "name": "Cosmic Madness Black Hole",
+      "type": "dom_crush",
+      "damage": 430,
+      "cooldown": 2500,
+      "range": 600,
+      "description": "Opens a swirling singularity vortex over paragraphs and tables, warping space-time and sucking in letters, words and DOM nodes like cosmic spaghetti.",
+      "effects": {
+        "vortexRadius": 90,
+        "distortionRipple": true,
+        "eventHorizonGlow": "#bf00ff",
+        "sfx": "void_black_hole_vacuum"
+      }
+    },
+    {
+      "id": "eldritch_reality_rift_throw",
+      "name": "Dimensional Rift Catapult",
+      "type": "dom_throw",
+      "damage": 370,
+      "cooldown": 2700,
+      "range": 450,
+      "description": "Tears a dimensional portal behind web sections, launching elements in an antigravity arc with purple nebulas and cosmic static.",
+      "effects": {
+        "portalSpin": true,
+        "antigravityDrift": true,
+        "purpleNebulaPuff": 35,
+        "sfx": "dimensional_portal_blast"
+      }
+    },
+    {
+      "id": "voidspawn_insanity_swarm",
+      "name": "Eldritch Voidspawn Swarm",
+      "type": "swarm_barrage",
+      "damage": 1200,
+      "cooldown": 7500,
+      "description": "Unleashes swarms of eldritch eye-stalks and floating void jellyfish corrupting and dissolving every element across the viewport.",
+      "effects": {
+        "spawnCount": 12,
+        "screenCorruptionShader": true,
+        "sfx": "abyssal_chorus_screech"
+      }
+    }
+  ],
+  "animations": {
+    "idle": { "frames": 12, "loop": true, "speed": 0.1, "tentacleWriggle": 0.15, "auraPulse": 0.08 },
+    "float": { "frames": 10, "loop": true, "speed": 0.18, "hoverWave": 12, "mistSpread": true },
+    "summon_tentacles": { "frames": 18, "loop": false, "speed": 0.25, "eyeFlare": true },
+    "reality_warp": { "frames": 22, "loop": false, "speed": 0.3, "vortexExpand": true }
+  },
+  "voicelines": [
+    "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn!",
+    "Your web design is an illusion... only the Void is eternal!",
+    "I hunger for JavaScript frameworks and HTML5 tags!",
+    "Gaze into the abyss of unrendered pixels!"
+  ]
+}

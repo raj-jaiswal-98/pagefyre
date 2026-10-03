@@ -1,0 +1,64 @@
+{
+  "id": "hawkeye",
+  "name": "Hawkeye",
+  "title": "Master Marksman & Ronin",
+  "category": "superhero",
+  "themeColor": "#9333ea",
+  "secondaryColor": "#18181b",
+  "accentGlow": "rgba(147, 51, 234, 0.85)",
+  "badge": "MASTER ARCHER",
+  "avatarIcon": "🏹",
+  "stats": {
+    "health": 4000,
+    "maxHealth": 4000,
+    "speed": 8.5,
+    "damage": 340,
+    "attackRange": 580,
+    "chaosRating": "Deadly Precision",
+    "swarmCount": 8
+  },
+  "visuals": {
+    "type": "hawkeye_rig",
+    "width": 100,
+    "height": 120,
+    "glowColor": "#9333ea"
+  },
+  "attacks": [
+    {
+      "id": "explosive_trick_arrow",
+      "name": "High-Explosive Arrow Volley",
+      "type": "dom_burn",
+      "damage": 390,
+      "cooldown": 1700,
+      "range": 600,
+      "sfx": "bow_release",
+      "description": "Fires custom explosive tip arrows that embed into pictures and ads, detonating them into searing shrapnel."
+    },
+    {
+      "id": "pym_particle_arrow",
+      "name": "Pym Particle Compression Arrow",
+      "type": "dom_crush",
+      "damage": 340,
+      "cooldown": 2100,
+      "range": 550,
+      "sfx": "bow_release",
+      "description": "Shoots Pym-infused arrows that shrink and collapse massive layout containers into microscopic dust."
+    },
+    {
+      "id": "grappling_kinetic_arrow",
+      "name": "Grapple Wire Tether Pull",
+      "type": "dom_throw",
+      "damage": 300,
+      "cooldown": 1500,
+      "range": 520,
+      "sfx": "bow_release",
+      "description": "Fires high-tensile grappling cables into headers, ripping them loose and hurling them into the air."
+    }
+  ],
+  "voicelines": [
+    "I played 18, shot 18. Just can't seem to miss.",
+    "Target locked and neutralized!",
+    "The city is flying, we're fighting an army of robots, and I have a bow and arrow.",
+    "Never miss a shot!"
+  ]
+}

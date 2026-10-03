@@ -1,0 +1,64 @@
+{
+  "id": "blackwidow",
+  "name": "Black Widow",
+  "title": "Master Assassin & Tactical Spy",
+  "category": "superhero",
+  "themeColor": "#ef4444",
+  "secondaryColor": "#18181b",
+  "accentGlow": "rgba(239, 68, 68, 0.85)",
+  "badge": "DEADLY ASSASSIN",
+  "avatarIcon": "🕷️",
+  "stats": {
+    "health": 3100,
+    "maxHealth": 3100,
+    "speed": 8.4,
+    "damage": 300,
+    "attackRange": 460,
+    "chaosRating": "Lethal Infiltrator",
+    "swarmCount": 8
+  },
+  "visuals": {
+    "type": "blackwidow_rig",
+    "width": 95,
+    "height": 118,
+    "glowColor": "#ef4444"
+  },
+  "attacks": [
+    {
+      "id": "dual_glock_rapid_fire",
+      "name": "Dual Tactical Pistol Rapid Fire",
+      "type": "laser_slice",
+      "damage": 370,
+      "cooldown": 1600,
+      "range": 500,
+      "sfx": "gunfire",
+      "description": "Unloads rapid-fire high-caliber rounds from dual tactical pistols with muzzle flashes, perforating buttons and menus."
+    },
+    {
+      "id": "widows_bite_taser",
+      "name": "Widow's Bite Electro-Shock",
+      "type": "dom_burn",
+      "damage": 340,
+      "cooldown": 1900,
+      "range": 440,
+      "sfx": "widow_bite",
+      "description": "Fires 30,000-volt electro-shock darts from wrist gauntlets, frying UI interactive elements into sparks."
+    },
+    {
+      "id": "electro_baton_strike",
+      "name": "Dual Electro-Baton Flurry",
+      "type": "dom_crush",
+      "damage": 320,
+      "cooldown": 1500,
+      "range": 380,
+      "sfx": "widow_bite",
+      "description": "Executes an acrobatic scissor-flip with energized electro-batons, collapsing and crushing DOM cards."
+    }
+  ],
+  "voicelines": [
+    "I've got red in my ledger, and I'd like to wipe it out.",
+    "This layout was a target, nothing more.",
+    "It's really nothing. Just a little espionage.",
+    "Let me handle this target."
+  ]
+}

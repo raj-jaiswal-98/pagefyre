@@ -1,0 +1,64 @@
+{
+  "id": "ironman",
+  "name": "Iron Man (MK-85)",
+  "title": "Avenger & Armored Genius",
+  "category": "superhero",
+  "themeColor": "#e63946",
+  "secondaryColor": "#ffd166",
+  "accentGlow": "rgba(0, 240, 255, 0.85)",
+  "badge": "UNIBEAM OBLITERATOR",
+  "avatarIcon": "🦾",
+  "stats": {
+    "health": 3600,
+    "maxHealth": 3600,
+    "speed": 7.5,
+    "damage": 290,
+    "attackRange": 480,
+    "chaosRating": "Nanotech Overlord",
+    "swarmCount": 7
+  },
+  "visuals": {
+    "type": "ironman_rig",
+    "width": 105,
+    "height": 125,
+    "glowColor": "#00f0ff"
+  },
+  "attacks": [
+    {
+      "id": "unibeam_chest_cannon",
+      "name": "Arc Reactor Chest Unibeam",
+      "type": "laser_slice",
+      "damage": 420,
+      "cooldown": 2000,
+      "range": 520,
+      "sfx": "repulsor_blast",
+      "description": "Fires a searing concentrated cyan Unibeam from the chest arc reactor, vaporizing DOM forms, inputs, and search bars."
+    },
+    {
+      "id": "repulsor_palm_barrage",
+      "name": "Dual Repulsor Palms",
+      "type": "dom_burn",
+      "damage": 310,
+      "cooldown": 1600,
+      "range": 460,
+      "sfx": "repulsor_blast",
+      "description": "Rapidly fires dual ion repulsor pulses, exploding elements into glowing technological embers."
+    },
+    {
+      "id": "smart_micro_missiles",
+      "name": "Smart Nanotech Micro-Missiles",
+      "type": "dom_crush",
+      "damage": 380,
+      "cooldown": 2600,
+      "range": 500,
+      "sfx": "mecha_missiles",
+      "description": "Deploys shoulder nanotech missile arrays tracking and detonating target DOM sections."
+    }
+  ],
+  "voicelines": [
+    "I am Iron Man!",
+    "Friday, analyze this DOM hierarchy and incinerate it!",
+    "Sometimes you gotta run before you can walk.",
+    "Genius, billionaire, playboy, DOM destroyer."
+  ]
+}

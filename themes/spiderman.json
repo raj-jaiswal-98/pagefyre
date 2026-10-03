@@ -1,0 +1,64 @@
+{
+  "id": "spiderman",
+  "name": "Spider-Man",
+  "title": "Friendly Neighborhood Web-Slinger",
+  "category": "superhero",
+  "themeColor": "#e63946",
+  "secondaryColor": "#1d3557",
+  "accentGlow": "rgba(230, 57, 70, 0.85)",
+  "badge": "WEB SLINGER",
+  "avatarIcon": "🕷️",
+  "stats": {
+    "health": 3200,
+    "maxHealth": 3200,
+    "speed": 8.5,
+    "damage": 260,
+    "attackRange": 420,
+    "chaosRating": "Acrobatic Menace",
+    "swarmCount": 8
+  },
+  "visuals": {
+    "type": "spiderman_rig",
+    "width": 95,
+    "height": 115,
+    "glowColor": "#e63946"
+  },
+  "attacks": [
+    {
+      "id": "web_pull_slingshot",
+      "name": "Web-Line Slingshot Projectile",
+      "type": "dom_throw",
+      "damage": 360,
+      "cooldown": 1900,
+      "range": 480,
+      "sfx": "web_thwip",
+      "description": "Shoots high-tensile web lines onto nav links and menus, ripping them loose and slingshotting them across the webpage."
+    },
+    {
+      "id": "web_bomb_detonation",
+      "name": "Web-Bomb Compression",
+      "type": "dom_crush",
+      "damage": 320,
+      "cooldown": 2200,
+      "range": 440,
+      "sfx": "web_thwip",
+      "description": "Throws concentrated web canisters that encase menus and headers in massive spider-web cocoons and collapses them."
+    },
+    {
+      "id": "acrobatic_web_strike",
+      "name": "Acrobatic Spider Dropkick",
+      "type": "laser_slice",
+      "damage": 340,
+      "cooldown": 1700,
+      "range": 400,
+      "sfx": "generic_impact",
+      "description": "Swings from web line and executes an acrobatic dropkick, slicing DOM components in half."
+    }
+  ],
+  "voicelines": [
+    "Your friendly neighborhood DOM destroyer!",
+    "My Spider-Sense is tingling... and it says this layout is toast!",
+    "With great power comes great element devastation.",
+    "Hey! Catch this paragraph!"
+  ]
+}
