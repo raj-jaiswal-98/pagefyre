@@ -4,6 +4,21 @@
  * and FEATURE-GATED developer testing roster (turned off by default).
  */
 
+function isUnpackedDevelopment() {
+  try {
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
+      const manifest = chrome.runtime.getManifest();
+      return !('update_url' in manifest);
+    }
+    if (typeof window !== 'undefined' && window.location) {
+      const proto = window.location.protocol;
+      const host = window.location.hostname;
+      if (proto === 'file:' || host === 'localhost' || host === '127.0.0.1') return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
 class WarzoneHUDController {
   constructor() {
     this.hudElement = null;
@@ -13,12 +28,21 @@ class WarzoneHUDController {
     this.dragOffset = { x: 0, y: 0 };
     this.isDragging = false;
     this.isMinimized = false;
-    this.isDevMode = localStorage.getItem('pagefyre_dev_mode') === 'true';
+    this.isDevMode = isUnpackedDevelopment() && localStorage.getItem('pagefyre_dev_mode') === 'true';
   }
 
   setDevMode(enabled) {
+    if (!isUnpackedDevelopment()) {
+      this.isDevMode = false;
+      try { localStorage.removeItem('pagefyre_dev_mode'); } catch (e) {}
+      const devDrawer = document.getElementById('wz-dev-archive-roster');
+      if (devDrawer) devDrawer.style.display = 'none';
+      return;
+    }
     this.isDevMode = !!enabled;
-    localStorage.setItem('pagefyre_dev_mode', enabled ? 'true' : 'false');
+    try {
+      localStorage.setItem('pagefyre_dev_mode', enabled ? 'true' : 'false');
+    } catch (e) {}
     const devDrawer = document.getElementById('wz-dev-archive-roster');
     if (devDrawer) {
       devDrawer.style.display = enabled ? 'block' : 'none';

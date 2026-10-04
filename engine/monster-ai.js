@@ -1,13 +1,45 @@
 /**
  * Warzone Web Destroyer - Autonomous Monster AI & Visual Rig Engine
  * Features:
- * - 11 Titans: Darth Vader, Ignis Dragon, Godzilla, Apex Mecha, Cthulhu, King Kong, Cerberus, Thor, Iron Man, Spider-Man, Batman
+ * - Canonical Grimoire Champions: Ignis (Dragon), Lord Umbra, Tectonus, Mecha Vanguard, The Void Maw
+ * - Developer Testing Specimens (unpacked local testing only): Vader, Godzilla, Cthulhu, etc.
  * - 5 Rich Animation States: SPAWN, ATTACK, DEFENCE, DEATH, VICTORY SPRAY-PAINTING
  * - Procedural animated vector rigs
  * - Autonomous pathfinding & element destruction attacks
  * - PvP Monster vs Monster battles with health bars & defense deflections
  * - Document-locked coordinates with auto-scroll sync
  */
+
+function isUnpackedDevelopment() {
+  try {
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
+      const manifest = chrome.runtime.getManifest();
+      // Extensions installed from Chrome Web Store always have 'update_url' injected by Google
+      return !('update_url' in manifest);
+    }
+    if (typeof window !== 'undefined' && window.location) {
+      const proto = window.location.protocol;
+      const host = window.location.hostname;
+      if (proto === 'file:' || host === 'localhost' || host === '127.0.0.1') return true;
+    }
+    if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+      return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+function canAccessForbiddenArchive() {
+  if (!isUnpackedDevelopment()) return false;
+  if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+    if (typeof localStorage === 'undefined' || !localStorage.getItem) return true;
+  }
+  try {
+    return typeof localStorage !== 'undefined' && localStorage.getItem('pagefyre_dev_mode') === 'true';
+  } catch (e) {
+    return false;
+  }
+}
 
 class MonsterInstance {
   constructor(config, x, y, isSwarmUnit = false, sector = null) {
@@ -309,10 +341,13 @@ class MonsterInstance {
     if (window.WarzoneDOM) {
       let pref = 'heading';
       switch (this.type) {
+        case 'umbra':
         case 'vader': pref = 'heading'; break; // Headings & Titles
         case 'dragon': pref = 'image'; break;  // Hero Images & Photos
+        case 'tectonus':
         case 'godzilla': pref = 'table'; break; // Tables, Sidebars & Cards
         case 'mecha': pref = 'ad'; break;     // Ads, Banners & Sponsors
+        case 'voidmaw':
         case 'cthulhu': pref = 'text'; break;  // Paragraphs & Articles
         case 'kong': pref = 'logo'; break;    // Logos, Brand Emblems & Nav
         case 'cerberus': pref = 'list'; break; // Lists, Badges & Chips
@@ -723,8 +758,14 @@ class MonsterInstance {
       case 'godzilla':
         P.createLaserBeam(cx, cy, tx, ty, '#00f0ff', '#ffffff', 400, 18);
         break;
+      case 'tectonus':
+        P.createLaserBeam(cx, cy, tx, ty, '#22D3EE', '#ffffff', 400, 18);
+        break;
       case 'vader':
         P.createLightning(cx, cy, tx, ty, '#ff0033', 4, 400);
+        break;
+      case 'umbra':
+        P.createLightning(cx, cy, tx, ty, '#A855F7', 4, 400);
         break;
       case 'dragon':
         P.createFlameCone(cx, cy, tx, ty, 25);
@@ -734,6 +775,9 @@ class MonsterInstance {
         break;
       case 'cthulhu':
         P.createLightning(cx, cy, tx, ty, '#bf00ff', 5, 400);
+        break;
+      case 'voidmaw':
+        P.createLightning(cx, cy, tx, ty, '#E879F9', 5, 400);
         break;
       case 'kong':
         P.createSparkExplosion(tx, ty, '#eab308', 35);
@@ -767,6 +811,9 @@ class MonsterInstance {
 
     let slogan = 'WARZONE DOMINATED';
     switch (this.type) {
+      case 'umbra': slogan = 'THE SHADOW SOVEREIGN CLAIMS ALL'; break;
+      case 'tectonus': slogan = 'THE EARTH HAS SHATTERED'; break;
+      case 'voidmaw': slogan = 'THE ABYSS CONSUMES REALITY'; break;
       case 'vader': slogan = 'THE SITH REIGN SUPREME'; break;
       case 'dragon': slogan = 'INFERNO RULES THIS DOMAIN'; break;
       case 'godzilla': slogan = 'KING OF THE MONSTERS'; break;
@@ -904,18 +951,21 @@ class MonsterInstance {
     ctx.globalAlpha = alpha;
 
     switch (this.type) {
+      case 'umbra':
       case 'vader':
         this.drawVader(ctx);
         break;
       case 'dragon':
         this.drawDragon(ctx);
         break;
+      case 'tectonus':
       case 'godzilla':
         this.drawGodzilla(ctx);
         break;
       case 'mecha':
         this.drawMecha(ctx);
         break;
+      case 'voidmaw':
       case 'cthulhu':
         this.drawCthulhu(ctx);
         break;
@@ -1102,14 +1152,15 @@ class MonsterInstance {
     ctx.fill();
 
     // Glowing Visor
-    ctx.fillStyle = '#ff0033';
-    ctx.shadowColor = '#ff0033';
+    const isUmbra = this.type === 'umbra';
+    ctx.fillStyle = isUmbra ? '#C084FC' : '#ff0033';
+    ctx.shadowColor = isUmbra ? '#A855F7' : '#ff0033';
     ctx.shadowBlur = 10;
     ctx.fillRect(-10, -32, 7, 3);
     ctx.fillRect(3, -32, 7, 3);
     ctx.shadowBlur = 0;
 
-    // 5. Red Lightsaber / Victory Pose
+    // 5. Red Lightsaber / Arcane Shadow Blade
     let saberAngle = Math.sin(t * 5) * 0.25 - 0.4;
     if (isAttacking) saberAngle = -1.2 + Math.sin(this.attackProgress * Math.PI) * 1.8;
     if (isDefending) saberAngle = 0.8; // Vertical parry stance
@@ -1123,9 +1174,9 @@ class MonsterInstance {
     ctx.fillStyle = '#888888';
     ctx.fillRect(-3, -8, 6, 16);
 
-    // Red Blade
-    ctx.fillStyle = '#ff073a';
-    ctx.shadowColor = '#ff0033';
+    // Blade
+    ctx.fillStyle = isUmbra ? '#D8B4FE' : '#ff073a';
+    ctx.shadowColor = isUmbra ? '#A855F7' : '#ff0033';
     ctx.shadowBlur = isVictory ? 35 : 25;
     ctx.fillRect(-2, -65, 4, 57);
 
@@ -4734,7 +4785,18 @@ class WarzoneMonsterEngine {
   }
 
   spawnMonster(typeId, x, y, isSwarm = false, sector = null) {
-    const config = window.WARZONE_MONSTERS?.[typeId] || window.WARZONE_MONSTERS?.['dragon'];
+    const canonicalChampions = ['dragon', 'umbra', 'tectonus', 'mecha', 'voidmaw'];
+    let safeTypeId = typeId;
+
+    // Hard Gate: Web Store installs or users without dev mode cannot spawn forbidden specimens
+    if (!canAccessForbiddenArchive() && !canonicalChampions.includes(safeTypeId)) {
+      if (safeTypeId === 'vader') safeTypeId = 'umbra';
+      else if (safeTypeId === 'godzilla') safeTypeId = 'tectonus';
+      else if (safeTypeId === 'cthulhu') safeTypeId = 'voidmaw';
+      else safeTypeId = canonicalChampions[Math.floor(Math.random() * canonicalChampions.length)];
+    }
+
+    const config = window.WARZONE_MONSTERS?.[safeTypeId] || window.WARZONE_MONSTERS?.['dragon'];
     if (!config) return null;
 
     const docWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth, window.innerWidth);
@@ -4791,10 +4853,11 @@ class WarzoneMonsterEngine {
 
     if (window.WarzoneSFX) {
       if (typeId === 'vader') window.WarzoneSFX.play('saber_throw');
+      else if (typeId === 'umbra') window.WarzoneSFX.play('force_crush');
       else if (typeId === 'dragon') window.WarzoneSFX.play('dragon_roar');
-      else if (typeId === 'godzilla') window.WarzoneSFX.play('godzilla_roar');
+      else if (typeId === 'godzilla' || typeId === 'tectonus') window.WarzoneSFX.play('godzilla_roar');
       else if (typeId === 'mecha') window.WarzoneSFX.play('mecha_missiles');
-      else if (typeId === 'cthulhu') window.WarzoneSFX.play('void_screech');
+      else if (typeId === 'cthulhu' || typeId === 'voidmaw') window.WarzoneSFX.play('void_screech');
       else if (typeId === 'kong') window.WarzoneSFX.play('godzilla_roar');
       else if (typeId === 'cerberus') window.WarzoneSFX.play('dragon_chomp');
       else if (typeId === 'thor') window.WarzoneSFX.play('force_crush');
@@ -4849,7 +4912,7 @@ class WarzoneMonsterEngine {
   /**
    * UNLEASH THE SWARM: Summons an apocalyptic army spread across the entire page height and sectors
    */
-  unleashSwarm(count = 16) {
+  unleashSwarm(count = 16, options = {}) {
     if (window.WarzoneSFX) window.WarzoneSFX.play('swarm_alarm');
     if (window.WarzoneParticles) window.WarzoneParticles.triggerScreenShake(16, 1200);
 
@@ -4859,10 +4922,29 @@ class WarzoneMonsterEngine {
     const sectorsCount = Math.max(4, Math.min(8, Math.floor(count / 2)));
     const sectorHeight = docHeight / sectorsCount;
 
-    const types = ['vader', 'dragon', 'godzilla', 'mecha', 'cthulhu', 'kong', 'cerberus', 'thor', 'ironman', 'spiderman', 'batman', 'captainamerica', 'hawkeye', 'blackwidow', 'flash', 'superman', 'shaktiman', 'odessa', 'doremon', 'messi', 'ronaldo', 'goku', 'krrish', 'ben10', 'ajaydevgan', 'salmankhan', 'akshaykumar', 'katrinakaif', 'aishwaryarai', 'baalveer'];
+    const isDevAllowed = canAccessForbiddenArchive();
+    const canonicalPool = ['dragon', 'umbra', 'tectonus', 'mecha', 'voidmaw'];
+    const forbiddenPool = ['vader', 'godzilla', 'cthulhu', 'kong', 'cerberus', 'thor', 'ironman', 'spiderman', 'batman', 'captainamerica', 'hawkeye', 'blackwidow', 'flash', 'superman', 'shaktiman', 'odessa', 'doremon', 'messi', 'ronaldo', 'goku', 'krrish', 'ben10', 'ajaydevgan', 'salmankhan', 'akshaykumar', 'katrinakaif', 'aishwaryarai', 'baalveer'];
+
+    // Strict Gate Enforcement: Web Store installations NEVER receive forbidden specimens
+    let activePool = canonicalPool;
+    if (isDevAllowed) {
+      activePool = [...canonicalPool, ...forbiddenPool];
+    }
+
+    const requestedType = typeof options === 'string' ? options : (options && options.monsterType);
+    if (requestedType) {
+      if (canonicalPool.includes(requestedType)) {
+        // Bias toward selected canonical champion while keeping variety
+        activePool = [requestedType, requestedType, requestedType, ...canonicalPool];
+      } else if (isDevAllowed && forbiddenPool.includes(requestedType)) {
+        activePool = [requestedType, requestedType, requestedType, ...activePool];
+      }
+    }
+
     for (let i = 0; i < count; i++) {
       setTimeout(() => {
-        const type = types[Math.floor(Math.random() * types.length)];
+        const type = activePool[Math.floor(Math.random() * activePool.length)];
         
         // Calculate sector index & spread across document
         const sectorIdx = i % sectorsCount;
@@ -4880,7 +4962,7 @@ class WarzoneMonsterEngine {
     }
 
     if (window.WarzoneHUD) {
-      window.WarzoneHUD.logKillFeed('PAGE BLITZKRIEG', 'FULL-PAGE SWARM', `${count} Heroes & Titans Spread Across All ${sectorsCount} Page Sectors!`);
+      window.WarzoneHUD.logKillFeed('PAGE BLITZKRIEG', 'FULL-PAGE SWARM', `${count} Champions Spread Across All ${sectorsCount} Page Sectors!`);
     }
   }
 

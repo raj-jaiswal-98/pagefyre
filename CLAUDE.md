@@ -63,4 +63,8 @@ node -e "const fs = require('fs'); fs.readdirSync('themes').filter(f => f.endsWi
 
 # 3. Generate icon exports
 python scripts/generate-icons.py
+
+# 4. Package Extension (.crx and .zip for Chrome Web Store)
+node scripts/package-extension.js
 ```
+

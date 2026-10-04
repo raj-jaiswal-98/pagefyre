@@ -10,6 +10,21 @@
   }
   window.__PAGEFYRE_INITIALIZED__ = true;
 
+  function isUnpackedDevelopment() {
+    try {
+      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
+        const manifest = chrome.runtime.getManifest();
+        return !('update_url' in manifest);
+      }
+      if (typeof window !== 'undefined' && window.location) {
+        const proto = window.location.protocol;
+        const host = window.location.hostname;
+        if (proto === 'file:' || host === 'localhost' || host === '127.0.0.1') return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
   function initCanvases() {
     if (window.WarzoneParticles) {
       window.WarzoneParticles.mount();
@@ -52,7 +67,7 @@
           if (window.WarzoneHUD) {
             window.WarzoneHUD.show();
           }
-          window.WarzoneEngine?.unleashSwarm(request.count || 12);
+          window.WarzoneEngine?.unleashSwarm(request.count || 12, { monsterType: request.monsterType });
           sendResponse({ success: true });
           break;
 
@@ -91,10 +106,11 @@
           break;
 
         case 'SET_DEV_MODE':
+          const isAllowed = isUnpackedDevelopment() && !!request.enabled;
           if (window.WarzoneHUD) {
-            window.WarzoneHUD.setDevMode?.(request.enabled);
+            window.WarzoneHUD.setDevMode?.(isAllowed);
           }
-          sendResponse({ success: true, devMode: request.enabled });
+          sendResponse({ success: true, devMode: isAllowed });
           break;
 
         case 'UPDATE_ACTIVE_POWERS':

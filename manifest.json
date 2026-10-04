@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PageFyre — Here be dragons. On any webpage.",
   "version": "2.0.0",
-  "description": "Turn any webpage into an illuminated grimoire battlefield! Summon mythic dragons, void beasts & mechas to burn, crush, and slice web elements, then restore reality with one click.",
+  "description": "Summon dragons, void beasts & mechas to burn, crush, and slice any webpage, then restore reality with a single click.",
   "permissions": [
     "activeTab",
     "storage",

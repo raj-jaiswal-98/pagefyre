@@ -79,6 +79,21 @@ function showToast(message) {
   }, 2200);
 }
 
+function isUnpackedDevelopment() {
+  try {
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
+      const manifest = chrome.runtime.getManifest();
+      return !('update_url' in manifest);
+    }
+    if (typeof window !== 'undefined' && window.location) {
+      const proto = window.location.protocol;
+      const host = window.location.hostname;
+      if (proto === 'file:' || host === 'localhost' || host === '127.0.0.1') return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
 function isRestrictedUrl(url) {
   if (!url) return false;
   return url.startsWith('chrome://') || 
@@ -207,12 +222,30 @@ document.addEventListener('DOMContentLoaded', () => {
   if (toggleParchmentTheme) toggleParchmentTheme.addEventListener('change', toggleTheme);
 
   // 2. Feature Gate: Forbidden Archive Dev Testing Roster
-  // OFF BY DEFAULT for clean brand safety
-  isDevModeEnabled = localStorage.getItem('pagefyre_dev_mode') === 'true';
+  // HARD-LOCKED FOR CHROME WEB STORE BUILDS:
+  // If installed from Web Store, dev testing roster is permanently locked and inaccessible.
+  // Only accessible when loaded unpacked from local cloned repository in developer mode.
+  const isUnpacked = isUnpackedDevelopment();
+  if (!isUnpacked) {
+    try { localStorage.removeItem('pagefyre_dev_mode'); } catch (e) {}
+    isDevModeEnabled = false;
+    const devGateItems = document.querySelectorAll('.dev-gate-item, .dev-instructions-box');
+    devGateItems.forEach(el => el.style.display = 'none');
+    if (devRosterSection) devRosterSection.remove();
+    if (versionEasterEgg) versionEasterEgg.title = 'PageFyre v2.0 • Grimoire';
+  } else {
+    isDevModeEnabled = localStorage.getItem('pagefyre_dev_mode') === 'true';
+  }
 
   function setDevMode(enabled, notify = false) {
+    if (!isUnpacked) {
+      isDevModeEnabled = false;
+      return;
+    }
     isDevModeEnabled = enabled;
-    localStorage.setItem('pagefyre_dev_mode', enabled ? 'true' : 'false');
+    try {
+      localStorage.setItem('pagefyre_dev_mode', enabled ? 'true' : 'false');
+    } catch (e) {}
     if (toggleDevRoster) toggleDevRoster.checked = enabled;
 
     if (devRosterSection) {
@@ -237,14 +270,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize gate state
   setDevMode(isDevModeEnabled, false);
 
-  if (toggleDevRoster) {
+  if (toggleDevRoster && isUnpacked) {
     toggleDevRoster.addEventListener('change', (e) => {
       setDevMode(e.target.checked, true);
     });
   }
 
-  // Easter Egg Trigger: 5 clicks on version footer toggles Dev Mode
-  if (versionEasterEgg) {
+  // Easter Egg Trigger: 5 clicks on version footer toggles Dev Mode (Unpacked development only)
+  if (versionEasterEgg && isUnpacked) {
     versionEasterEgg.addEventListener('click', () => {
       easterEggClicks++;
       clearTimeout(easterEggTimer);
@@ -259,9 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Keyboard shortcut: Ctrl + Shift + D toggles dev gate
+  // Keyboard shortcut: Ctrl + Shift + D toggles dev gate (Unpacked development only)
   window.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+    if (isUnpacked && e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
       e.preventDefault();
       setDevMode(!isDevModeEnabled, true);
     }

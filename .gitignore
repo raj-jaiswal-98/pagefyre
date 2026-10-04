@@ -1,0 +1,12 @@
+# Distribution & Packaging Artifacts
+dist/
+build/
+*.crx
+*.pem
+*.zip
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
