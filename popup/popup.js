@@ -79,13 +79,26 @@ function showToast(message) {
   }, 2200);
 }
 
-function injectAndExecute(tabId, message) {
+function isRestrictedUrl(url) {
+  if (!url) return false;
+  return url.startsWith('chrome://') || 
+         url.startsWith('chrome-extension://') || 
+         url.startsWith('edge://') || 
+         url.startsWith('about:') ||
+         url.startsWith('view-source:');
+}
+
+function injectAndExecute(tabId, message, callback) {
   if (typeof chrome === 'undefined' || !chrome.scripting) {
-    if (chrome && chrome.tabs) chrome.tabs.sendMessage(tabId, message);
+    if (chrome && chrome.tabs && message) {
+      chrome.tabs.sendMessage(tabId, message, (response) => {
+        if (callback && response) callback(response);
+      });
+    }
     return;
   }
 
-  // Insert Scoped Stylesheets
+  // Insert Scoped Stylesheets into the active tab
   chrome.scripting.insertCSS({
     target: { tabId },
     files: ['themes/tokens.css', 'content/hud.css', 'content/warzone.css']
@@ -106,10 +119,19 @@ function injectAndExecute(tabId, message) {
     ]
   }).then(() => {
     setTimeout(() => {
-      chrome.tabs.sendMessage(tabId, message);
-    }, 150);
+      // Synchronize dev mode if enabled
+      if (isDevModeEnabled) {
+        chrome.tabs.sendMessage(tabId, { action: 'SET_DEV_MODE', enabled: true }, () => {});
+      }
+      if (message) {
+        chrome.tabs.sendMessage(tabId, message, (response) => {
+          if (callback && response) callback(response);
+        });
+      }
+    }, 120);
   }).catch((err) => {
-    console.warn('PageFyre tab script mount notice:', err);
+    console.warn('PageFyre tab script injection notice:', err);
+    showToast('Ancient wards protect this realm. Choose another webpage.');
   });
 }
 
@@ -117,10 +139,16 @@ function sendMessageToActiveTab(message, callback) {
   if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.query) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs && tabs[0]?.id) {
-        const tabId = tabs[0].id;
-        chrome.tabs.sendMessage(tabId, message, (response) => {
+        const tab = tabs[0];
+        if (isRestrictedUrl(tab.url)) {
+          showToast('Ancient wards protect this realm. Choose another webpage.');
+          return;
+        }
+
+        chrome.tabs.sendMessage(tab.id, message, (response) => {
           if (chrome.runtime.lastError) {
-            injectAndExecute(tabId, message);
+            // Extension only activates on-demand when clicked!
+            injectAndExecute(tab.id, message, callback);
           } else if (callback && response) {
             callback(response);
           }

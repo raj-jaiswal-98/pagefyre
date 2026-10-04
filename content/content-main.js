@@ -1,11 +1,16 @@
 /**
- * Warzone Web Destroyer - Content Script Entry Point
- * Mounts canvases silently and displays HUD only upon user command.
+ * PageFyre — Content Script Entry Point ("The Illuminated Grimoire")
+ * ON-DEMAND EXECUTION: Only mounts and activates when the user clicks/invokes it.
+ * Zero background overhead on unvisited or untouched tabs.
  */
 
 (function () {
+  if (window.__PAGEFYRE_INITIALIZED__) {
+    return;
+  }
+  window.__PAGEFYRE_INITIALIZED__ = true;
+
   function initCanvases() {
-    // Mount Particle & Monster Canvases in background (invisible until action)
     if (window.WarzoneParticles) {
       window.WarzoneParticles.mount();
     }
@@ -14,23 +19,19 @@
     }
   }
 
-  // Initialize canvases silently on page load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCanvases);
-  } else {
-    initCanvases();
-  }
-  window.addEventListener('load', initCanvases);
-
-  // Chrome Extension Runtime Message Listener
+  // Chrome Extension Runtime Message Listener (Activated only on user command)
   if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      initCanvases();
-
       switch (request.action) {
+        case 'PING':
+          sendResponse({ success: true, active: true });
+          break;
+
+        case 'INIT_PAGEFYRE':
         case 'INIT_WARZONE':
         case 'SHOW_HUD':
         case 'TOGGLE_HUD':
+          initCanvases();
           if (window.WarzoneHUD) {
             window.WarzoneHUD.show();
           }
@@ -38,6 +39,7 @@
           break;
 
         case 'SPAWN_MONSTER':
+          initCanvases();
           if (window.WarzoneHUD) {
             window.WarzoneHUD.show();
           }
@@ -46,10 +48,11 @@
           break;
 
         case 'UNLEASH_SWARM':
+          initCanvases();
           if (window.WarzoneHUD) {
             window.WarzoneHUD.show();
           }
-          window.WarzoneEngine?.unleashSwarm(request.count || 16);
+          window.WarzoneEngine?.unleashSwarm(request.count || 12);
           sendResponse({ success: true });
           break;
 
@@ -64,7 +67,12 @@
         case 'RESTORE_PAGE':
           window.WarzoneDOM?.restoreDOM();
           window.WarzoneEngine?.clearMonsters();
-          sendResponse({ success: true });
+          // Hide in-page HUD and radial menu on restore
+          const hud = document.getElementById('warzone-hud');
+          if (hud) hud.style.display = 'none';
+          const radial = document.getElementById('pagefyre-radial-anchor');
+          if (radial) radial.classList.remove('expanded');
+          sendResponse({ success: true, restored: true });
           break;
 
         case 'TOGGLE_SFX':
