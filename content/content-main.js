@@ -72,6 +72,28 @@
           sendResponse({ success: true });
           break;
 
+        case 'SET_VOLUME':
+          if (window.WarzoneSFX) {
+            window.WarzoneSFX.setVolume?.(request.volume);
+            if (request.muted !== undefined) {
+              window.WarzoneSFX.toggle(!request.muted);
+            }
+          }
+          sendResponse({ success: true });
+          break;
+
+        case 'SET_DEV_MODE':
+          if (window.WarzoneHUD) {
+            window.WarzoneHUD.setDevMode?.(request.enabled);
+          }
+          sendResponse({ success: true, devMode: request.enabled });
+          break;
+
+        case 'UPDATE_ACTIVE_POWERS':
+          window.PAGEFYRE_ACTIVE_POWERS = request.powers;
+          sendResponse({ success: true });
+          break;
+
         case 'GET_STATUS':
           sendResponse({
             monstersCount: window.WarzoneEngine?.monsters?.length || 0,

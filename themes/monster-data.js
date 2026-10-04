@@ -2143,5 +2143,174 @@ window.WARZONE_MONSTERS = {
       "Dharti aur Pari Lok ki raksha mera dharam hai!",
       "Shaurya dharmi, shaurya balwaan!"
     ]
+  },
+
+  // Canonical PageFyre Grimoire Champions
+  umbra: {
+    id: "umbra",
+    name: "Lord Umbra",
+    title: "Shadow Sovereign & Arcane Master",
+    category: "grimoire_titan",
+    themeColor: "#A855F7",
+    secondaryColor: "#4C1D95",
+    accentGlow: "rgba(168, 85, 247, 0.85)",
+    badge: "SHADOW SOVEREIGN",
+    avatarIcon: "🔮",
+    stats: {
+      health: 3600,
+      maxHealth: 3600,
+      speed: 6.8,
+      damage: 240,
+      attackRange: 400,
+      chaosRating: "Arcane Sovereign",
+      swarmCount: 6
+    },
+    visuals: {
+      type: "vader_rig",
+      width: 110,
+      height: 130,
+      capePhysics: true,
+      saberColor: "#C084FC",
+      saberLength: 85,
+      glowColor: "#A855F7"
+    },
+    attacks: [
+      {
+        id: "umbra_gravity_crush",
+        name: "Singularity & Element Compression",
+        type: "dom_crush",
+        damage: 360,
+        cooldown: 2000,
+        range: 450,
+        sfx: "force_crush",
+        description: "Compresses headings into a violet gravitational singularity before detonating them into cosmic debris."
+      },
+      {
+        id: "umbra_shadow_slice",
+        name: "Abyssal Shadow Blade",
+        type: "laser_slice",
+        damage: 300,
+        cooldown: 1700,
+        range: 520,
+        sfx: "lightsaber_ignite",
+        description: "Hurls an arcane violet shadow arc slicing cleanly through DOM cards."
+      }
+    ],
+    voicelines: [
+      "The shadows obey my will.",
+      "Collapse into singularity!",
+      "Reality bends to the grimoire."
+    ]
+  },
+
+  tectonus: {
+    id: "tectonus",
+    name: "Tectonus",
+    title: "Primal Behemoth & Earth Shaker",
+    category: "grimoire_titan",
+    themeColor: "#22D3EE",
+    secondaryColor: "#0E7490",
+    accentGlow: "rgba(34, 211, 238, 0.85)",
+    badge: "PRIMAL BEHEMOTH",
+    avatarIcon: "💎",
+    stats: {
+      health: 5400,
+      maxHealth: 5400,
+      speed: 4.8,
+      damage: 350,
+      attackRange: 420,
+      chaosRating: "Tectonic Obliterator",
+      swarmCount: 4
+    },
+    visuals: {
+      type: "godzilla_rig",
+      width: 150,
+      height: 140,
+      spineColor: "#22D3EE",
+      glowColor: "#06B6D4"
+    },
+    attacks: [
+      {
+        id: "tectonus_plasma_beam",
+        name: "Subterranean Plasma Ray",
+        type: "laser_slice",
+        damage: 420,
+        cooldown: 2500,
+        range: 650,
+        sfx: "atomic_breath",
+        description: "Charges dorsal crystalline spines with cyan plasma and fires a continuous ray dissolving DOM containers."
+      },
+      {
+        id: "tectonus_seismic_stomp",
+        name: "Seismic Ground Stomp",
+        type: "dom_throw",
+        damage: 340,
+        cooldown: 1800,
+        range: 400,
+        sfx: "meteor_impact",
+        description: "Stomps the page surface creating cyan shockwave ripples that fling nearby paragraphs into the air."
+      }
+    ],
+    voicelines: [
+      "The earth awakens!",
+      "Subterranean plasma discharge!",
+      "Tremble before the primal behemoth!"
+    ]
+  },
+
+  voidmaw: {
+    id: "voidmaw",
+    name: "The Void Maw",
+    title: "Eldritch Leviathan & Abyss Stalker",
+    category: "grimoire_titan",
+    themeColor: "#E879F9",
+    secondaryColor: "#701A75",
+    accentGlow: "rgba(232, 121, 249, 0.85)",
+    badge: "ELDRITCH LEVIATHAN",
+    avatarIcon: "🌀",
+    stats: {
+      health: 5800,
+      maxHealth: 5800,
+      speed: 4.2,
+      damage: 380,
+      attackRange: 450,
+      chaosRating: "Cosmic Abomination",
+      swarmCount: 4
+    },
+    visuals: {
+      type: "cthulhu_rig",
+      width: 145,
+      height: 145,
+      tentacleCount: 8,
+      glowColor: "#E879F9"
+    },
+    attacks: [
+      {
+        id: "voidmaw_tentacle_devour",
+        name: "Abyssal Tentacle Snatch",
+        type: "dom_eat",
+        damage: 400,
+        cooldown: 2100,
+        range: 480,
+        sfx: "cthulhu_call",
+        description: "Rips dimensional portals across the page, reaching tentacles to drag images and cards into eternal nothingness."
+      },
+      {
+        id: "voidmaw_singularity_rift",
+        name: "Dimensional Void Rift",
+        type: "dom_crush",
+        damage: 440,
+        cooldown: 2600,
+        range: 520,
+        sfx: "portal_enter",
+        description: "Spawns a swirling magenta-black cosmic vortex that pulls surrounding words and tables into oblivion."
+      }
+    ],
+    voicelines: [
+      "The void starves no more...",
+      "Into the celestial abyss!",
+      "Nothingness consumes all."
+    ]
   }
 };
+

@@ -1,64 +1,43 @@
-# 🔥 Warzone Web Destroyer - Monsters & Dragons (Chrome Extension)
+# 🔥 PAGEFYRE — "Here be dragons. On any webpage."
 
-Transform **any website** (Wikipedia, Reddit, News, Blogs, etc.) into an epic interactive **Warzone Battlefield**! Unleash animated monsters, titans, and sith lords with real-time physics, particle effects, monster-vs-monster combat, and realistic website DOM destruction!
-
----
-
-## 🌟 The 5 Apex Monsters & Destruction Themes
-
-Each monster has a dedicated theme specification (`themes/*.json` and `themes/monster-data.js`) defining their procedural vector animations, combat stats, sound triggers, and unique website-destruction attacks:
-
-| Monster | Class / Theme | Special Weapons & Attacks | DOM Destruction Effect |
-| :--- | :--- | :--- | :--- |
-| **Lord Darth Vader** | Sith Lord & Galactic Enforcer | • Force Choke Compression<br>• Saber-Throw Bisection<br>• Telekinetic Title Hurl<br>• Death Squadron Barrage | **Force Crush & Telekinesis**: Lifts titles/headers with red-purple force lightning, crushes elements into a dense singularity, and detonates into debris. |
-| **Ignis The Dragon** | Ancient Crimson Wyrm | • Inferno Dragonfire Stream<br>• Apex Jaw Devour<br>• Talon Aerial Catapult<br>• Wyrmling Brood Swarm | **Burning & Devouring**: Breathes torrents of flame charring images black, takes jagged bite chunks out of media, and snatches headings into high orbit. |
-| **Titanus Gojira (Godzilla)** | Nuclear Apex Kaiju | • Supercharged Atomic Ray<br>• Seismic Cataclysm Stomp<br>• Continental Tail Sweep<br>• Hollow Earth Stampede | **Laser Slicing & Earthquakes**: Sequentially lights blue dorsal spines, shoots colossal atomic plasma beam dissolving blocks, and creates fault-line fractures. |
-| **Apex Mecha-01** | Cybernetic Siege Titan | • Macross Micro-Missiles<br>• Dual Plasma Beam Blades<br>• Kinetic Pile Driver Punch<br>• Attack Drone Fleet | **Missile Bombardment**: Homing rockets with smoke trails seeking out images/cards, detonating into fiery spark clusters. |
-| **Cthulhu Void Lord** | Cosmic Great Old One | • Abyssal Tentacle Drag<br>• Madness Black Hole Vortex<br>• Dimensional Rift Catapult<br>• Voidspawn Insanity Swarm | **Cosmic Void Devour**: Writhing black-purple tentacles rising from screen edges, dragging elements down into the abyss and swallowing text. |
+> **Chrome Extension (Manifest V3)**  
+> Turn any website (Wikipedia, News, Reddit, Portals) into an illuminated grimoire monster battlefield! Unleash dragons, void beasts, and mechas to burn, devour, crush, and slice away web clutter, then cleanly restore reality with one click.
 
 ---
 
-## 💥 Realistic DOM Destruction Engine (`engine/dom-destroyer.js`)
+## 🌟 The 5 Canonical Grimoire Champions
 
-The engine provides 5 distinct destruction physics interactions:
-1. **🔥 Burning Images & Content**: Applies dynamic charring shaders, heat distortion, fire particle jets, and dissolves elements into falling ash flakes.
-2. **🥩 Devouring / Eating Images**: Uses dynamic SVG/clip-path jagged bite marks, chewing compression cycles, and acid drips swallowing the chunk whole.
-3. **🚀 Throwing Away Titles & Headers**: Clones headings into 2.5D rigid physics bodies with mass, rotational torque, and velocity, bouncing off viewport walls and shattering on the floor.
-4. **⚡ Force Crush & Compression**: Shakes elements violently under Sith lightning, compresses them down to 5% scale, and implodes them into shrapnel.
-5. **✨ Laser Bisection / Slicing**: Splits elements diagonally into two sliding halves with glowing molten edges that tumble downwards with gravity.
-6. **🔄 Reality Restoration / Site Rebuilder**: Cleanly restores all original DOM elements, styles, classes, and removes physics clones with a single click.
-
----
-
-## ⚡ "UNLEASH THE SWARM" (Apocalypse Mode)
-
-Click the **UNLEASH THE SWARM** button on the HUD or Chrome extension popup to summon a massive horde of 15-30 mini-titans, dragons, TIE squadrons, and eldritch horrors that simultaneously invade and destroy the entire webpage in seconds!
+| Titan | Class | Signature Power | Dominant Hue | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ignis** | Pyre Drake | Dragonfyre (`#FF7A1A`) | Ember Orange | Torrents of golden dragonfire incinerate cards into drifting ash while razor talons snatch DOM blocks from the air. |
+| **Lord Umbra** | Shadow Sovereign | Umbra Force (`#A855F7`) | Arcane Violet | Lifts webpage headers with arcane shadow coils, compressing headings into dense singularities before detonation. |
+| **Tectonus** | Primal Behemoth | Atomic (`#22D3EE`) | Plasma Cyan | Channels subterranean plasma beams and shatters structural grids with seismic stomps that dislodge full sections. |
+| **Mecha Vanguard** | Runic Automaton | Mecha (`#A3E635`) | Signal Lime | Fires synchronized micro-missiles and carves web columns with high-frequency lime blades under glowing reticle locks. |
+| **The Void Maw** | Eldritch Leviathan | Void (`#E879F9`) | Eldritch Magenta | Rips dimensional portals across the page, swallowing media elements into endless cosmic starlessness. |
 
 ---
 
-## 🔊 Procedural Web Audio SFX Engine (`engine/sfx.js`)
+## 🔒 Feature Gate: "The Forbidden Archive"
 
-Zero external audio files required! The built-in procedural synthesizer generates real-time audio via the Web Audio API:
-- Dragon Roars, Inferno Flamethrower whooshes, and Chomp crunch sounds.
-- Darth Vader breathing auras, lightsaber hums, swings, and force rumblings.
-- Godzilla atomic ray charge-up sweeps and seismic footstep booms.
-- Mecha rocket salvos, plasma buzzes, and hydraulic punches.
-- Eldritch void screeches, portal rips, and explosion impacts.
-
----
-
-## 🎮 How to Install and Use in Google Chrome
-
-1. Open Google Chrome and navigate to `chrome://extensions/`.
-2. Enable **Developer mode** toggle in the top-right corner.
-3. Click **Load unpacked** button in the top-left corner.
-4. Select this project folder (`destroy-with-dragons`).
-5. Open any website (e.g., [Wikipedia: Dragons](https://en.wikipedia.org/wiki/Dragon), [CNN](https://edition.cnn.com), or any page).
-6. Click the **Warzone Destroyer** extension icon in the Chrome toolbar or use the floating tactical in-page HUD on the top right!
+By default, PageFyre only exposes the 5 brand-safe, original Grimoire Champions.  
+For QA and physics stress testing, the **Forbidden Archive (26 legacy prototype specimens)** can be toggled:
+- **Settings Toggle**: Open ⚙️ in the popup header -> enable *"Forbidden Archive"*.
+- **Keyboard Shortcut**: Press `Ctrl` + `Shift` + `D` while the popup is open.
+- **Footer Easter Egg**: Click 5 times on `PAGEFYRE v2.0 • GRIMOIRE` in the popup footer.
 
 ---
 
-## ⚔️ Interactive Test Arena & Sandbox
+## 🎮 How to Install in Google Chrome
 
-You can also directly test all monsters, animations, and destruction physics in the built-in Wikipedia sandbox:
-- Open `demo/index.html` in any web browser!
+1. Open Google Chrome and go to `chrome://extensions/`.
+2. Turn on the **Developer mode** toggle in the top-right corner.
+3. Click **Load unpacked**.
+4. Select this directory (`pagefyre`).
+5. Open any webpage, click the **PageFyre** icon, and click **"UNLEASH THE SWARM"**!
+
+---
+
+## 🧪 Interactive Playground & Brand Sheet
+
+- **Brand Sheet**: Open `brand-sheet.html` in any browser to inspect the full design tokens, typography, logo lockups, and component sandbox.
+- **Sandbox Arena**: Open `demo/index.html` to test in-page destruction and the floating Spell Tablet HUD directly.

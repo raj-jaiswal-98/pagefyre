@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <!-- Background Ink Gradient -->
+    <radialGradient id="sealInkGrad" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#181D3B"/>
+      <stop offset="65%" stop-color="#0B0D1A"/>
+      <stop offset="100%" stop-color="#05060D"/>
+    </radialGradient>
+
+    <!-- Brass Beveled Ring Gradient -->
+    <linearGradient id="brassRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE68A"/>
+      <stop offset="25%" stop-color="#C9A24B"/>
+      <stop offset="60%" stop-color="#7A5C20"/>
+      <stop offset="85%" stop-color="#E4BE6B"/>
+      <stop offset="100%" stop-color="#543E13"/>
+    </linearGradient>
+
+    <!-- Dragon Eye & Crest Glow (Aurora / Ember) -->
+    <linearGradient id="auroraDragonFlame" x1="0%" y1="100%" x2="80%" y2="0%">
+      <stop offset="0%" stop-color="#FF7A1A"/>
+      <stop offset="35%" stop-color="#FDE68A"/>
+      <stop offset="70%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#5EEAD4"/>
+    </linearGradient>
+
+    <!-- Subtle Inner Shadow -->
+    <filter id="sealShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Rounded-Square "Seal" Base -->
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#sealInkGrad)" filter="url(#sealShadow)"/>
+
+  <!-- Hammered Brass Outer Ring -->
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="none" stroke="url(#brassRingGrad)" stroke-width="4.5"/>
+
+  <!-- Concentric Inner Filigree Ring -->
+  <rect x="15" y="15" width="98" height="98" rx="21" fill="none" stroke="#C9A24B" stroke-width="1.2" stroke-opacity="0.45" stroke-dasharray="3 2"/>
+
+  <!-- Four Cardinal Rivet Dots on Brass Ring -->
+  <circle cx="64" cy="11.5" r="2" fill="#FCE68A"/>
+  <circle cx="64" cy="116.5" r="2" fill="#C9A24B"/>
+  <circle cx="11.5" cy="64" r="2" fill="#E4BE6B"/>
+  <circle cx="116.5" cy="64" r="2" fill="#C9A24B"/>
+
+  <!-- Grimoire Dragon Head Silhouette -->
+  <!-- Stylized heraldic dragon facing right: sweeping curved horns, sharp snarl, spine spines, blazing eye -->
+  <g id="dragon-silhouette" transform="translate(6, 4)">
+    <!-- Dragon Horns & Crest Flames -->
+    <path d="M 36,44 
+             C 32,32 35,22 43,15 
+             C 41,23 45,28 50,31
+             C 52,22 59,18 69,17
+             C 65,24 67,30 73,34
+             C 74,27 82,24 91,24
+             C 85,32 84,39 88,44
+             Z" 
+          fill="url(#auroraDragonFlame)" opacity="0.95"/>
+
+    <!-- Main Dragon Head Body Silhouette (Parchment Ivory) -->
+    <path d="M 30,55 
+             C 27,42 35,33 46,33 
+             C 57,33 65,39 74,40 
+             C 83,41 93,45 101,52 
+             C 99,57 93,59 87,58 
+             C 94,62 98,67 96,73 
+             C 91,73 84,69 79,66 
+             C 71,68 62,70 56,76 
+             C 50,82 45,90 35,92 
+             C 39,83 41,75 39,69 
+             C 34,70 30,66 29,61 
+             C 28,57 29,56 30,55 Z" 
+          fill="#F3E9D2"/>
+
+    <!-- Jaw & Neck Shading Underlayer (Ink & Brass Accents) -->
+    <path d="M 44,65 
+             C 48,60 56,58 66,57 
+             C 74,57 82,60 87,58 
+             C 82,65 72,66 63,65 
+             C 53,65 47,73 42,79 
+             C 43,74 44,69 44,65 Z" 
+          fill="#0B0D1A" opacity="0.85"/>
+
+    <!-- Sharp Dragon Fang / Tooth -->
+    <polygon points="76,64 78,71 82,64" fill="#F3E9D2"/>
+
+    <!-- Glowing Ember Eye -->
+    <circle cx="68" cy="49" r="4.5" fill="#FF7A1A"/>
+    <circle cx="68.8" cy="48.2" r="1.8" fill="#FDE68A"/>
+    <circle cx="67.5" cy="49.5" r="1.2" fill="#0B0D1A"/>
+
+    <!-- Subtle Spine Ridge Spikes -->
+    <polygon points="34,44 26,42 32,49" fill="#C9A24B"/>
+    <polygon points="30,58 21,59 28,64" fill="#C9A24B"/>
+    <polygon points="33,72 25,76 34,78" fill="#C9A24B"/>
+  </g>
+</svg>

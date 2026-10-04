@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAGEFYRE — Brand Identity & Design System Sheet</title>
+  <link rel="stylesheet" href="themes/tokens.css" />
+  <style>
+    /* Brand Sheet Dedicated Showcase Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--ink);
+      color: var(--parchment);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      background-image: var(--vignette-candle), var(--paper-grain);
+      background-size: auto, 24px 24px;
+      padding: 40px 24px 80px 24px;
+      transition: background-color var(--transition-smooth), color var(--transition-smooth);
+    }
+
+    .brand-sheet-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    /* Top Sticky Brand Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 24px;
+      border-bottom: 1.5px solid var(--ink-3);
+    }
+
+    .brand-badge-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--brass);
+      background: var(--ink-2);
+      border: 1px solid var(--brass);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    .theme-switch-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink-2);
+      border: 1px solid var(--brass);
+      color: var(--parchment);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      transition: all var(--transition-snappy);
+    }
+
+    .theme-switch-btn:hover {
+      background: var(--ink-3);
+      box-shadow: 0 0 10px var(--brass-glow);
+    }
+
+    /* Section Headers */
+    .sheet-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--brass);
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--parchment);
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: var(--parchment-dim);
+      max-width: 720px;
+    }
+
+    /* Concept Banner */
+    .concept-hero {
+      background: var(--ink-2);
+      border: 1.5px solid var(--brass);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      box-shadow: var(--shadow-elevation);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .concept-hero::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, var(--brass-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .concept-tagline {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--brass-light);
+      margin-bottom: 12px;
+    }
+
+    .concept-quote {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--parchment-dim);
+      border-left: 3px solid var(--brass);
+      padding-left: 16px;
+      margin-top: 12px;
+    }
+
+    /* Palette Swatches Grid */
+    .swatches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .swatch-card {
+      background: var(--ink-2);
+      border: 1px solid var(--ink-3);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition-snappy), border-color var(--transition-snappy);
+    }
+
+    .swatch-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--brass);
+    }
+
+    .swatch-color {
+      height: 72px;
+      width: 100%;
+    }
+
+    .swatch-info {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .swatch-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--parchment);
+    }
+
+    .swatch-token {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--parchment-dim);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brass);
+    }
+
+    /* Typography Showcase */
+    .type-specimens {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      background: var(--ink-2);
+      border: 1px solid var(--ink-3);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--ink-3);
+      align-items: baseline;
+    }
+
+    .type-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .type-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--brass);
+      font-weight: 600;
+    }
+
+    .sample-display {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.2;
+    }
+
+    .sample-body {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--parchment);
+      line-height: 1.6;
+    }
+
+    .sample-mono {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--parchment-dim);
+    }
+
+    .dropcap-demo {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--parchment);
+    }
+
+    .dropcap-demo::first-letter {
+      font-family: var(--font-display);
+      font-size: 36px;
+      float: left;
+      line-height: 0.8;
+      padding-right: 8px;
+      padding-top: 4px;
+      color: var(--brass);
+      text-shadow: 0 0 8px var(--brass-glow);
+    }
+
+    /* Logo Lockups Grid */
+    .logos-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .logo-box {
+      background: var(--ink-2);
+      border: 1.5px solid var(--brass);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .logo-caption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--parchment-dim);
+    }
+
+    .icons-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Live Interactive Components */
+    .components-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 28px;
+    }
+
+    .interactive-card-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .interactive-card {
+      background: var(--ink-2);
+      border: 1px solid var(--ink-3);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all var(--transition-snappy);
+    }
+
+    .interactive-card:hover {
+      border-color: var(--brass);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .interactive-card.selected {
+      border-color: var(--brass-light);
+      box-shadow: 0 0 16px var(--dragonfyre-glow);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .monster-title-grp {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .monster-sigil-icon {
+      font-size: 20px;
+    }
+
+    .monster-h {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .power-badge-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Buttons Showcase */
+    .buttons-showcase-box {
+      background: var(--ink-2);
+      border: 1px solid var(--ink-3);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Aurora CTA in brand sheet */
+    @keyframes auroraRotateDemo {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .demo-aurora-btn {
+      width: 100%;
+      padding: 2px;
+      background: linear-gradient(120deg, #5EEAD4, #8B5CF6, #F0ABFC, #FDE68A);
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 12px var(--brass-glow);
+      transition: transform var(--transition-snappy);
+    }
+
+    .demo-aurora-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    }
+
+    .demo-aurora-btn:active {
+      transform: scale(0.98);
+    }
+
+    .demo-aurora-inner {
+      background: var(--ink-2);
+      padding: 12px;
+      border-radius: calc(var(--radius-md) - 2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--parchment);
+    }
+
+    .demo-restore-btn {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: 1.5px solid var(--brass);
+      border-radius: var(--radius-sm);
+      color: var(--parchment);
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all var(--transition-snappy);
+    }
+
+    .demo-restore-btn:hover {
+      background: var(--ink-3);
+      box-shadow: 0 0 12px var(--brass-glow);
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--ink);
+      border: 1px solid var(--brass);
+      color: var(--brass-light);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 260ms cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="brand-sheet-container">
+    
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="brand-badge-pill">PAGEFYRE DESIGN SYSTEM • v2.0</div>
+      <button id="brand-theme-toggle" class="theme-switch-btn" title="Toggle Dark/Light Mode">
+        <span>📜</span> Switch to <span id="theme-btn-text">Parchment Theme</span>
+      </button>
+    </header>
+
+    <!-- Brand Concept Hero -->
+    <section class="sheet-section concept-hero">
+      <span class="section-eyebrow">BRAND CONCEPT</span>
+      <h1 class="concept-tagline">"The Illuminated Grimoire"</h1>
+      <p style="font-size: 16px; color: var(--parchment);">
+        A medieval bestiary that came alive as an arcade game. Hand-inked dragon margins in an antique spellbook, lit from within by glowing celestial magic. Playful, mythic, and mischievous—never gory or grim. The UI is calm and mystical; the CHAOS lives purely in the powers.
+      </p>
+      <div class="concept-quote">
+        "Here be dragons. On any webpage. The UI never uses red as a base theme; crimson and ember are reserved exclusively for the dragon's sacred flame."
+      </div>
+    </section>
+
+    <!-- Color System Section -->
+    <section class="sheet-section">
+      <div>
+        <span class="section-eyebrow">COLOR SYSTEM</span>
+        <h2 class="section-title">Base UI & Elemental Power Palette</h2>
+        <p class="section-sub">Click any swatch to copy its CSS token and Hex code to clipboard.</p>
+      </div>
+
+      <!-- Base UI Swatches -->
+      <h3 style="font-family: var(--font-display); font-size: 18px; color: var(--brass);">1. Base Grimoire UI</h3>
+      <div class="swatches-grid">
+        <div class="swatch-card" onclick="copyColor('--ink', '#0B0D1A')">
+          <div class="swatch-color" style="background-color: #0B0D1A; border-bottom: 1px solid var(--ink-3);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Midnight Ink</span>
+            <span class="swatch-token">--ink</span>
+            <span class="swatch-hex">#0B0D1A</span>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyColor('--ink-2', '#141830')">
+          <div class="swatch-color" style="background-color: #141830;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Raised Panel</span>
+            <span class="swatch-token">--ink-2</span>
+            <span class="swatch-hex">#141830</span>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyColor('--ink-3', '#1D2244')">
+          <div class="swatch-color" style="background-color: #1D2244;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Grimoire Border</span>
+            <span class="swatch-token">--ink-3</span>
+            <span class="swatch-hex">#1D2244</span>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyColor('--parchment', '#F3E9D2')">
+          <div class="swatch-color" style="background-color: #F3E9D2;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Parchment Ivory</span>
+            <span class="swatch-token">--parchment</span>
+            <span class="swatch-hex">#F3E9D2</span>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyColor('--brass', '#C9A24B')">
+          <div class="swatch-color" style="background-color: #C9A24B;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Hammered Brass</span>
+            <span class="swatch-token">--brass</span>
+            <span class="swatch-hex">#C9A24B</span>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyColor('--aurora', 'linear-gradient(120deg, #5EEAD4, #8B5CF6, #F0ABFC, #FDE68A)')">
+          <div class="swatch-color" style="background: linear-gradient(120deg, #5EEAD4, #8B5CF6, #F0ABFC, #FDE68A);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Aurora Magic</span>
+            <span class="swatch-token">--aurora</span>
+            <span class="swatch-hex">4-stop gradient</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Power Swatches -->
+      <h3 style="font-family: var(--font-display); font-size: 18px; color: var(--brass); margin-top: 12px;">2. Signature Power Colors (Glow + Darker Shade)</h3>
+      <div class="swatches-grid">
+        <!-- Dragonfyre -->
+        <div class="swatch-card" onclick="copyColor('--dragonfyre', '#FF7A1A')">
+          <div class="swatch-color" style="background-color: #FF7A1A;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Dragonfyre</span>
+            <span class="swatch-token">--dragonfyre</span>
+            <span class="swatch-hex">#FF7A1A</span>
+          </div>
+        </div>
+
+        <!-- Umbra Force -->
+        <div class="swatch-card" onclick="copyColor('--umbra-force', '#A855F7')">
+          <div class="swatch-color" style="background-color: #A855F7;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Umbra Force</span>
+            <span class="swatch-token">--umbra-force</span>
+            <span class="swatch-hex">#A855F7</span>
+          </div>
+        </div>
+
+        <!-- Atomic -->
+        <div class="swatch-card" onclick="copyColor('--atomic', '#22D3EE')">
+          <div class="swatch-color" style="background-color: #22D3EE;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Atomic Plasma</span>
+            <span class="swatch-token">--atomic</span>
+            <span class="swatch-hex">#22D3EE</span>
+          </div>
+        </div>
+
+        <!-- Mecha -->
+        <div class="swatch-card" onclick="copyColor('--mecha', '#A3E635')">
+          <div class="swatch-color" style="background-color: #A3E635;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Mecha Signal</span>
+            <span class="swatch-token">--mecha</span>
+            <span class="swatch-hex">#A3E635</span>
+          </div>
+        </div>
+
+        <!-- Void -->
+        <div class="swatch-card" onclick="copyColor('--void', '#E879F9')">
+          <div class="swatch-color" style="background-color: #E879F9;"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Void Eldritch</span>
+            <span class="swatch-token">--void</span>
+            <span class="swatch-hex">#E879F9</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section class="sheet-section">
+      <div>
+        <span class="section-eyebrow">TYPOGRAPHY</span>
+        <h2 class="section-title">Type Hierarchy (Bundled Locally / Zero Remote URLs)</h2>
+        <p class="section-sub">Manifest V3 strict CSP compliance: all font stacks utilize bundled and system fonts.</p>
+      </div>
+
+      <div class="type-specimens">
+        <div class="type-row">
+          <span class="type-label">DISPLAY / HEADINGS<br>(Blackletter-meets-arcade)</span>
+          <div class="sample-display">PageFyre: Here Be Dragons.</div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-label">UI / BODY<br>(Inter / Space Grotesk)</span>
+          <div class="sample-body">
+            Turn any webpage into an ancient monster battlefield with burning, devouring, crushing, and slicing effects. One click cleanly restores the original site.
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-label">NUMERALS / HUD<br>(JetBrains Mono)</span>
+          <div class="sample-mono">CHAOS: 94% | DAMAGE: 4,820 | SWARM: 12 TITANS DEPLOYED</div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-label">DROP-CAP MARGINALIA<br>(Initial Letter Styling)</span>
+          <div class="dropcap-demo">
+            Torrents of golden dragonfire incinerate cards into drifting ash while razor talons snatch DOM blocks from the air. The grimoire opens only to the worthy.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logo & Icon Lockups -->
+    <section class="sheet-section">
+      <div>
+        <span class="section-eyebrow">BRAND ASSETS</span>
+        <h2 class="section-title">Logo & App Seal Lockups</h2>
+        <p class="section-sub">Pure inline scalable vector graphics (SVG) with zero raster artifacts.</p>
+      </div>
+
+      <div class="logos-grid">
+        <!-- Main Wordmark -->
+        <div class="logo-box">
+          <img src="icons/logo.svg" alt="PageFyre Primary Logo" style="max-width: 100%; height: auto;" />
+          <span class="logo-caption">Primary Wordmark with Flame-Tipped Quill 'Y' & Tagline</span>
+        </div>
+
+        <!-- Seal App Icons -->
+        <div class="logo-box">
+          <div class="icons-row">
+            <img src="icons/icon.svg" width="64" height="64" alt="Seal 64px" />
+            <img src="icons/icon.svg" width="48" height="48" alt="Seal 48px" />
+            <img src="icons/icon.svg" width="32" height="32" alt="Seal 32px" />
+            <img src="icons/icon.svg" width="16" height="16" alt="Seal 16px" />
+          </div>
+          <span class="logo-caption">Dragon-Head Silhouette Seal (128 / 48 / 32 / 16 px)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Component States -->
+    <section class="sheet-section">
+      <div>
+        <span class="section-eyebrow">COMPONENT SANDBOX</span>
+        <h2 class="section-title">Cards, Runes & Invocations</h2>
+        <p class="section-sub">Test micro-interactions, wax-seal button depressions, and power blooms.</p>
+      </div>
+
+      <div class="components-layout">
+        <!-- Bestiary Card Stack -->
+        <div class="interactive-card-stack">
+          <div class="interactive-card selected" onclick="selectDemoMonster(this, 'dragonfyre')">
+            <div class="card-top-row">
+              <div class="monster-title-grp">
+                <span class="monster-sigil-icon">🐉</span>
+                <span class="monster-h">Ignis</span>
+              </div>
+              <span class="power-badge-tag" style="background: #7A2800; color: #FFA366; border: 1px solid #FF7A1A;">PYRE DRAKE</span>
+            </div>
+            <p style="font-size: 12px; color: var(--parchment-dim);">Ember orange flame breath & aerial talon snatch.</p>
+          </div>
+
+          <div class="interactive-card" onclick="selectDemoMonster(this, 'umbra-force')">
+            <div class="card-top-row">
+              <div class="monster-title-grp">
+                <span class="monster-sigil-icon">🔮</span>
+                <span class="monster-h">Lord Umbra</span>
+              </div>
+              <span class="power-badge-tag" style="background: #4C1D95; color: #D8B4FE; border: 1px solid #A855F7;">SHADOW SOVEREIGN</span>
+            </div>
+            <p style="font-size: 12px; color: var(--parchment-dim);">Telekinetic shadow coils & gravity singularities.</p>
+          </div>
+
+          <div class="interactive-card" onclick="selectDemoMonster(this, 'atomic')">
+            <div class="card-top-row">
+              <div class="monster-title-grp">
+                <span class="monster-sigil-icon">💎</span>
+                <span class="monster-h">Tectonus</span>
+              </div>
+              <span class="power-badge-tag" style="background: #0E7490; color: #A5F3FC; border: 1px solid #22D3EE;">PRIMAL BEHEMOTH</span>
+            </div>
+            <p style="font-size: 12px; color: var(--parchment-dim);">Subterranean cyan plasma & seismic shockwaves.</p>
+          </div>
+        </div>
+
+        <!-- Buttons & Invocations Showcase -->
+        <div class="buttons-showcase-box">
+          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--brass);">PRIMARY & SECONDARY INVOCATIONS</span>
+          
+          <button class="demo-aurora-btn">
+            <div class="demo-aurora-inner">
+              <span>⚡</span> UNLEASH THE SWARM
+            </div>
+          </button>
+
+          <button class="demo-restore-btn">
+            <span>↺</span> RESTORE REALITY
+          </button>
+
+          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--brass); margin-top: 8px;">RUNIC POWER CHIPS</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="background: var(--ink); border: 1px solid var(--dragonfyre); color: var(--parchment); padding: 4px 10px; border-radius: 999px; font-size: 11px;">🔥 Burn (#FF7A1A)</span>
+            <span style="background: var(--ink); border: 1px solid var(--void); color: var(--parchment); padding: 4px 10px; border-radius: 999px; font-size: 11px;">👁️ Devour (#E879F9)</span>
+            <span style="background: var(--ink); border: 1px solid var(--umbra-force); color: var(--parchment); padding: 4px 10px; border-radius: 999px; font-size: 11px;">🌀 Hurl (#A855F7)</span>
+            <span style="background: var(--ink); border: 1px solid var(--atomic); color: var(--parchment); padding: 4px 10px; border-radius: 999px; font-size: 11px;">⚡ Crush (#22D3EE)</span>
+            <span style="background: var(--ink); border: 1px solid var(--mecha); color: var(--parchment); padding: 4px 10px; border-radius: 999px; font-size: 11px;">⚔️ Slice (#A3E635)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Gate Showcase: Canonical Grimoire vs. Forbidden Archive -->
+    <section class="sheet-section">
+      <div>
+        <span class="section-eyebrow">COMPLIANCE & TESTING</span>
+        <h2 class="section-title">Feature Gate Architecture: "The Forbidden Archive"</h2>
+        <p class="section-sub">Zero-risk store compliance by default with an on-demand developer testing gate.</p>
+      </div>
+
+      <div style="background: var(--ink-2); border: 1.5px solid var(--brass); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <!-- Left: Default State -->
+          <div style="background: var(--ink); border: 1px solid var(--ink-3); border-radius: var(--radius-md); padding: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-family: var(--font-display); font-size: 15px; color: var(--parchment);">1. Standard User Experience (Default)</span>
+              <span style="font-family: var(--font-mono); font-size: 8.5px; background: #065F46; color: #6EE7B7; padding: 2px 6px; border-radius: 4px; font-weight: 700;">DEFAULT: ACTIVE</span>
+            </div>
+            <p style="font-size: 12px; color: var(--parchment-dim); line-height: 1.5;">
+              Only the 5 brand-safe canonical Grimoire Titans (Ignis, Lord Umbra, Tectonus, Mecha Vanguard, and The Void Maw) are displayed. Complete WCAG contrast compliance and zero copyrighted IP.
+            </p>
+          </div>
+
+          <!-- Right: Dev Testing State -->
+          <div style="background: var(--ink); border: 1px dashed #F59E0B; border-radius: var(--radius-md); padding: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-family: var(--font-display); font-size: 15px; color: #F59E0B;">2. Forbidden Archive (Feature Gated)</span>
+              <span style="font-family: var(--font-mono); font-size: 8.5px; background: #78350F; color: #FDE68A; padding: 2px 6px; border-radius: 4px; font-weight: 700;">DEV GATED: OFF</span>
+            </div>
+            <p style="font-size: 12px; color: var(--parchment-dim); line-height: 1.5;">
+              Unlocks 26 legacy prototype specimens for physics and battle stress QA. Activated only via Settings modal switch, <kbd style="background: var(--ink-2); border: 1px solid var(--brass); padding: 1px 4px; border-radius: 3px; font-family: var(--font-mono); font-size: 10px;">Ctrl+Shift+D</kbd>, or 5-click easter egg.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="toast" class="toast-msg">Copied to clipboard!</div>
+
+  <script>
+    function copyColor(token, hex) {
+      navigator.clipboard.writeText(`${token}: ${hex};`).then(() => {
+        const toast = document.getElementById('toast');
+        toast.textContent = `Copied ${token} (${hex})`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+
+    function selectDemoMonster(card, power) {
+      document.querySelectorAll('.interactive-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    }
+
+    const themeBtn = document.getElementById('brand-theme-toggle');
+    const themeText = document.getElementById('theme-btn-text');
+    themeBtn.addEventListener('click', () => {
+      const isParchment = document.body.classList.toggle('theme-parchment');
+      document.documentElement.setAttribute('data-theme', isParchment ? 'parchment' : 'ink');
+      themeText.textContent = isParchment ? 'Midnight Ink Theme' : 'Parchment Theme';
+    });
+  </script>
+</body>
+</html>

@@ -3,374 +3,541 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Warzone Web Destroyer</title>
+  <title>PageFyre — Here be dragons. On any webpage.</title>
+  <link rel="stylesheet" href="../themes/tokens.css" />
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <div class="popup-container">
-    <!-- Header -->
-    <header class="header">
-      <div class="brand">
-        <span class="brand-icon">🔥</span>
-        <div>
-          <h1 class="brand-title">WARZONE DESTROYER</h1>
-          <p class="brand-sub">Monsters & Dragons Web Obliterator</p>
+  <!-- Atmospheric Grimoire Frame -->
+  <main class="grimoire-viewport" id="grimoire-app" role="main" aria-label="PageFyre Grimoire Interface">
+    
+    <!-- Top Candlelit Vignette & Corner Filigree -->
+    <div class="corner-filigree top-left" aria-hidden="true"></div>
+    <div class="corner-filigree top-right" aria-hidden="true"></div>
+    <div class="corner-filigree bottom-left" aria-hidden="true"></div>
+    <div class="corner-filigree bottom-right" aria-hidden="true"></div>
+
+    <!-- 1. Header: Wordmark, Animated Flame, Settings Rune Button -->
+    <header class="grimoire-header">
+      <div class="brand-lockup">
+        <!-- Animated Flame Emblem & Wordmark -->
+        <div class="brand-logo-wrap" title="PageFyre — The Illuminated Grimoire">
+          <svg class="brand-logo-svg" viewBox="0 0 240 48" width="170" height="34" role="img" aria-label="PageFyre Logo">
+            <defs>
+              <linearGradient id="hdrBrass" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FDE68A"/>
+                <stop offset="50%" stop-color="#C9A24B"/>
+                <stop offset="100%" stop-color="#7A5C20"/>
+              </linearGradient>
+              <linearGradient id="hdrAurora" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FF7A1A"/>
+                <stop offset="35%" stop-color="#FDE68A"/>
+                <stop offset="70%" stop-color="#8B5CF6"/>
+                <stop offset="100%" stop-color="#5EEAD4"/>
+              </linearGradient>
+            </defs>
+            <!-- PAGEF -->
+            <text x="4" y="32" font-family="var(--font-display)" font-size="28" font-weight="bold" fill="var(--parchment)" stroke="url(#hdrBrass)" stroke-width="0.6">PAGEF</text>
+            <!-- Stylized Y Flame Quill -->
+            <g transform="translate(116, 4)">
+              <path d="M 3,11 C 6,17 9,21 14,24 L 14,32 C 14,35 11,38 7,39 L 7,41 C 12,40 16,37 16,31 L 16,24 Z" fill="var(--parchment)" stroke="url(#hdrBrass)" stroke-width="0.5"/>
+              <path d="M 23,10 C 19,16 16,21 13,24 L 16,24 C 19,20 22,16 26,10 Z" fill="var(--parchment)"/>
+              <path class="animated-quill-flame" d="M 14,22 C 19,16 24,11 29,4 C 27,8 29,11 33,11 C 30,14 32,17 35,18 C 30,19 28,22 26,26 C 22,26 18,25 14,22 Z" fill="url(#hdrAurora)"/>
+              <circle class="spark-one" cx="34" cy="2" r="1.2" fill="#5EEAD4"/>
+              <circle class="spark-two" cx="38" cy="8" r="0.9" fill="#FF7A1A"/>
+            </g>
+            <!-- RE -->
+            <text x="156" y="32" font-family="var(--font-display)" font-size="28" font-weight="bold" fill="var(--parchment)" stroke="url(#hdrBrass)" stroke-width="0.6">RE</text>
+          </svg>
+          <span class="brand-tagline">Here be dragons. On any webpage.</span>
         </div>
       </div>
-      <span class="live-pill">ARMED</span>
+
+      <!-- Header Controls: Theme Switcher, Settings Rune, Tablet Rune -->
+      <nav class="header-runes" aria-label="Quick Settings">
+        <button id="btn-theme-toggle" class="rune-icon-btn" title="Toggle Parchment / Midnight Ink theme" aria-label="Toggle Parchment or Midnight theme">
+          <svg class="rune-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </button>
+        <button id="btn-open-tablet" class="rune-icon-btn" title="Summon In-Page Spell Tablet HUD" aria-label="Summon Spell Tablet">
+          <svg class="rune-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="4" y="3" width="16" height="18" rx="2"/>
+            <path d="M8 7h8M8 11h8M8 15h5"/>
+            <circle cx="16" cy="15" r="1" fill="currentColor"/>
+          </svg>
+        </button>
+        <button id="btn-settings-toggle" class="rune-icon-btn" title="Grimoire Settings & Dev Controls" aria-label="Settings">
+          <svg class="rune-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </nav>
     </header>
 
-    <!-- Apocalypse Unleash Swarm Button -->
-    <section class="action-section">
-      <button id="btn-unleash-swarm" class="btn-apocalypse">
-        <span class="apoc-icon">⚡</span>
-        <div class="apoc-text">
-          <span class="apoc-title">UNLEASH THE SWARM</span>
-          <span class="apoc-sub">Summon Horde to Devastate Webpage</span>
+    <!-- Grimoire Content Scroll Area -->
+    <div class="grimoire-scroll-body">
+      
+      <!-- 2. "Bestiary" Carousel: 5 Monster Cards (Brand-Safe Canonical) -->
+      <section class="bestiary-section" aria-label="The Bestiary">
+        <div class="section-label-row">
+          <span class="grimoire-label">THE BESTIARY</span>
+          <span class="carousel-counter" id="carousel-indicator">1 OF 5 MONSTERS</span>
         </div>
-      </button>
-    </section>
 
-    <!-- Monster Selection Grid -->
-    <section class="roster-section">
-      <div class="section-heading">
-        <span>CHOOSE APEX MONSTER</span>
-        <span class="monster-count-badge">30 TITANS & HEROES</span>
+        <div class="carousel-container" id="bestiary-carousel" tabindex="0" aria-label="Monster Carousel, use arrow keys to navigate">
+          
+          <!-- Monster 1: Ignis (Dragonfyre) -->
+          <article class="bestiary-card active" data-type="dragon" data-power="dragonfyre" tabindex="0" role="button" aria-pressed="true" aria-label="Ignis the Pyre Drake">
+            <div class="card-torn-edge"></div>
+            <header class="card-header">
+              <div class="sigil-wrap sigil-dragon">
+                <!-- Procedural SVG Sigil: Dragon Flame Crest -->
+                <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
+                  <path d="M20 4 C24 10 32 14 34 22 C36 29 30 36 20 37 C10 36 4 29 6 22 C8 14 16 10 20 4 Z" fill="none" stroke="var(--dragonfyre)" stroke-width="2"/>
+                  <path d="M20 12 C23 16 27 18 28 24 C29 28 25 32 20 32 C15 32 11 28 12 24 C13 18 17 16 20 12 Z" fill="var(--dragonfyre-soft)" stroke="var(--dragonfyre)" stroke-width="1.5"/>
+                  <circle cx="20" cy="24" r="3" fill="var(--dragonfyre)"/>
+                </svg>
+              </div>
+              <div class="card-titles">
+                <h2 class="monster-name">Ignis</h2>
+                <span class="monster-class badge-dragonfyre">PYRE DRAKE</span>
+              </div>
+              <div class="power-glow-pip pip-dragonfyre" title="Dragonfyre Ember Orange"></div>
+            </header>
+            <p class="monster-desc">
+              Torrents of golden dragonfire incinerate cards into drifting ash while razor talons snatch DOM blocks from the air.
+            </p>
+            <div class="power-chips-row">
+              <span class="power-chip">🔥 Inferno Breath</span>
+              <span class="power-chip">🦅 Talon Snatch</span>
+              <span class="power-chip">💨 Ash Cloud</span>
+              <span class="power-chip">👑 Apex Roar</span>
+            </div>
+          </article>
+
+          <!-- Monster 2: Lord Umbra (Umbra Force) -->
+          <article class="bestiary-card" data-type="umbra" data-power="umbra-force" tabindex="0" role="button" aria-pressed="false" aria-label="Lord Umbra Shadow Sovereign">
+            <div class="card-torn-edge"></div>
+            <header class="card-header">
+              <div class="sigil-wrap sigil-umbra">
+                <!-- Procedural SVG Sigil: Arcane Eclipse Rune -->
+                <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
+                  <circle cx="20" cy="20" r="15" fill="none" stroke="var(--umbra-force)" stroke-width="2" stroke-dasharray="4 2"/>
+                  <circle cx="20" cy="20" r="9" fill="var(--umbra-force-soft)" stroke="var(--umbra-force)" stroke-width="1.8"/>
+                  <path d="M20 5 L20 11 M20 29 L20 35 M5 20 L11 20 M29 20 L35 20" stroke="var(--umbra-force)" stroke-width="1.5"/>
+                  <circle cx="20" cy="20" r="2.5" fill="var(--umbra-force)"/>
+                </svg>
+              </div>
+              <div class="card-titles">
+                <h2 class="monster-name">Lord Umbra</h2>
+                <span class="monster-class badge-umbra">SHADOW SOVEREIGN</span>
+              </div>
+              <div class="power-glow-pip pip-umbra" title="Umbra Force Arcane Violet"></div>
+            </header>
+            <p class="monster-desc">
+              Lifts webpage headers with arcane shadow coils, compressing headings into dense singularities before detonation.
+            </p>
+            <div class="power-chips-row">
+              <span class="power-chip">🔮 Singularity</span>
+              <span class="power-chip">⚡ Abyssal Spark</span>
+              <span class="power-chip">🌌 Gravity Warp</span>
+              <span class="power-chip">🌑 Shadow Rip</span>
+            </div>
+          </article>
+
+          <!-- Monster 3: Tectonus (Atomic) -->
+          <article class="bestiary-card" data-type="tectonus" data-power="atomic" tabindex="0" role="button" aria-pressed="false" aria-label="Tectonus Primal Behemoth">
+            <div class="card-torn-edge"></div>
+            <header class="card-header">
+              <div class="sigil-wrap sigil-atomic">
+                <!-- Procedural SVG Sigil: Atomic Seismic Radiance -->
+                <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
+                  <polygon points="20,4 34,14 34,30 20,38 6,30 6,14" fill="none" stroke="var(--atomic)" stroke-width="2"/>
+                  <circle cx="20" cy="21" r="6" fill="var(--atomic-soft)" stroke="var(--atomic)" stroke-width="1.6"/>
+                  <line x1="20" y1="9" x2="20" y2="15" stroke="var(--atomic)" stroke-width="2"/>
+                  <line x1="20" y1="27" x2="20" y2="33" stroke="var(--atomic)" stroke-width="2"/>
+                  <circle cx="20" cy="21" r="2" fill="var(--atomic)"/>
+                </svg>
+              </div>
+              <div class="card-titles">
+                <h2 class="monster-name">Tectonus</h2>
+                <span class="monster-class badge-atomic">PRIMAL BEHEMOTH</span>
+              </div>
+              <div class="power-glow-pip pip-atomic" title="Atomic Plasma Cyan"></div>
+            </header>
+            <p class="monster-desc">
+              Channels subterranean plasma beams and shatters structural grids with seismic stomps that dislodge full sections.
+            </p>
+            <div class="power-chips-row">
+              <span class="power-chip">💎 Plasma Beam</span>
+              <span class="power-chip">💥 Seismic Stomp</span>
+              <span class="power-chip">🌊 Shockwave</span>
+              <span class="power-chip">⚡ Tectonic Rift</span>
+            </div>
+          </article>
+
+          <!-- Monster 4: Mecha Vanguard (Mecha) -->
+          <article class="bestiary-card" data-type="mecha" data-power="mecha" tabindex="0" role="button" aria-pressed="false" aria-label="Mecha Vanguard Runic Automaton">
+            <div class="card-torn-edge"></div>
+            <header class="card-header">
+              <div class="sigil-wrap sigil-mecha">
+                <!-- Procedural SVG Sigil: Runic Reticle -->
+                <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
+                  <rect x="7" y="7" width="26" height="26" rx="6" fill="none" stroke="var(--mecha)" stroke-width="2"/>
+                  <circle cx="20" cy="20" r="7" fill="var(--mecha-soft)" stroke="var(--mecha)" stroke-width="1.5"/>
+                  <line x1="20" y1="4" x2="20" y2="10" stroke="var(--mecha)" stroke-width="2"/>
+                  <line x1="20" y1="30" x2="20" y2="36" stroke="var(--mecha)" stroke-width="2"/>
+                  <line x1="4" y1="20" x2="10" y2="20" stroke="var(--mecha)" stroke-width="2"/>
+                  <line x1="30" y1="20" x2="36" y2="20" stroke="var(--mecha)" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="card-titles">
+                <h2 class="monster-name">Mecha Vanguard</h2>
+                <span class="monster-class badge-mecha">RUNIC AUTOMATON</span>
+              </div>
+              <div class="power-glow-pip pip-mecha" title="Mecha Signal Lime"></div>
+            </header>
+            <p class="monster-desc">
+              Fires synchronized micro-missiles and carves web columns with high-frequency lime blades under glowing reticle locks.
+            </p>
+            <div class="power-chips-row">
+              <span class="power-chip">🎯 Seeker Salvo</span>
+              <span class="power-chip">⚔️ Plasma Blade</span>
+              <span class="power-chip">📡 Target Lock</span>
+              <span class="power-chip">⚙️ EMP Pulse</span>
+            </div>
+          </article>
+
+          <!-- Monster 5: The Void Maw (Void) -->
+          <article class="bestiary-card" data-type="voidmaw" data-power="void" tabindex="0" role="button" aria-pressed="false" aria-label="The Void Maw Eldritch Leviathan">
+            <div class="card-torn-edge"></div>
+            <header class="card-header">
+              <div class="sigil-wrap sigil-void">
+                <!-- Procedural SVG Sigil: Eldritch Spiral Abyss -->
+                <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
+                  <path d="M20 7 C27 7 33 13 33 20 C33 27 27 33 20 33 C14 33 9 28 9 22 C9 17 13 13 18 13 C22 13 25 16 25 20 C25 23 23 25 20 25 C18 25 17 23 17 21" fill="none" stroke="var(--void)" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="20" cy="20" r="3" fill="var(--void)"/>
+                  <circle cx="10" cy="11" r="1.2" fill="var(--void)"/>
+                  <circle cx="31" cy="29" r="1.5" fill="var(--void)"/>
+                </svg>
+              </div>
+              <div class="card-titles">
+                <h2 class="monster-name">The Void Maw</h2>
+                <span class="monster-class badge-void">ELDRITCH LEVIATHAN</span>
+              </div>
+              <div class="power-glow-pip pip-void" title="Void Eldritch Magenta"></div>
+            </header>
+            <p class="monster-desc">
+              Rips dimensional portals across the page, swallowing media elements into endless cosmic starlessness.
+            </p>
+            <div class="power-chips-row">
+              <span class="power-chip">🌀 Dark Vortex</span>
+              <span class="power-chip">🐙 Tentacle Grasp</span>
+              <span class="power-chip">🌌 Space Rift</span>
+              <span class="power-chip">✨ Star Devourer</span>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Carousel Pagination Dots -->
+        <div class="carousel-dots" role="tablist" aria-label="Monster Select Dots">
+          <button class="dot-btn active" data-index="0" role="tab" aria-selected="true" aria-label="Select Ignis"></button>
+          <button class="dot-btn" data-index="1" role="tab" aria-selected="false" aria-label="Select Lord Umbra"></button>
+          <button class="dot-btn" data-index="2" role="tab" aria-selected="false" aria-label="Select Tectonus"></button>
+          <button class="dot-btn" data-index="3" role="tab" aria-selected="false" aria-label="Select Mecha Vanguard"></button>
+          <button class="dot-btn" data-index="4" role="tab" aria-selected="false" aria-label="Select The Void Maw"></button>
+        </div>
+      </section>
+
+      <!-- FEATURE GATED: Forbidden Archive (Dev Testing Roster) - OFF by default -->
+      <section id="dev-roster-section" class="dev-roster-section hidden" aria-label="Dev Testing Roster">
+        <div class="section-label-row">
+          <span class="grimoire-label dev-label">⚡ FORBIDDEN ARCHIVE</span>
+          <span class="badge-dev-pill">DEV TESTING ROSTER (26 SPECIMENS)</span>
+        </div>
+        
+        <div class="dev-roster-scroll-tray">
+          <div class="dev-card" data-type="vader" data-name="Lord Darth Vader" title="Lord Darth Vader">
+            <span class="dev-card-icon">🗡️</span>
+            <span class="dev-card-name">Vader</span>
+          </div>
+          <div class="dev-card" data-type="kong" data-name="Titanus Kong" title="Titanus Kong">
+            <span class="dev-card-icon">🦍</span>
+            <span class="dev-card-name">Kong</span>
+          </div>
+          <div class="dev-card" data-type="cerberus" data-name="Cerberus Hellhound" title="Cerberus">
+            <span class="dev-card-icon">🐺</span>
+            <span class="dev-card-name">Cerberus</span>
+          </div>
+          <div class="dev-card" data-type="thor" data-name="Thor Odinson" title="Thor">
+            <span class="dev-card-icon">⚡</span>
+            <span class="dev-card-name">Thor</span>
+          </div>
+          <div class="dev-card" data-type="ironman" data-name="Iron Man" title="Iron Man">
+            <span class="dev-card-icon">🦾</span>
+            <span class="dev-card-name">Iron Man</span>
+          </div>
+          <div class="dev-card" data-type="spiderman" data-name="Spider-Man" title="Spider-Man">
+            <span class="dev-card-icon">🕷️</span>
+            <span class="dev-card-name">Spidey</span>
+          </div>
+          <div class="dev-card" data-type="batman" data-name="Batman" title="Batman">
+            <span class="dev-card-icon">🦇</span>
+            <span class="dev-card-name">Batman</span>
+          </div>
+          <div class="dev-card" data-type="captainamerica" data-name="Captain America" title="Captain America">
+            <span class="dev-card-icon">🛡️</span>
+            <span class="dev-card-name">Cap</span>
+          </div>
+          <div class="dev-card" data-type="hawkeye" data-name="Hawkeye" title="Hawkeye">
+            <span class="dev-card-icon">🏹</span>
+            <span class="dev-card-name">Hawkeye</span>
+          </div>
+          <div class="dev-card" data-type="blackwidow" data-name="Black Widow" title="Black Widow">
+            <span class="dev-card-icon">🎯</span>
+            <span class="dev-card-name">Widow</span>
+          </div>
+          <div class="dev-card" data-type="flash" data-name="The Flash" title="The Flash">
+            <span class="dev-card-icon">⚡</span>
+            <span class="dev-card-name">Flash</span>
+          </div>
+          <div class="dev-card" data-type="superman" data-name="Superman" title="Superman">
+            <span class="dev-card-icon">🦸‍♂️</span>
+            <span class="dev-card-name">Superman</span>
+          </div>
+          <div class="dev-card" data-type="shaktiman" data-name="Shaktiman" title="Shaktiman">
+            <span class="dev-card-icon">🕉️</span>
+            <span class="dev-card-name">Shaktiman</span>
+          </div>
+          <div class="dev-card" data-type="odessa" data-name="Junker Queen Odessa" title="Odessa">
+            <span class="dev-card-icon">🪓</span>
+            <span class="dev-card-name">Odessa</span>
+          </div>
+          <div class="dev-card" data-type="doremon" data-name="Doraemon" title="Doraemon">
+            <span class="dev-card-icon">🔔</span>
+            <span class="dev-card-name">Doraemon</span>
+          </div>
+          <div class="dev-card" data-type="messi" data-name="Lionel Messi" title="Messi">
+            <span class="dev-card-icon">🐐</span>
+            <span class="dev-card-name">Messi</span>
+          </div>
+          <div class="dev-card" data-type="ronaldo" data-name="Cristiano Ronaldo" title="Ronaldo">
+            <span class="dev-card-icon">⚽</span>
+            <span class="dev-card-name">Ronaldo</span>
+          </div>
+          <div class="dev-card" data-type="goku" data-name="Son Goku" title="Goku">
+            <span class="dev-card-icon">🔥</span>
+            <span class="dev-card-name">Goku</span>
+          </div>
+          <div class="dev-card" data-type="krrish" data-name="Krrish" title="Krrish">
+            <span class="dev-card-icon">⚡</span>
+            <span class="dev-card-name">Krrish</span>
+          </div>
+          <div class="dev-card" data-type="ben10" data-name="Ben 10" title="Ben 10">
+            <span class="dev-card-icon">🟢</span>
+            <span class="dev-card-name">Ben 10</span>
+          </div>
+          <div class="dev-card" data-type="ajaydevgan" data-name="Ajay Devgn" title="Ajay Devgn">
+            <span class="dev-card-icon">🦁</span>
+            <span class="dev-card-name">Ajay</span>
+          </div>
+          <div class="dev-card" data-type="salmankhan" data-name="Salman Khan" title="Salman Khan">
+            <span class="dev-card-icon">🐅</span>
+            <span class="dev-card-name">Salman</span>
+          </div>
+          <div class="dev-card" data-type="akshaykumar" data-name="Akshay Kumar" title="Akshay Kumar">
+            <span class="dev-card-icon">🥋</span>
+            <span class="dev-card-name">Akshay</span>
+          </div>
+          <div class="dev-card" data-type="katrinakaif" data-name="Katrina Kaif" title="Katrina Kaif">
+            <span class="dev-card-icon">💃</span>
+            <span class="dev-card-name">Katrina</span>
+          </div>
+          <div class="dev-card" data-type="aishwaryarai" data-name="Aishwarya Rai" title="Aishwarya Rai">
+            <span class="dev-card-icon">👑</span>
+            <span class="dev-card-name">Aishwarya</span>
+          </div>
+          <div class="dev-card" data-type="baalveer" data-name="Baalveer" title="Baalveer">
+            <span class="dev-card-icon">🪄</span>
+            <span class="dev-card-name">Baalveer</span>
+          </div>
+        </div>
+        <div id="dev-active-status" class="dev-selected-bar">
+          <span>Targeting: <strong id="dev-selected-name">None Selected</strong></span>
+          <button id="btn-deploy-dev" class="btn-dev-spawn">DEPLOY SPECIMEN</button>
+        </div>
+      </section>
+
+      <!-- 3. Powers Grid: Burn, Devour, Hurl, Crush, Slice, Void -->
+      <section class="powers-section" aria-label="Grimoire Powers Grid">
+        <div class="section-label-row">
+          <span class="grimoire-label">RUNIC POWERS</span>
+          <span class="powers-active-count" id="active-powers-count">6 RUNES ACTIVE</span>
+        </div>
+
+        <div class="powers-grid" role="group" aria-label="Power Toggles">
+          <!-- Power 1: Burn (Dragonfyre) -->
+          <button class="power-rune-btn active" data-power="burn" data-color="dragonfyre" role="switch" aria-checked="true" aria-label="Toggle Burn power">
+            <span class="rune-glyph">🔥</span>
+            <span class="rune-name">Burn</span>
+            <span class="rune-dot"></span>
+          </button>
+
+          <!-- Power 2: Devour (Void) -->
+          <button class="power-rune-btn active" data-power="devour" data-color="void" role="switch" aria-checked="true" aria-label="Toggle Devour power">
+            <span class="rune-glyph">👁️</span>
+            <span class="rune-name">Devour</span>
+            <span class="rune-dot"></span>
+          </button>
+
+          <!-- Power 3: Hurl (Umbra Force) -->
+          <button class="power-rune-btn active" data-power="hurl" data-color="umbra" role="switch" aria-checked="true" aria-label="Toggle Hurl power">
+            <span class="rune-glyph">🌀</span>
+            <span class="rune-name">Hurl</span>
+            <span class="rune-dot"></span>
+          </button>
+
+          <!-- Power 4: Crush (Atomic) -->
+          <button class="power-rune-btn active" data-power="crush" data-color="atomic" role="switch" aria-checked="true" aria-label="Toggle Crush power">
+            <span class="rune-glyph">⚡</span>
+            <span class="rune-name">Crush</span>
+            <span class="rune-dot"></span>
+          </button>
+
+          <!-- Power 5: Slice (Mecha) -->
+          <button class="power-rune-btn active" data-power="slice" data-color="mecha" role="switch" aria-checked="true" aria-label="Toggle Slice power">
+            <span class="rune-glyph">⚔️</span>
+            <span class="rune-name">Slice</span>
+            <span class="rune-dot"></span>
+          </button>
+
+          <!-- Power 6: Void (Void / Umbra) -->
+          <button class="power-rune-btn active" data-power="void" data-color="void" role="switch" aria-checked="true" aria-label="Toggle Void power">
+            <span class="rune-glyph">🌌</span>
+            <span class="rune-name">Void</span>
+            <span class="rune-dot"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 4. Primary CTA "UNLEASH THE SWARM" & 5. Secondary CTA "RESTORE REALITY" -->
+      <section class="cta-actions-section" aria-label="Primary Invocations">
+        <!-- Primary CTA: Unleash the Swarm with animated aurora border and slow ember particles -->
+        <button id="btn-unleash-swarm" class="btn-aurora-cta" aria-label="Unleash The Swarm: Summon Horde on Current Webpage">
+          <div class="ember-particles-rise" aria-hidden="true"></div>
+          <div class="cta-inner-content">
+            <svg class="cta-rune-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="url(#ctaBoltGrad)" stroke="none"/>
+              <defs>
+                <linearGradient id="ctaBoltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FDE68A"/>
+                  <stop offset="100%" stop-color="#FF7A1A"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="cta-text-group">
+              <span class="cta-title">UNLEASH THE SWARM</span>
+              <span class="cta-subtitle">Light the page with ancient chaos</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- Secondary CTA: Restore Reality ghost button with rewind rune -->
+        <button id="btn-restore-page" class="btn-restore-ghost" aria-label="Restore Reality: Revert All Page Modifications">
+          <svg class="restore-rune-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          <span class="restore-title">RESTORE REALITY</span>
+        </button>
+      </section>
+
+    </div>
+
+    <!-- 6. Footer: Volume Rune Slider, Chaos Level Meter, Version -->
+    <footer class="grimoire-footer">
+      <div class="footer-row-readouts">
+        <!-- Sound Volume Rune Slider -->
+        <div class="volume-control-wrap" title="Spellcraft Audio Volume">
+          <button id="btn-audio-mute" class="volume-mute-btn" aria-label="Mute or Unmute Audio">
+            <span id="audio-icon-glyph">🔊</span>
+          </button>
+          <input type="range" id="slider-volume" min="0" max="100" value="85" class="brass-rune-slider" aria-label="Audio Volume Slider" />
+        </div>
+
+        <!-- Chaos Level Meter -->
+        <div class="chaos-meter-wrap" title="Page Devastation Gauge">
+          <div class="chaos-text-row">
+            <span class="chaos-title">CHAOS</span>
+            <span class="chaos-value" id="val-chaos">0%</span>
+          </div>
+          <div class="chaos-bar-track">
+            <div class="chaos-bar-fill" id="meter-chaos-bar" style="width: 0%;"></div>
+          </div>
+        </div>
       </div>
 
-      <div class="monster-cards">
-        <!-- Darth Vader -->
-        <div class="monster-card active" data-type="vader" data-color="#ff0033">
-          <div class="card-top">
-            <span class="card-icon">🗡️</span>
-            <span class="card-badge">FORCE CRUSHER</span>
-          </div>
-          <div class="card-name">Lord Darth Vader</div>
-          <div class="card-sub">Sith Lord & Choke Master</div>
-        </div>
-
-        <!-- Fire Dragon -->
-        <div class="monster-card" data-type="dragon" data-color="#ff6600">
-          <div class="card-top">
-            <span class="card-icon">🐉</span>
-            <span class="card-badge">INFERNO</span>
-          </div>
-          <div class="card-name">Ignis The Dragon</div>
-          <div class="card-sub">Fire Breath & Jaw Devour</div>
-        </div>
-
-        <!-- Godzilla -->
-        <div class="monster-card" data-type="godzilla" data-color="#00f0ff">
-          <div class="card-top">
-            <span class="card-icon">🦖</span>
-            <span class="card-badge">NUCLEAR KAIJU</span>
-          </div>
-          <div class="card-name">Titanus Gojira</div>
-          <div class="card-sub">Atomic Ray & Seismic Stomp</div>
-        </div>
-
-        <!-- Cyber Mecha -->
-        <div class="monster-card" data-type="mecha" data-color="#39ff14">
-          <div class="card-top">
-            <span class="card-icon">🤖</span>
-            <span class="card-badge">CYBER MECHA</span>
-          </div>
-          <div class="card-name">Apex Mecha-01</div>
-          <div class="card-sub">Micro-Missiles & Plasma Blade</div>
-        </div>
-
-        <!-- Cthulhu -->
-        <div class="monster-card" data-type="cthulhu" data-color="#bf00ff">
-          <div class="card-top">
-            <span class="card-icon">🐙</span>
-            <span class="card-badge">ELDRITCH LORD</span>
-          </div>
-          <div class="card-name">Cthulhu Void Lord</div>
-          <div class="card-sub">Abyssal Tentacles & Black Hole</div>
-        </div>
-
-        <!-- Titanus Kong -->
-        <div class="monster-card" data-type="kong" data-color="#eab308">
-          <div class="card-top">
-            <span class="card-icon">🦍</span>
-            <span class="card-badge">PRIMAL SMASH</span>
-          </div>
-          <div class="card-name">Titanus Kong</div>
-          <div class="card-sub">Two-Handed Slam & Boulder Pitch</div>
-        </div>
-
-        <!-- Cerberus -->
-        <div class="monster-card" data-type="cerberus" data-color="#f43f5e">
-          <div class="card-top">
-            <span class="card-icon">🐺</span>
-            <span class="card-badge">HELLFIRE</span>
-          </div>
-          <div class="card-name">Cerberus Hound</div>
-          <div class="card-sub">Triple Jaw Frenzy & Hellfire</div>
-        </div>
-
-        <!-- Thor -->
-        <div class="monster-card" data-type="thor" data-color="#38bdf8">
-          <div class="card-top">
-            <span class="card-icon">⚡</span>
-            <span class="card-badge">THUNDER GOD</span>
-          </div>
-          <div class="card-name">Thor Odinson</div>
-          <div class="card-sub">Mjolnir Toss & Lightning Storm</div>
-        </div>
-
-        <!-- Iron Man -->
-        <div class="monster-card" data-type="ironman" data-color="#e63946">
-          <div class="card-top">
-            <span class="card-icon">🦾</span>
-            <span class="card-badge">AVENGER</span>
-          </div>
-          <div class="card-name">Iron Man</div>
-          <div class="card-sub">Chest Unibeam & Smart Missiles</div>
-        </div>
-
-        <!-- Spider-Man -->
-        <div class="monster-card" data-type="spiderman" data-color="#ef4444">
-          <div class="card-top">
-            <span class="card-icon">🕷️</span>
-            <span class="card-badge">WEB SLINGER</span>
-          </div>
-          <div class="card-name">Spider-Man</div>
-          <div class="card-sub">Web Slingshot & Spider-Sense</div>
-        </div>
-
-        <!-- Batman -->
-        <div class="monster-card" data-type="batman" data-color="#64748b">
-          <div class="card-top">
-            <span class="card-icon">🦇</span>
-            <span class="card-badge">DARK KNIGHT</span>
-          </div>
-          <div class="card-name">Batman</div>
-          <div class="card-sub">Batarang Volley & Bat-Grapple</div>
-        </div>
-
-        <!-- Captain America -->
-        <div class="monster-card" data-type="captainamerica" data-color="#0284c7">
-          <div class="card-top">
-            <span class="card-icon">🛡️</span>
-            <span class="card-badge">FIRST AVENGER</span>
-          </div>
-          <div class="card-name">Captain America</div>
-          <div class="card-sub">Vibranium Shield Ricochet & Bash</div>
-        </div>
-
-        <!-- Hawkeye -->
-        <div class="monster-card" data-type="hawkeye" data-color="#9333ea">
-          <div class="card-top">
-            <span class="card-icon">🏹</span>
-            <span class="card-badge">MASTER ARCHER</span>
-          </div>
-          <div class="card-name">Hawkeye</div>
-          <div class="card-sub">Trick Arrow Volley & Pym Collapser</div>
-        </div>
-
-        <!-- Black Widow -->
-        <div class="monster-card" data-type="blackwidow" data-color="#ef4444">
-          <div class="card-top">
-            <span class="card-icon">🎯</span>
-            <span class="card-badge">DEADLY ASSASSIN</span>
-          </div>
-          <div class="card-name">Black Widow</div>
-          <div class="card-sub">Dual Tactical Glock & Widow's Bite</div>
-        </div>
-
-        <!-- The Flash -->
-        <div class="monster-card" data-type="flash" data-color="#facc15">
-          <div class="card-top">
-            <span class="card-icon">⚡</span>
-            <span class="card-badge">SPEED FORCE</span>
-          </div>
-          <div class="card-name">The Flash</div>
-          <div class="card-sub">Infinite Mass Punch & Lightning Hurl</div>
-        </div>
-
-        <!-- Superman -->
-        <div class="monster-card" data-type="superman" data-color="#ef4444">
-          <div class="card-top">
-            <span class="card-icon">🦸‍♂️</span>
-            <span class="card-badge">MAN OF STEEL</span>
-          </div>
-          <div class="card-name">Superman</div>
-          <div class="card-sub">Heat Vision Beams & Arctic Freeze</div>
-        </div>
-
-        <!-- Shaktiman -->
-        <div class="monster-card" data-type="shaktiman" data-color="#eab308">
-          <div class="card-top">
-            <span class="card-icon">🕉️</span>
-            <span class="card-badge">KUNDALINI</span>
-          </div>
-          <div class="card-name">Shaktiman</div>
-          <div class="card-sub">Chakra Tornado Spin & Divya Drishti</div>
-        </div>
-
-        <!-- Junker Queen Odessa -->
-        <div class="monster-card" data-type="odessa" data-color="#f97316">
-          <div class="card-top">
-            <span class="card-icon">🪓</span>
-            <span class="card-badge">JUNKER QUEEN</span>
-          </div>
-          <div class="card-name">Odessa</div>
-          <div class="card-sub">Carnage Cleave & Gracie Blade</div>
-        </div>
-
-        <!-- Doraemon -->
-        <div class="monster-card" data-type="doremon" data-color="#38bdf8">
-          <div class="card-top">
-            <span class="card-icon">🔔</span>
-            <span class="card-badge">4D POCKET</span>
-          </div>
-          <div class="card-name">Doraemon</div>
-          <div class="card-sub">Anywhere Door Smash & Air Cannon</div>
-        </div>
-
-        <!-- Lionel Messi -->
-        <div class="monster-card" data-type="messi" data-color="#7dd3fc">
-          <div class="card-top">
-            <span class="card-icon">🐐</span>
-            <span class="card-badge">WORLD CHAMPION</span>
-          </div>
-          <div class="card-name">Lionel Messi</div>
-          <div class="card-sub">Ankara Banana Curve & Golden Strike</div>
-        </div>
-
-        <!-- Cristiano Ronaldo -->
-        <div class="monster-card" data-type="ronaldo" data-color="#facc15">
-          <div class="card-top">
-            <span class="card-icon">⚽</span>
-            <span class="card-badge">CR7 EL BICHO</span>
-          </div>
-          <div class="card-name">Cristiano Ronaldo</div>
-          <div class="card-sub">Knuckleball Rocket & SIUUUU Strike</div>
-        </div>
-
-        <!-- Son Goku -->
-        <div class="monster-card" data-type="goku" data-color="#ff7700">
-          <div class="card-top">
-            <span class="card-icon">🔥</span>
-            <span class="card-badge">SUPER SAIYAN</span>
-          </div>
-          <div class="card-name">Son Goku</div>
-          <div class="card-sub">Ki Blast Balls & Kamehameha Wave</div>
-        </div>
-
-        <!-- Krrish -->
-        <div class="monster-card" data-type="krrish" data-color="#06b6d4">
-          <div class="card-top">
-            <span class="card-icon">⚡</span>
-            <span class="card-badge">ASTRAL HERO</span>
-          </div>
-          <div class="card-name">Krrish</div>
-          <div class="card-sub">Meteor Leap Punch & Astral Lotus</div>
-        </div>
-
-        <!-- Ben 10 -->
-        <div class="monster-card" data-type="ben10" data-color="#22c55e">
-          <div class="card-top">
-            <span class="card-icon">🟢</span>
-            <span class="card-badge">OMNITRIX</span>
-          </div>
-          <div class="card-name">Ben 10</div>
-          <div class="card-sub">Alien Switching: Heatblast, 4-Arms, XLR8</div>
-        </div>
-
-        <!-- Ajay Devgn -->
-        <div class="monster-card" data-type="ajaydevgan" data-color="#e65100">
-          <div class="card-top">
-            <span class="card-icon">🦁</span>
-            <span class="card-badge">ZUBAAN KESARI</span>
-          </div>
-          <div class="card-name">Ajay Devgn</div>
-          <div class="card-sub">Vimal Spit, Singham Slap & 2-Car Split</div>
-        </div>
-
-        <!-- Salman Khan -->
-        <div class="monster-card" data-type="salmankhan" data-color="#0284c7">
-          <div class="card-top">
-            <span class="card-icon">🐅</span>
-            <span class="card-badge">BHAIJAAN</span>
-          </div>
-          <div class="card-name">Salman Khan</div>
-          <div class="card-sub">Tiger Strike, Firoza Blast & Dabangg Wave</div>
-        </div>
-
-        <!-- Akshay Kumar -->
-        <div class="monster-card" data-type="akshaykumar" data-color="#f59e0b">
-          <div class="card-top">
-            <span class="card-icon">🥋</span>
-            <span class="card-badge">KHILADI 786</span>
-          </div>
-          <div class="card-name">Akshay Kumar</div>
-          <div class="card-sub">Khiladi Flying Kick & 25-Din Gold Strike</div>
-        </div>
-
-        <!-- Katrina Kaif -->
-        <div class="monster-card" data-type="katrinakaif" data-color="#ec4899">
-          <div class="card-top">
-            <span class="card-icon">💃</span>
-            <span class="card-badge">KAMLI DIVA</span>
-          </div>
-          <div class="card-name">Katrina Kaif</div>
-          <div class="card-sub">Kamli Whirlwind Dance & Zoya Akimbo SMG</div>
-        </div>
-
-        <!-- Aishwarya Rai -->
-        <div class="monster-card" data-type="aishwaryarai" data-color="#a855f7">
-          <div class="card-top">
-            <span class="card-icon">👑</span>
-            <span class="card-badge">MISS WORLD</span>
-          </div>
-          <div class="card-name">Aishwarya Rai</div>
-          <div class="card-sub">Dola Re Wave, Emerald Prism & Gaze</div>
-        </div>
-
-        <!-- Baalveer -->
-        <div class="monster-card" data-type="baalveer" data-color="#06b6d4">
-          <div class="card-top">
-            <span class="card-icon">🪄</span>
-            <span class="card-badge">PARI LOK</span>
-          </div>
-          <div class="card-name">Baalveer</div>
-          <div class="card-sub">Shaurya Magic Wand & 7-Fairy Astral Blast</div>
-        </div>
+      <!-- Version & Signature Seal (Easter egg trigger: 5 clicks activates dev mode) -->
+      <div class="footer-meta-row">
+        <span class="version-tag" id="version-easter-egg" title="PageFyre Grimoire (Click 5 times for Developer Testing Gate)">PAGEFYRE v2.0 • GRIMOIRE</span>
+        <span class="status-indicator">
+          <span class="status-pip"></span> <span id="status-text">RUNES ARMED</span>
+        </span>
       </div>
-    </section>
-
-    <!-- Selected Monster Details & Spawn -->
-    <section class="selected-details">
-      <div class="detail-header">
-        <span id="detail-name" class="detail-title">Lord Darth Vader</span>
-        <span id="detail-dmg" class="detail-stat">DMG: 220 | HP: 3500</span>
-      </div>
-      <p id="detail-desc" class="detail-desc">
-        Lifts webpage headers with purple force lightning, crushes them into a dense sphere and detonates into debris.
-      </p>
-      <button id="btn-spawn-selected" class="btn-spawn">
-        <span>🚀</span> DEPLOY THIS TITAN ON SITE
-      </button>
-    </section>
-
-    <!-- Controls & Global Actions -->
-    <footer class="footer-actions">
-      <button id="btn-toggle-hud" class="btn-tool hud">
-        🎮 Toggle In-Page HUD
-      </button>
-      <button id="btn-spray-signature" class="btn-tool spray">
-        🎨 Signature Tag
-      </button>
-      <button id="btn-restore-page" class="btn-tool restore">
-        ✨ Restore Page
-      </button>
-      <button id="btn-open-arena" class="btn-tool arena">
-        ⚔️ Sandbox
-      </button>
     </footer>
-  </div>
+
+    <!-- Settings Slide-Over Modal with Feature Gate Toggle -->
+    <div id="settings-modal" class="settings-modal hidden" aria-modal="true" role="dialog" aria-label="Grimoire Settings">
+      <div class="settings-backdrop" id="settings-backdrop"></div>
+      <div class="settings-panel">
+        <div class="settings-header">
+          <h3 class="settings-title">SPELLCRAFT SETTINGS</h3>
+          <button id="btn-close-settings" class="settings-close-btn" aria-label="Close Settings">✕</button>
+        </div>
+
+        <div class="settings-body">
+          <!-- Theme Setting -->
+          <div class="setting-item">
+            <div class="setting-label-grp">
+              <span class="setting-title">Parchment Light Theme</span>
+              <p class="setting-desc">Swaps Midnight Ink background for aged golden grimoire vellum.</p>
+            </div>
+            <label class="grimoire-switch">
+              <input type="checkbox" id="toggle-parchment-theme" />
+              <span class="grimoire-slider"></span>
+            </label>
+          </div>
+
+          <!-- Feature Gate: Forbidden Archive Dev Testing Roster (OFF BY DEFAULT) -->
+          <div class="setting-item dev-gate-item">
+            <div class="setting-label-grp">
+              <div class="setting-title-row">
+                <span class="setting-title">Forbidden Archive</span>
+                <span class="badge-dev-only">DEV ONLY</span>
+              </div>
+              <p class="setting-desc">Unlocks 26 legacy testing characters for QA & physics benchmarking. Off by default for brand compliance.</p>
+            </div>
+            <label class="grimoire-switch">
+              <input type="checkbox" id="toggle-dev-roster" />
+              <span class="grimoire-slider"></span>
+            </label>
+          </div>
+
+          <!-- Developer Instructions -->
+          <div class="dev-instructions-box">
+            <span>💡 <strong>Dev Shortcut:</strong> Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> or click the version footer 5 times to toggle the Forbidden Archive quickly.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- In-App Floating Toast Notification -->
+    <div id="grimoire-toast" class="grimoire-toast" aria-live="polite"></div>
+
+  </main>
 
   <script src="popup.js"></script>
 </body>

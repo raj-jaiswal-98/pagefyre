@@ -1,0 +1,467 @@
+/**
+ * PAGEFYRE In-Page HUD Stylesheet — "The Spell Tablet"
+ * Scoped for Shadow DOM injection to prevent style pollution.
+ * Pure CSS parchment-ink texture, floating wax seal, and radial menu runes.
+ */
+
+:host,
+.pagefyre-hud-scope {
+  --ink: #0B0D1A;
+  --ink-2: #141830;
+  --ink-3: #1D2244;
+  --ink-translucent: rgba(11, 13, 26, 0.92);
+  --parchment: #F3E9D2;
+  --parchment-dim: #B9AE96;
+  --parchment-muted: #857B67;
+  --brass: #C9A24B;
+  --brass-dark: #7A5C20;
+  --brass-light: #E4BE6B;
+  --brass-glow: rgba(201, 162, 75, 0.35);
+
+  --dragonfyre: #FF7A1A;
+  --umbra-force: #A855F7;
+  --atomic: #22D3EE;
+  --mecha: #A3E635;
+  --void: #E879F9;
+
+  --power: var(--dragonfyre);
+  --font-display: 'UnifrakturCook', 'Pirata One', 'Cinzel Decorative', Georgia, serif;
+  --font-body: 'Inter', 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Press Start 2P', ui-monospace, monospace;
+
+  all: initial;
+  position: fixed;
+  z-index: 2147483647;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--parchment);
+  user-select: none;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Floating Spell Tablet Panel (Full Mode)
+   ========================================================================== */
+.pagefyre-tablet {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 320px;
+  background-color: var(--ink-2);
+  /* Solid Fallback for non-backdrop-filter browsers */
+  background-color: rgba(20, 24, 48, 0.94);
+  /* Pure CSS Layered Parchment-Ink Texture */
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(201, 162, 75, 0.12) 0%, transparent 70%),
+    radial-gradient(circle at 10% 90%, rgba(255, 122, 26, 0.08) 0%, transparent 60%),
+    radial-gradient(rgba(243, 233, 210, 0.03) 1px, transparent 0);
+  background-size: auto, auto, 18px 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--brass);
+  border-radius: 14px;
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(201, 162, 75, 0.15),
+    inset 0 1px 0 rgba(243, 233, 210, 0.2);
+  clip-path: polygon(
+    0% 8px, 8px 0%, calc(100% - 8px) 0%, 100% 8px,
+    100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px)
+  );
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.pagefyre-tablet.hidden {
+  display: none !important;
+}
+
+/* Tablet Drag Header */
+.tablet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, rgba(29, 34, 68, 0.8) 0%, rgba(20, 24, 48, 0.9) 100%);
+  border-bottom: 1px solid var(--ink-3);
+  cursor: grab;
+}
+
+.tablet-header:active {
+  cursor: grabbing;
+}
+
+.tablet-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tablet-seal-mini {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: var(--ink);
+  border: 1px solid var(--brass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dragonfyre);
+  font-size: 11px;
+}
+
+.tablet-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--parchment);
+}
+
+.tablet-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tablet-tool-btn {
+  background: var(--ink);
+  border: 1px solid var(--ink-3);
+  border-radius: 6px;
+  color: var(--parchment-dim);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 160ms ease;
+  font-size: 11px;
+}
+
+.tablet-tool-btn:hover {
+  border-color: var(--brass);
+  color: var(--parchment);
+  background: var(--ink-3);
+}
+
+.tablet-tool-btn:active {
+  transform: scale(0.92);
+}
+
+/* Tablet Body & Stats */
+.tablet-body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tablet-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.stat-rune-box {
+  background: var(--ink);
+  border: 1px solid var(--ink-3);
+  border-radius: 8px;
+  padding: 6px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-rune-label {
+  font-size: 8px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--parchment-dim);
+  text-transform: uppercase;
+}
+
+.stat-rune-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--parchment);
+  margin-top: 2px;
+}
+
+.stat-rune-value.chaos-val {
+  color: var(--dragonfyre);
+}
+
+/* Tablet Monster Quick Deploy Row */
+.tablet-section-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--brass);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.tablet-monsters-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+}
+
+.tablet-monster-btn {
+  background: var(--ink);
+  border: 1px solid var(--ink-3);
+  border-radius: 8px;
+  padding: 6px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tablet-monster-btn:hover {
+  border-color: var(--brass);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.tablet-monster-btn:active {
+  transform: scale(0.95);
+}
+
+.tablet-monster-icon {
+  font-size: 15px;
+}
+
+.tablet-monster-name {
+  font-size: 8.5px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--parchment);
+}
+
+/* Tablet Big Action Buttons */
+.tablet-btn-unleash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: linear-gradient(135deg, var(--ink-3) 0%, rgba(201, 162, 75, 0.25) 100%);
+  border: 1px solid var(--brass);
+  border-radius: 8px;
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 10px rgba(201, 162, 75, 0.2);
+  transition: all 180ms ease;
+}
+
+.tablet-btn-unleash:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), 0 0 16px var(--dragonfyre-glow);
+  border-color: var(--brass-light);
+}
+
+.tablet-btn-unleash:active {
+  transform: scale(0.97);
+}
+
+.tablet-utility-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.tablet-btn-ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--ink);
+  border: 1px solid var(--ink-3);
+  border-radius: 6px;
+  color: var(--parchment-dim);
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.tablet-btn-ghost:hover {
+  border-color: var(--brass);
+  color: var(--parchment);
+  background: var(--ink-2);
+}
+
+.tablet-btn-ghost:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   Compact Mode: Floating Seal with Radial Power Menu
+   ========================================================================== */
+.radial-hud-anchor {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 54px;
+  height: 54px;
+  z-index: 2147483647;
+}
+
+/* Central Floating Wax Seal Button */
+.floating-seal-btn {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: var(--ink);
+  border: 2px solid var(--brass);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.75),
+    0 0 16px var(--brass-glow),
+    inset 0 1px 0 rgba(243, 233, 210, 0.2);
+  color: var(--brass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 240ms ease;
+}
+
+.floating-seal-btn:hover {
+  transform: scale(1.08) rotate(4deg);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85), 0 0 24px var(--dragonfyre-glow);
+  border-color: var(--brass-light);
+}
+
+.floating-seal-btn:active {
+  transform: scale(0.94);
+}
+
+.floating-seal-btn.expanded {
+  transform: rotate(45deg);
+  border-color: var(--dragonfyre);
+}
+
+/* Radial Menu Runes (Staggered Arc Orbit) */
+.radial-rune-item {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink-2);
+  border: 1.5px solid var(--brass);
+  color: var(--parchment);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0, 0) scale(0.4);
+  transition: 
+    transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 240ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+  z-index: 5;
+}
+
+/* Staggered Radial Expansion Positions (Arching outward up and left) */
+.radial-hud-anchor.expanded .radial-rune-item {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Rune 1: Burn (Angle ~ 180° left) */
+.radial-hud-anchor.expanded .rune-pos-1 {
+  transform: translate(-76px, 0px) scale(1);
+  transition-delay: 40ms;
+  border-color: var(--dragonfyre);
+  box-shadow: 0 0 12px var(--dragonfyre-glow);
+}
+
+/* Rune 2: Devour (Angle ~ 155°) */
+.radial-hud-anchor.expanded .rune-pos-2 {
+  transform: translate(-68px, -42px) scale(1);
+  transition-delay: 80ms;
+  border-color: var(--void);
+  box-shadow: 0 0 12px var(--void-glow);
+}
+
+/* Rune 3: Hurl (Angle ~ 130°) */
+.radial-hud-anchor.expanded .rune-pos-3 {
+  transform: translate(-48px, -72px) scale(1);
+  transition-delay: 120ms;
+  border-color: var(--umbra-force);
+  box-shadow: 0 0 12px var(--umbra-force-glow);
+}
+
+/* Rune 4: Crush (Angle ~ 105°) */
+.radial-hud-anchor.expanded .rune-pos-4 {
+  transform: translate(-18px, -86px) scale(1);
+  transition-delay: 160ms;
+  border-color: var(--atomic);
+  box-shadow: 0 0 12px var(--atomic-glow);
+}
+
+/* Rune 5: Slice (Angle ~ 80°) */
+.radial-hud-anchor.expanded .rune-pos-5 {
+  transform: translate(16px, -82px) scale(1);
+  transition-delay: 200ms;
+  border-color: var(--mecha);
+  box-shadow: 0 0 12px var(--mecha-glow);
+}
+
+/* Rune 6: Restore / Reality (Top Right) */
+.radial-hud-anchor.expanded .rune-pos-6 {
+  transform: translate(46px, -62px) scale(1);
+  transition-delay: 240ms;
+  border-color: var(--brass-light);
+  box-shadow: 0 0 12px var(--brass-glow);
+}
+
+/* Radial Rune Hover Micro-interaction */
+.radial-rune-item:hover {
+  transform: scale(1.15) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8), 0 0 18px currentColor;
+}
+
+.radial-rune-item:active {
+  transform: scale(0.95) !important;
+}
+
+/* Accessibility Focus Ring */
+:host button:focus-visible,
+.pagefyre-hud-scope button:focus-visible {
+  outline: 2px solid #5EEAD4;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Preference Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .pagefyre-tablet,
+  .floating-seal-btn,
+  .radial-rune-item {
+    transition: none !important;
+    animation: none !important;
+  }
+}

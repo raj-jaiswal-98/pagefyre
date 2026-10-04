@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Warzone Web Destroyer - Monsters & Dragons",
-  "version": "1.0.0",
-  "description": "Transform any website into an interactive warzone! Unleash Dragons, Darth Vader, Kaiju, Mechas & Eldritch horrors to destroy pages with realistic animations, physics, and monster battles.",
+  "name": "PageFyre — Here be dragons. On any webpage.",
+  "version": "2.0.0",
+  "description": "Turn any webpage into an illuminated grimoire battlefield! Summon mythic dragons, void beasts & mechas to burn, crush, and slice web elements, then restore reality with one click.",
   "permissions": [
     "activeTab",
     "storage",
@@ -24,7 +24,11 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": ["content/warzone.css"],
+      "css": [
+        "themes/tokens.css",
+        "content/hud.css",
+        "content/warzone.css"
+      ],
       "js": [
         "engine/sfx.js",
         "engine/physics.js",
@@ -41,7 +45,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "themes/*.json",
+        "themes/*",
+        "content/*",
         "assets/*",
         "icons/*"
       ],
