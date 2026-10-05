@@ -2,7 +2,7 @@
 
 > **Chrome Extension (Manifest V3)**  
 > Turn any website (Wikipedia, News, Reddit, Portals) into an illuminated grimoire monster battlefield! Unleash dragons, void beasts, and mechas to burn, devour, crush, and slice away web clutter, then cleanly restore reality with one click.
-
+> Chrome link: https://chromewebstore.google.com/detail/pagefyre-%E2%80%94-here-be-dragon/hijkfcihmfhokkaocdcafnogaendbmll
 ---
 
 ## 🌟 The 5 Canonical Grimoire Champions
