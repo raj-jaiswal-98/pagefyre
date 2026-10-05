@@ -81,7 +81,7 @@ class WarzoneDOMDestroyer {
           if (dist > searchRadius) return false;
         }
 
-        const style = window.getComputedStyle(el);
+        const style = typeof window.getComputedStyle === 'function' ? window.getComputedStyle(el) : (el.style || {});
         return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
       } catch (e) {
         return false;

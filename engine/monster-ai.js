@@ -178,6 +178,7 @@ class MonsterInstance {
         this.x += this.vx;
         this.y += this.vy + hop;
         this.facing = this.vx >= 0 ? 1 : -1;
+        this.applyAntiClumping(monstersList);
 
         // Spontaneous direction shifts / celebratory dance flourishes
         if (Math.random() < 0.02) {
@@ -294,12 +295,56 @@ class MonsterInstance {
 
     this.x += this.vx;
     this.y += this.vy;
+    this.applyAntiClumping(allMonsters);
 
     // Keep on document bounds & bounce gracefully
     if (this.x < 10) { this.x = 10; this.vx = Math.abs(this.vx); this.facing = 1; }
     if (this.x > docWidth - this.width - 10) { this.x = docWidth - this.width - 10; this.vx = -Math.abs(this.vx); this.facing = -1; }
     if (this.y < 30) { this.y = 30; this.vy = Math.abs(this.vy); }
     if (this.y > docHeight - this.height - 40) { this.y = docHeight - this.height - 40; this.vy = -Math.abs(this.vy); }
+  }
+
+  /**
+   * Anti-clumping soft-body separation: prevents characters from merging/stacking at the exact same position
+   */
+  applyAntiClumping(allMonsters) {
+    if (!allMonsters || allMonsters.length <= 1) return;
+    let sepX = 0;
+    let sepY = 0;
+    const myCx = this.x + this.width / 2;
+    const myCy = this.y + this.height / 2;
+
+    for (let i = 0; i < allMonsters.length; i++) {
+      const other = allMonsters[i];
+      if (other === this || other.health <= 0 || other.state === 'dying' || other.state === 'spawning') continue;
+
+      const otherCx = other.x + other.width / 2;
+      const otherCy = other.y + other.height / 2;
+      let cdx = myCx - otherCx;
+      let cdy = myCy - otherCy;
+      let cdist = Math.hypot(cdx, cdy);
+
+      // Desired clearance radius (smaller if in direct 1v1 combat, larger for allies/pack)
+      const isDirectCombat = (this.target === other || other.target === this);
+      const minDist = isDirectCombat ? 45 : (this.width + other.width) * 0.42;
+
+      if (cdist < minDist) {
+        if (cdist < 0.001) {
+          // Exactly on top of each other! Push apart in opposite directions based on deterministic ID comparison
+          const angle = (this.id > other.id ? 1 : -1) * (Math.PI * 0.5) + (Math.random() - 0.5) * 0.5;
+          cdx = Math.cos(angle);
+          cdy = Math.sin(angle);
+          cdist = 1;
+        }
+        const force = (minDist - cdist) / minDist;
+        const push = force * (isDirectCombat ? 1.8 : 2.6);
+        sepX += (cdx / cdist) * push;
+        sepY += (cdy / cdist) * push;
+      }
+    }
+
+    this.x += sepX;
+    this.y += sepY;
   }
 
   findNewTarget(allMonsters) {
@@ -465,6 +510,7 @@ class MonsterInstance {
     if (attacker && attacker.health > 0 && attacker.type !== this.type) {
       this.target = attacker;
       this.targetType = 'monster';
+      this.pincerOffset = (this.id > attacker.id) ? { x: 120, y: -20 } : { x: -120, y: 20 };
       const engineMonsters = window.WarzoneEngine?.monsters || [];
       engineMonsters.forEach(m => {
         if (m.type === this.type && m.id !== this.id && m.health > 0 && m.state !== 'dying') {
@@ -4846,6 +4892,15 @@ class WarzoneMonsterEngine {
         spawnX = 40 + Math.random() * (docWidth - 180);
         spawnY = sMinY + 50 + Math.random() * Math.max(100, (sectorHeight - 160));
       }
+    }
+
+    // Anti-stacking jitter: If spawning at or near-identical coordinates of an existing living monster, apply a radial offset
+    const tooCloseMonster = this.monsters.find(m => m.health > 0 && m.state !== 'dying' && Math.hypot(m.x - spawnX, m.y - spawnY) < 35);
+    if (tooCloseMonster) {
+      const angle = Math.random() * Math.PI * 2;
+      const offset = 45 + Math.random() * 25;
+      spawnX = Math.max(10, Math.min(docWidth - 140, spawnX + Math.cos(angle) * offset));
+      spawnY = Math.max(30, Math.min(docHeight - 140, spawnY + Math.sin(angle) * offset));
     }
 
     const monster = new MonsterInstance(config, spawnX, spawnY, isSwarm, assignedSector);

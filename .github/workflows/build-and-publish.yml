@@ -1,0 +1,89 @@
+name: Package & Publish Extension
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-test-publish:
+    name: Build, Test & Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🧪 Verify Code Syntax
+        run: |
+          node -c engine/sfx.js engine/physics.js engine/particles.js engine/dom-destroyer.js engine/monster-ai.js themes/monster-data.js content/warzone-hud.js content/content-main.js popup/popup.js
+
+      - name: 🧪 Run Simulation & Pack Intelligence Verification
+        run: |
+          node scripts/verify-pack-intelligence.js
+          node scripts/verify-simulation.js
+          node scripts/verify-dom-run.js
+
+      - name: 📦 Package Extension (ZIP & CRX)
+        id: package
+        run: |
+          node scripts/package-extension.js
+          ZIP_FILE=$(find dist -name "pagefyre-v*.zip" | head -n 1)
+          echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
+          echo "Version package ready at $ZIP_FILE"
+
+      - name: 📤 Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pagefyre-extension-build
+          path: |
+            dist/*.zip
+            dist/*.crx
+          retention-days: 30
+
+      - name: 🏷️ Create GitHub Release (On Tag Push)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.zip
+            dist/*.crx
+          generate_release_notes: true
+
+      - name: 🚀 Publish to Chrome Web Store
+        if: ${{ secrets.CHROME_REFRESH_TOKEN != '' }}
+        id: cws_publish
+        uses: mnao305/chrome-extension-upload@v5.0.0
+        continue-on-error: true
+        with:
+          file-path: ${{ steps.package.outputs.zip_path }}
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish: true
+
+      - name: ℹ️ Publish Status Summary
+        run: |
+          if [ -z "${{ secrets.CHROME_REFRESH_TOKEN }}" ]; then
+            echo "ℹ️ Note: CHROME_REFRESH_TOKEN is not yet set in repository secrets."
+            echo "   The extension ZIP was successfully packaged and uploaded as a GitHub Actions artifact & Release."
+            echo "   You can manually drag dist/pagefyre-v*.zip into the Chrome Web Store Developer Dashboard."
+          elif [ "${{ steps.cws_publish.outcome }}" == "failure" ]; then
+            echo "⚠️ Warning: Chrome Web Store upload failed (token may be expired or invalid)."
+            echo "   Update the CHROME_REFRESH_TOKEN secret in GitHub repository settings when refreshed."
+            echo "   In the meantime, download the packaged ZIP from GitHub Releases for manual upload."
+          else
+            echo "🎉 Successfully uploaded and published to Chrome Web Store!"
+          fi
